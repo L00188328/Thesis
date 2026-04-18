@@ -1,0 +1,92 @@
+services:
+  redpanda:
+    image: docker.redpanda.com/redpandadata/redpanda:v24.2.12
+    command:
+      - redpanda
+      - start
+      - --overprovisioned
+      - --smp
+      - "1"
+      - --memory
+      - "1G"
+      - --reserve-memory
+      - "0M"
+      - --node-id
+      - "0"
+      - --check=false
+      - --kafka-addr
+      - PLAINTEXT://0.0.0.0:9092,OUTSIDE://0.0.0.0:19092
+      - --advertise-kafka-addr
+      - PLAINTEXT://redpanda:9092,OUTSIDE://localhost:19092
+    ports:
+      - "19092:19092"
+
+  postgres:
+    image: postgres:16
+    environment:
+      POSTGRES_DB: shipments
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5433:5432"
+    volumes:
+      - ./infra/postgres/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+
+  producer-logistic-center:
+    build:
+      context: .
+      dockerfile: services/Dockerfile
+      args:
+        SERVICE_DIR: services/producer_logistic_center
+    command: ["python", "-m", "services.producer_logistic_center.main"]
+    environment:
+      KAFKA_BOOTSTRAP_SERVERS: redpanda:9092
+      KAFKA_TOPIC: shipment-events
+      PRODUCER_INTERVAL_SECONDS: "2"
+    depends_on:
+      - redpanda
+
+  producer-delivery-tour:
+    build:
+      context: .
+      dockerfile: services/Dockerfile
+      args:
+        SERVICE_DIR: services/producer_delivery_tour
+    command: ["python", "-m", "services.producer_delivery_tour.main"]
+    environment:
+      KAFKA_BOOTSTRAP_SERVERS: redpanda:9092
+      KAFKA_TOPIC: shipment-events
+      PRODUCER_INTERVAL_SECONDS: "3.5"
+    depends_on:
+      - redpanda
+
+  aggregator:
+    build:
+      context: .
+      dockerfile: services/Dockerfile
+      args:
+        SERVICE_DIR: services/aggregator
+    command: ["python", "-m", "services.aggregator.main"]
+    environment:
+      KAFKA_BOOTSTRAP_SERVERS: redpanda:9092
+      KAFKA_TOPIC: shipment-events
+      KAFKA_GROUP_ID: shipment-aggregator
+      DATABASE_URL: postgresql://postgres:postgres@postgres:5432/shipments
+    depends_on:
+      - redpanda
+      - postgres
+
+  api:
+    build:
+      context: .
+      dockerfile: services/Dockerfile
+      args:
+        SERVICE_DIR: services/api
+    command: ["uvicorn", "services.api.main:app", "--host", "0.0.0.0", "--port", "8000"]
+    environment:
+      DATABASE_URL: postgresql://postgres:postgres@postgres:5432/shipments
+    ports:
+      - "8000:8000"
+    depends_on:
+      - postgres
+      - aggregator

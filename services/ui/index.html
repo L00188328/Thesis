@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Shipment Tracker Prototype</title>
+    <style>
+      :root {
+        --bg: #f4f7f9;
+        --card: #ffffff;
+        --text: #0f172a;
+        --accent: #006d77;
+        --accent-2: #83c5be;
+      }
+      body {
+        margin: 0;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background: radial-gradient(circle at top right, var(--accent-2), var(--bg));
+        color: var(--text);
+      }
+      .container {
+        max-width: 960px;
+        margin: 0 auto;
+        padding: 24px;
+      }
+      .card {
+        background: var(--card);
+        border-radius: 12px;
+        padding: 16px;
+        margin-bottom: 16px;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+      }
+      h1 {
+        margin-top: 0;
+      }
+      input, button {
+        padding: 10px;
+        font-size: 14px;
+      }
+      button {
+        background: var(--accent);
+        color: white;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+      th, td {
+        text-align: left;
+        padding: 8px;
+        border-bottom: 1px solid #ddd;
+      }
+      code {
+        background: #f0f0f0;
+        padding: 2px 6px;
+        border-radius: 4px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="card">
+        <h1>Shipment Tracker Prototype</h1>
+        <p>GraphQL endpoint: <code>/graphql</code></p>
+      </div>
+
+      <div class="card">
+        <h2>Latest Shipments</h2>
+        <button onclick="loadShipments()">Refresh</button>
+        <p id="shipmentsStatus"></p>
+        <table id="shipmentsTable">
+          <thead>
+            <tr>
+              <th>Shipment</th>
+              <th>Status</th>
+              <th>Domain</th>
+              <th>Location</th>
+              <th>Time</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+
+      <div class="card">
+        <h2>Shipment Timeline</h2>
+        <input id="shipmentId" value="SHP-0001" />
+        <button onclick="loadTimeline()">Load Timeline</button>
+        <p id="timelineStatus"></p>
+        <ul id="timeline"></ul>
+      </div>
+    </div>
+
+    <script>
+      async function gql(query, variables = {}) {
+        const response = await fetch('/graphql/', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ query, variables })
+        });
+        if (!response.ok) {
+          const text = await response.text();
+          throw new Error(`GraphQL HTTP ${response.status}: ${text}`);
+        }
+        const payload = await response.json();
+        if (payload.errors) {
+          throw new Error(payload.errors.map(e => e.message).join('; '));
+        }
+        return payload.data;
+      }
+
+      async function loadShipments() {
+        const status = document.getElementById('shipmentsStatus');
+        const tbody = document.querySelector('#shipmentsTable tbody');
+        try {
+          const query = `query { shipments(limit: 15) { shipmentId latestEventType latestEventDomain latestLocation latestEventTime } }`;
+          const data = await gql(query);
+          tbody.innerHTML = '';
+          for (const s of data.shipments) {
+            const row = document.createElement('tr');
+            row.innerHTML = `<td>${s.shipmentId}</td><td>${s.latestEventType}</td><td>${s.latestEventDomain}</td><td>${s.latestLocation}</td><td>${new Date(s.latestEventTime).toLocaleString()}</td>`;
+            tbody.appendChild(row);
+          }
+          status.textContent = `Loaded ${data.shipments.length} shipments.`;
+        } catch (err) {
+          status.textContent = `Error loading shipments: ${err.message}`;
+          tbody.innerHTML = '';
+        }
+      }
+
+      async function loadTimeline() {
+        const shipmentId = document.getElementById('shipmentId').value;
+        const target = document.getElementById('timeline');
+        const status = document.getElementById('timelineStatus');
+        target.innerHTML = '';
+        try {
+          const query = `query($shipmentId: String!) { shipment(shipmentId: $shipmentId) { shipmentId timeline { occurredAt domain eventType location details } } }`;
+          const data = await gql(query, { shipmentId });
+          if (!data.shipment) {
+            status.textContent = 'No data found for this shipment yet.';
+            target.innerHTML = '';
+            return;
+          }
+
+          status.textContent = `Loaded ${data.shipment.timeline.length} events for ${shipmentId}.`;
+          for (const event of data.shipment.timeline) {
+            const item = document.createElement('li');
+            item.textContent = `${new Date(event.occurredAt).toLocaleString()} | ${event.domain} | ${event.eventType} | ${event.location} | ${event.details}`;
+            target.appendChild(item);
+          }
+        } catch (err) {
+          status.textContent = `Error loading timeline: ${err.message}`;
+        }
+      }
+
+      loadShipments();
+      setInterval(loadShipments, 5000);
+    </script>
+  </body>
+</html>
