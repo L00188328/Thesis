@@ -17,16 +17,16 @@ from services.common.simulation_state import (
 )
 
 BOOTSTRAP = os.getenv("KAFKA_BOOTSTRAP_SERVERS", "redpanda:9092")
-TOPIC = os.getenv("KAFKA_TOPIC", "shipment-events")
+TOPIC = os.getenv("KAFKA_TOPIC", "logistic-center-events")
 INTERVAL_SECONDS = float(os.getenv("PRODUCER_INTERVAL_SECONDS", "2.0"))
 DATABASE_URL = get_database_url()
 
 SHIPMENT_IDS = [f"SHP-{i:04d}" for i in range(1, 31)]
 CITY_TO_HUB = {
-    "Vienna": "Vienna Hub",
-    "Linz": "Linz Hub",
-    "Graz": "Graz Hub",
-    "Salzburg": "Salzburg Hub",
+    "Dublin": "Dublin Hub",
+    "Cork": "Cork Hub",
+    "Galway": "Galway Hub",
+    "Athlone": "Athlone Hub",
 }
 WORKER_SHIFTS = ["A", "B", "C"]
 

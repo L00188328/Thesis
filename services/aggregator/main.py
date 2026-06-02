@@ -1,7 +1,6 @@
 import json
 import os
 import time
-from typing import Dict
 
 from kafka import KafkaConsumer
 import psycopg
@@ -10,7 +9,13 @@ from services.common.event_schema import ShipmentEvent
 from services.common.kafka_wait import wait_for_kafka
 
 BOOTSTRAP = os.getenv("KAFKA_BOOTSTRAP_SERVERS", "redpanda:9092")
-TOPIC = os.getenv("KAFKA_TOPIC", "shipment-events")
+TOPICS = [
+    topic.strip()
+    for topic in os.getenv(
+        "KAFKA_TOPICS", "logistic-center-events,delivery-tour-events"
+    ).split(",")
+    if topic.strip()
+]
 GROUP_ID = os.getenv("KAFKA_GROUP_ID", "shipment-aggregator")
 DATABASE_URL = os.getenv(
     "DATABASE_URL",
@@ -87,7 +92,7 @@ def main() -> None:
     wait_for_db()
 
     consumer = KafkaConsumer(
-        TOPIC,
+        *TOPICS,
         bootstrap_servers=BOOTSTRAP,
         group_id=GROUP_ID,
         auto_offset_reset="earliest",

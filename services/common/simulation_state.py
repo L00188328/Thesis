@@ -1,20 +1,29 @@
 import psycopg
+from psycopg.errors import UniqueViolation
 
 
 def init_state_table(conn: psycopg.Connection) -> None:
+    # Concurrent CREATE TABLE IF NOT EXISTS can still race on PostgreSQL system catalogs.
+    # Serialize startup DDL across producers with a transaction-level advisory lock.
     with conn.cursor() as cur:
-        cur.execute(
-            """
-            CREATE TABLE IF NOT EXISTS shipment_simulation_state (
-                shipment_id TEXT PRIMARY KEY,
-                stage SMALLINT NOT NULL DEFAULT 0,
-                destination_city TEXT,
-                hub TEXT,
-                attempts SMALLINT NOT NULL DEFAULT 0,
-                updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+        cur.execute("SELECT pg_advisory_xact_lock(%s)", (9042101,))
+        try:
+            cur.execute(
+                """
+                CREATE TABLE IF NOT EXISTS shipment_simulation_state (
+                    shipment_id TEXT PRIMARY KEY,
+                    stage SMALLINT NOT NULL DEFAULT 0,
+                    destination_city TEXT,
+                    hub TEXT,
+                    attempts SMALLINT NOT NULL DEFAULT 0,
+                    updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+                )
+                """
             )
-            """
-        )
+        except UniqueViolation:
+            # If another transaction created it in a tight race window, keep startup alive.
+            conn.rollback()
+            return
     conn.commit()
 
 
@@ -58,7 +67,7 @@ def claim_next_for_logistics(conn: psycopg.Connection) -> dict | None:
             SELECT shipment_id, stage, destination_city, hub, attempts
             FROM shipment_simulation_state
             WHERE stage IN (0, 1, 2)
-            ORDER BY updated_at ASC
+            ORDER BY stage DESC, updated_at ASC
             FOR UPDATE SKIP LOCKED
             LIMIT 1
             """
@@ -78,7 +87,7 @@ def claim_next_for_delivery(conn: psycopg.Connection) -> dict | None:
             SELECT shipment_id, stage, destination_city, hub, attempts
             FROM shipment_simulation_state
             WHERE stage IN (3, 4)
-            ORDER BY updated_at ASC
+            ORDER BY stage DESC, updated_at ASC
             FOR UPDATE SKIP LOCKED
             LIMIT 1
             """

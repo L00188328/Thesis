@@ -16,7 +16,7 @@ from services.common.simulation_state import (
 )
 
 BOOTSTRAP = os.getenv("KAFKA_BOOTSTRAP_SERVERS", "redpanda:9092")
-TOPIC = os.getenv("KAFKA_TOPIC", "shipment-events")
+TOPIC = os.getenv("KAFKA_TOPIC", "delivery-tour-events")
 INTERVAL_SECONDS = float(os.getenv("PRODUCER_INTERVAL_SECONDS", "3.5"))
 DATABASE_URL = get_database_url()
 

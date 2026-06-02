@@ -41,7 +41,7 @@ services:
     command: ["python", "-m", "services.producer_logistic_center.main"]
     environment:
       KAFKA_BOOTSTRAP_SERVERS: redpanda:9092
-      KAFKA_TOPIC: shipment-events
+      KAFKA_TOPIC: logistic-center-events
       PRODUCER_INTERVAL_SECONDS: "2"
     depends_on:
       - redpanda
@@ -55,7 +55,7 @@ services:
     command: ["python", "-m", "services.producer_delivery_tour.main"]
     environment:
       KAFKA_BOOTSTRAP_SERVERS: redpanda:9092
-      KAFKA_TOPIC: shipment-events
+      KAFKA_TOPIC: delivery-tour-events
       PRODUCER_INTERVAL_SECONDS: "3.5"
     depends_on:
       - redpanda
@@ -69,7 +69,7 @@ services:
     command: ["python", "-m", "services.aggregator.main"]
     environment:
       KAFKA_BOOTSTRAP_SERVERS: redpanda:9092
-      KAFKA_TOPIC: shipment-events
+      KAFKA_TOPICS: logistic-center-events,delivery-tour-events
       KAFKA_GROUP_ID: shipment-aggregator
       DATABASE_URL: postgresql://postgres:postgres@postgres:5432/shipments
     depends_on:

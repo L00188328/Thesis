@@ -68,8 +68,12 @@
       </div>
 
       <div class="card">
-        <h2>Latest Shipments</h2>
+        <h2>Latest Shipment States</h2>
         <button onclick="loadShipments()">Refresh</button>
+        <label style="margin-left: 12px;">
+          <input id="includeDelivered" type="checkbox" onchange="loadShipments()" />
+          Include delivered
+        </label>
         <p id="shipmentsStatus"></p>
         <table id="shipmentsTable">
           <thead>
@@ -115,16 +119,23 @@
       async function loadShipments() {
         const status = document.getElementById('shipmentsStatus');
         const tbody = document.querySelector('#shipmentsTable tbody');
+        const includeDelivered = document.getElementById('includeDelivered').checked;
         try {
-          const query = `query { shipments(limit: 15) { shipmentId latestEventType latestEventDomain latestLocation latestEventTime } }`;
+          const query = `query { shipments(limit: 30) { shipmentId latestEventType latestEventDomain latestLocation latestEventTime } }`;
           const data = await gql(query);
+          const filtered = includeDelivered
+            ? data.shipments
+            : data.shipments.filter(s => s.latestEventType !== 'Delivered');
+
           tbody.innerHTML = '';
-          for (const s of data.shipments) {
+          for (const s of filtered.slice(0, 15)) {
             const row = document.createElement('tr');
             row.innerHTML = `<td>${s.shipmentId}</td><td>${s.latestEventType}</td><td>${s.latestEventDomain}</td><td>${s.latestLocation}</td><td>${new Date(s.latestEventTime).toLocaleString()}</td>`;
             tbody.appendChild(row);
           }
-          status.textContent = `Loaded ${data.shipments.length} shipments.`;
+          status.textContent = includeDelivered
+            ? `Loaded ${Math.min(filtered.length, 15)} shipment states (including delivered).`
+            : `Loaded ${Math.min(filtered.length, 15)} active shipment states.`;
         } catch (err) {
           status.textContent = `Error loading shipments: ${err.message}`;
           tbody.innerHTML = '';
