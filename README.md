@@ -1,5 +1,10 @@
 # Thesis Prototype - Phase 1 MVP
 
+
+## Summary
+This protoype is part of a thesis to evaluate fail over methods and busines continuity for domain driven, event driven architecures in the postal sector. 
+
+
 Local event-driven prototype for parcel shipment aggregation.
 
 ## Components
