@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: aggregator
+  namespace: thesis-ha
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: aggregator
+  template:
+    metadata:
+      labels:
+        app: aggregator
+    spec:
+      containers:
+        - name: aggregator
+          image: thesis/aggregator:local
+          imagePullPolicy: IfNotPresent
+          command: ["python", "-m", "services.aggregator.main"]
+          ports:
+            - containerPort: 8081
+              name: http-health
+          envFrom:
+            - configMapRef:
+                name: thesis-app-config
+            - secretRef:
+                name: thesis-app-secrets
+          env:
+            - name: INSTANCE_ID
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: http-health
+            initialDelaySeconds: 10
+            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /ready
+              port: http-health
+            initialDelaySeconds: 10
+            periodSeconds: 10

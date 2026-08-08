@@ -43,20 +43,22 @@ services:
       KAFKA_BOOTSTRAP_SERVERS: redpanda:9092
       KAFKA_TOPIC: logistic-center-events
       PRODUCER_INTERVAL_SECONDS: "2"
+      INSTANCE_ID: producer-logistic-center-local
     depends_on:
       - redpanda
 
-  producer-delivery-tour:
+  producer-delivery-base:
     build:
       context: .
       dockerfile: services/Dockerfile
       args:
-        SERVICE_DIR: services/producer_delivery_tour
-    command: ["python", "-m", "services.producer_delivery_tour.main"]
+        SERVICE_DIR: services/producer_delivery_base
+    command: ["python", "-m", "services.producer_delivery_base.main"]
     environment:
       KAFKA_BOOTSTRAP_SERVERS: redpanda:9092
-      KAFKA_TOPIC: delivery-tour-events
+      KAFKA_TOPIC: delivery-base-events
       PRODUCER_INTERVAL_SECONDS: "3.5"
+      INSTANCE_ID: producer-delivery-base-local
     depends_on:
       - redpanda
 
@@ -69,9 +71,13 @@ services:
     command: ["python", "-m", "services.aggregator.main"]
     environment:
       KAFKA_BOOTSTRAP_SERVERS: redpanda:9092
-      KAFKA_TOPICS: logistic-center-events,delivery-tour-events
+      KAFKA_TOPICS: logistic-center-events,delivery-base-events
       KAFKA_GROUP_ID: shipment-aggregator
       DATABASE_URL: postgresql://postgres:postgres@postgres:5432/shipments
+      HEALTH_PORT: "8081"
+      INSTANCE_ID: aggregator-local
+    ports:
+      - "8081:8081"
     depends_on:
       - redpanda
       - postgres
@@ -85,6 +91,7 @@ services:
     command: ["uvicorn", "services.api.main:app", "--host", "0.0.0.0", "--port", "8000"]
     environment:
       DATABASE_URL: postgresql://postgres:postgres@postgres:5432/shipments
+      INSTANCE_ID: api-local
     ports:
       - "8000:8000"
     depends_on:

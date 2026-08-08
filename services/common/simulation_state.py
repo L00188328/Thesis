@@ -3,6 +3,8 @@ from psycopg.errors import UniqueViolation
 
 
 def init_state_table(conn: psycopg.Connection) -> None:
+    # This table belongs to the local shipment simulator only. It is shared test
+    # infrastructure and not part of the logical enterprise architecture.
     # Concurrent CREATE TABLE IF NOT EXISTS can still race on PostgreSQL system catalogs.
     # Serialize startup DDL across producers with a transaction-level advisory lock.
     with conn.cursor() as cur:
@@ -15,9 +17,16 @@ def init_state_table(conn: psycopg.Connection) -> None:
                     stage SMALLINT NOT NULL DEFAULT 0,
                     destination_city TEXT,
                     hub TEXT,
+                    event_version BIGINT NOT NULL DEFAULT 0,
                     attempts SMALLINT NOT NULL DEFAULT 0,
                     updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
                 )
+                """
+            )
+            cur.execute(
+                """
+                ALTER TABLE shipment_simulation_state
+                ADD COLUMN IF NOT EXISTS event_version BIGINT NOT NULL DEFAULT 0
                 """
             )
         except UniqueViolation:
@@ -64,7 +73,7 @@ def claim_next_for_logistics(conn: psycopg.Connection) -> dict | None:
     with conn.cursor(row_factory=psycopg.rows.dict_row) as cur:
         cur.execute(
             """
-            SELECT shipment_id, stage, destination_city, hub, attempts
+            SELECT shipment_id, stage, destination_city, hub, attempts, event_version
             FROM shipment_simulation_state
             WHERE stage IN (0, 1, 2)
             ORDER BY stage DESC, updated_at ASC
@@ -84,7 +93,7 @@ def claim_next_for_delivery(conn: psycopg.Connection) -> dict | None:
     with conn.cursor(row_factory=psycopg.rows.dict_row) as cur:
         cur.execute(
             """
-            SELECT shipment_id, stage, destination_city, hub, attempts
+            SELECT shipment_id, stage, destination_city, hub, attempts, event_version
             FROM shipment_simulation_state
             WHERE stage IN (3, 4)
             ORDER BY stage DESC, updated_at ASC
@@ -106,6 +115,7 @@ def update_state(
     stage: int,
     destination_city: str | None,
     hub: str | None,
+    event_version: int,
     attempts: int,
 ) -> None:
     with conn.cursor() as cur:
@@ -116,10 +126,11 @@ def update_state(
                 stage = %s,
                 destination_city = %s,
                 hub = %s,
+                event_version = %s,
                 attempts = %s,
                 updated_at = NOW()
             WHERE shipment_id = %s
             """,
-            (stage, destination_city, hub, attempts, shipment_id),
+            (stage, destination_city, hub, event_version, attempts, shipment_id),
         )
     conn.commit()

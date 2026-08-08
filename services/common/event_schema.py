@@ -9,6 +9,7 @@ from typing import Any, Dict
 class ShipmentEvent:
     event_id: str
     shipment_id: str
+    event_version: int
     domain: str
     event_type: str
     occurred_at: str
@@ -19,6 +20,7 @@ class ShipmentEvent:
     def create(
         cls,
         shipment_id: str,
+        event_version: int,
         domain: str,
         event_type: str,
         location: str,
@@ -27,6 +29,7 @@ class ShipmentEvent:
         return cls(
             event_id=str(uuid.uuid4()),
             shipment_id=shipment_id,
+            event_version=event_version,
             domain=domain,
             event_type=event_type,
             occurred_at=datetime.now(timezone.utc).isoformat(),

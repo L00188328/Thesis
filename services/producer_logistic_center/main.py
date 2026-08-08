@@ -8,6 +8,7 @@ import psycopg
 from services.common.db_wait import get_database_url, wait_for_db
 from services.common.event_schema import ShipmentEvent
 from services.common.kafka_wait import wait_for_kafka
+from services.common.logging_utils import configure_logging
 from services.common.simulation_state import (
     claim_next_for_logistics,
     init_state_table,
@@ -20,6 +21,8 @@ BOOTSTRAP = os.getenv("KAFKA_BOOTSTRAP_SERVERS", "redpanda:9092")
 TOPIC = os.getenv("KAFKA_TOPIC", "logistic-center-events")
 INTERVAL_SECONDS = float(os.getenv("PRODUCER_INTERVAL_SECONDS", "2.0"))
 DATABASE_URL = get_database_url()
+SERVICE_NAME = "producer-logistic-center"
+logger = configure_logging(SERVICE_NAME)
 
 SHIPMENT_IDS = [f"SHP-{i:04d}" for i in range(1, 31)]
 CITY_TO_HUB = {
@@ -31,11 +34,12 @@ CITY_TO_HUB = {
 WORKER_SHIFTS = ["A", "B", "C"]
 
 
-def build_logistics_event(state: dict) -> tuple[ShipmentEvent, int, str, str, int]:
+def build_logistics_event(state: dict) -> tuple[ShipmentEvent, int, str, str, int, int]:
     shipment_id = state["shipment_id"]
     stage = int(state["stage"])
     destination_city = state.get("destination_city")
     hub = state.get("hub")
+    event_version = int(state.get("event_version") or 0) + 1
 
     if stage == 0:
         destination_city = random.choice(list(CITY_TO_HUB.keys()))
@@ -51,6 +55,7 @@ def build_logistics_event(state: dict) -> tuple[ShipmentEvent, int, str, str, in
 
     event = ShipmentEvent.create(
         shipment_id=shipment_id,
+        event_version=event_version,
         domain="LogisticCenter",
         event_type=event_type,
         location=hub,
@@ -60,7 +65,7 @@ def build_logistics_event(state: dict) -> tuple[ShipmentEvent, int, str, str, in
         },
     )
 
-    return event, next_stage, destination_city, hub, 0
+    return event, next_stage, destination_city, hub, event_version, 0
 
 
 def main() -> None:
@@ -77,7 +82,7 @@ def main() -> None:
         init_state_table(conn)
         seed_shipments(conn, SHIPMENT_IDS)
 
-        print("logistic-center producer started (stateful)")
+        logger.info("producer_started")
         while True:
             recycle_delivered(conn)
             state = claim_next_for_logistics(conn)
@@ -85,7 +90,7 @@ def main() -> None:
                 time.sleep(INTERVAL_SECONDS)
                 continue
 
-            event, next_stage, destination_city, hub, attempts = build_logistics_event(state)
+            event, next_stage, destination_city, hub, event_version, attempts = build_logistics_event(state)
             producer.send(TOPIC, key=event.shipment_id, value=event.to_json())
             producer.flush()
 
@@ -95,10 +100,18 @@ def main() -> None:
                 stage=next_stage,
                 destination_city=destination_city,
                 hub=hub,
+                event_version=event_version,
                 attempts=attempts,
             )
 
-            print(f"published: {event.event_type} for {event.shipment_id}")
+            logger.info(
+                "event_published",
+                extra={
+                    "event_id": event.event_id,
+                    "shipment_id": event.shipment_id,
+                    "event_type": event.event_type,
+                },
+            )
             time.sleep(INTERVAL_SECONDS)
 
 

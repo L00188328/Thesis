@@ -16,3 +16,12 @@ def wait_for_kafka(bootstrap_servers: str, timeout_seconds: int = 90) -> None:
             time.sleep(2)
 
     raise RuntimeError(f"Kafka did not become ready in time: {last_error}")
+
+
+def kafka_ready(bootstrap_servers: str) -> bool:
+    try:
+        producer = KafkaProducer(bootstrap_servers=bootstrap_servers)
+        producer.close()
+        return True
+    except Exception:
+        return False

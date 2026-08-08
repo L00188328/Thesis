@@ -25,3 +25,12 @@ def wait_for_db(database_url: str, timeout_seconds: int = 90) -> None:
             time.sleep(2)
 
     raise RuntimeError(f"Database did not become ready in time: {last_error}")
+
+
+def database_ready(database_url: str, query: str = "SELECT 1") -> bool:
+    try:
+        with psycopg.connect(database_url) as conn:
+            conn.execute(query)
+        return True
+    except Exception:
+        return False
