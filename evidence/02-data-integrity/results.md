@@ -13,6 +13,7 @@ Complete each section only after observing the result.
 - PASS/FAIL: PASS
 - Relevant Kafka offsets: Produced at 621 and 622; final logistic committed/log-end offset `623/623`, lag 0. Delivery Base remained `442/442`, lag 0.
 - Relevant database row counts: Historical row count 1; current-state row count 1.
+- Evidence files: `Screenshots/01A-Duplicate-event-push.jpg`, `Screenshots/01B-DB-idempotentcy-check.jpg`, and `Screenshots/01C-Deliveries-processed-check.jpg`.
 - Anomalies or discarded attempts: Kafka member columns were visually concatenated by terminal rendering, but topic offsets and lag remained readable.
 
 ## B2. Out-of-Order Event
@@ -26,17 +27,19 @@ Complete each section only after observing the result.
 - PASS/FAIL: PASS
 - Relevant Kafka offsets: Produced at 623 and 624; final logistic committed/log-end offset `625/625`, lag 0. Delivery Base remained `442/442`, lag 0.
 - Relevant database row counts: Two historical rows, two distinct event IDs, and one current-state row at version 5.
+- Evidence files: `Screenshots/02A-out-of-order-events.jpg`, `Screenshots/02B-data-out-of-order-version-protection.jpg`, and `Screenshots/02C-out-of-order-version-protection.jpg`.
 - Anomalies or discarded attempts: None observed.
 
 ## B3. Replay
 
-- Date/time:
-- Test purpose:
-- Controlled shipment ID:
-- Controlled event IDs:
-- Expected result:
-- Actual result:
-- PASS/FAIL:
-- Relevant Kafka offsets:
-- Relevant database row counts:
-- Anomalies or discarded attempts:
+- Date/time: 2026-08-25 12:29:36–12:29:40 UTC
+- Test purpose: Demonstrate idempotent behavior when previously processed Kafka events are replayed.
+- Controlled shipment ID: `TST-OOO-EVID-001`
+- Controlled event IDs: Replayed `ooo-evid-evt-v5` and `ooo-evid-evt-v3` without changing their payloads.
+- Expected result: Kafka accepts both replay deliveries, the Aggregator continues processing, historical duplicates are not created, current state remains at the highest event version, and lag returns to zero.
+- Actual result: The previously processed events were replayed at logistic topic offsets 625 and 626. Structured logs showed both replay deliveries were processed. PostgreSQL remained at two historical rows and two distinct event IDs, while current state remained version 5 (`ParcelLoadedForTransit`). Kafka returned to zero lag.
+- PASS/FAIL: PASS
+- Relevant Kafka offsets: Replayed at 625 and 626; final logistic committed/log-end offset `627/627`, lag 0. Delivery Base remained `442/442`, lag 0.
+- Relevant database row counts: Two historical rows, two distinct event IDs, and one current-state row at version 5; counts did not increase after replay.
+- Evidence files: `Screenshots/03A-reply-processed-events.jpg`, `Screenshots/03B_Replay-DB-check.jpg`, and `Screenshots/03C-Replay-log-kafka-check.jpg`.
+- Anomalies or discarded attempts: None observed.
