@@ -1,7 +1,5 @@
 # Docker Baseline Commands
 
-Record the exact commands actually executed for each evidence step. Do not add commands that were not run.
-
 ## A1. Clean Local Environment
 
 docker compose down -v --remove-orphans

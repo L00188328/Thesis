@@ -53,4 +53,4 @@ Complete each section only after observing the result.
 - PASS/FAIL: PASS
 - Relevant Kafka offsets: `delivery-base-events` committed/log-end `442/442`, lag 0; `logistic-center-events` committed/log-end `621/621`, lag 0.
 - Relevant database row counts: 34 historical rows and 34 distinct event IDs; one current-state row.
-- Anomalies or discarded attempts: Terminal output visually duplicated part of the Kafka member columns, but offsets and lag remained readable. The raw GraphQL history was saved. Expected PNG screenshots were not visible in the repository evidence directory during this audit and may still need to be copied there.
+- Anomalies or discarded attempts: Terminal output visually duplicated part of the Kafka member columns, but offsets and lag remained readable. Fourteen JPG screenshots were found under `01-docker-baseline/Screenshots/`. `Screenshots/05F2-SHP-0026.json` is a compact summary containing the event count and first/latest events, while `graphql-history-SHP-0026.json` is the separate complete 34-event raw GraphQL response. The user used a valid custom naming scheme instead of the suggested PNG filenames.
