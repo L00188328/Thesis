@@ -40,20 +40,22 @@ Complete each section only after observing the result.
 
 ## C3. Automatic Recovery
 
-- Date/time:
-- Test purpose:
-- Controlled shipment ID:
-- Controlled event ID:
-- Expected result:
-- Actual result:
-- PASS/FAIL:
-- Kafka committed offset:
-- Kafka log-end offset:
-- Kafka lag:
-- Aggregator restart count:
-- Historical row count:
-- Current-state row count:
-- Anomalies or discarded attempts:
+- Date/time: 2026-08-25 14:43:17 UTC (successful projection observed)
+- Test purpose: Demonstrate automatic Docker restart, Kafka redelivery of the uncommitted event, successful projection after removing only the artificial database failure, and offset advancement only after success.
+- Controlled shipment ID: `TST-DBFAIL-EVID-001`
+- Controlled event ID: `dbfail-evid-evt-001`
+- Failure-condition removal: PASS — PostgreSQL reported `DROP TRIGGER`, `DROP FUNCTION`, and trigger count 0. No Aggregator lifecycle command was used.
+- Expected result: Docker automatically runs the Aggregator again; Kafka redelivers offset 627; exactly one historical row and the correct current state are written; committed offset advances to 628; lag returns to zero.
+- Actual result: PostgreSQL contained exactly one historical row and one current-state row at version 1 with the expected event data. The logistic committed offset advanced from 627 to 628 only after successful projection and matched log end 628, returning lag to zero. The same Aggregator container ID was running with restart count 28. Structured logs showed automatic `aggregator_started` entries followed by `event_projected` for the controlled event.
+- PASS/FAIL: PASS
+- Kafka committed offset: Delivery Base 442; Logistic Centre 628.
+- Kafka log-end offset: Delivery Base 442; Logistic Centre 628.
+- Kafka lag: Delivery Base 0; Logistic Centre 0; total lag 0.
+- Aggregator restart count: 28 at successful recovery capture; container ID remained `d3a0e832602c74f90ba697d1b3f48c43ddd5c50b923eacf9e9653c4cda27d2ac`.
+- Historical row count: 1.
+- Current-state row count: 1 at event version 1.
+- Evidence files: `Screenshots/C-03A-temporary-failure-trigger-removed.jpg`, `Screenshots/C-03B-recovery-database-state.jpg`, `Screenshots/C-03C-recovery-kafka-zero-lag-and-container.jpg`, and `Screenshots/C-03D-automatic-event-redelivery-log.jpg`.
+- Anomalies or discarded attempts: The trigger remained active long enough for Docker's restart count to rise from 10 at failure capture to 28 before removal and recovery. This does not affect correctness; no manual Aggregator lifecycle command was used.
 
 ## C4. DB Commit / Offset Commit Crash Window
 

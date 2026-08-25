@@ -28,7 +28,15 @@ docker compose logs --since 10m --no-color aggregator | grep -E 'aggregation_fai
 
 ## C3. Automatic Recovery
 
-_Not yet run._
+docker compose exec -T postgres psql -U postgres -d shipments -v ON_ERROR_STOP=1 -c "DROP TRIGGER IF EXISTS trg_fail_db_evidence ON current_shipment_state; DROP FUNCTION IF EXISTS fail_db_evidence(); SELECT COUNT(*) AS trigger_after_removal FROM pg_trigger WHERE tgname = 'trg_fail_db_evidence';"
+
+docker compose exec -T postgres psql -U postgres -d shipments -P pager=off -c "SELECT event_id, shipment_id, event_version, domain, event_type, occurred_at, location, details FROM all_shipment_events WHERE event_id = 'dbfail-evid-evt-001'; SELECT COUNT(*) AS historical_row_count FROM all_shipment_events WHERE event_id = 'dbfail-evid-evt-001'; SELECT shipment_id, latest_event_version, latest_event_type, latest_event_domain, latest_location, latest_event_time FROM current_shipment_state WHERE shipment_id = 'TST-DBFAIL-EVID-001';"
+
+docker compose exec -T redpanda rpk group describe shipment-aggregator
+
+docker inspect --format 'Container ID: {{.Id}} | Restart count: {{.RestartCount}} | Status: {{.State.Status}} | Started: {{.State.StartedAt}}' "$(docker compose ps -q aggregator)"
+
+docker compose logs --since 15m --no-color aggregator | grep -E 'dbfail-evid-evt-001|aggregator_started' | tail -n 20
 
 ## C4. DB Commit / Offset Commit Crash Window
 
