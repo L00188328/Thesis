@@ -4,17 +4,17 @@ Complete each section only after observing the result.
 
 ## C1. Stable Starting State
 
-- Date/time:
-- Test purpose:
+- Date/time: 2026-08-25 (terminal capture time not recorded)
+- Test purpose: Establish a stable zero-lag baseline and record the Aggregator container identity and restart count before injecting a PostgreSQL failure.
 - Controlled test IDs: Not applicable
-- Expected result:
-- Actual result:
-- PASS/FAIL:
-- Kafka committed offset:
-- Kafka log-end offset:
-- Kafka lag:
-- Aggregator restart count:
-- Anomalies or discarded attempts:
+- Expected result: Aggregator is running with restart count 0; the consumer group is stable with one member; committed offsets equal log-end offsets and total lag is zero.
+- Actual result: Aggregator container `d3a0e832602c74f90ba697d1b3f48c43ddd5c50b923eacf9e9653c4cda27d2ac` was running with restart count 0. The consumer group was stable with one member and total lag 0.
+- PASS/FAIL: PASS
+- Kafka committed offset: Delivery Base 442; Logistic Centre 627.
+- Kafka log-end offset: Delivery Base 442; Logistic Centre 627.
+- Kafka lag: Delivery Base 0; Logistic Centre 0; total lag 0.
+- Aggregator restart count: 0.
+- Anomalies or discarded attempts: Terminal spacing compressed the offset columns slightly, but all values remained unambiguous. No screenshot was present in the evidence directory at the time this result was recorded.
 
 ## C2. Forced Database Transaction Failure
 

@@ -4,7 +4,9 @@ Record the exact commands actually executed for each evidence step. Do not add c
 
 ## C1. Stable Starting State
 
-_Not yet run._
+docker inspect --format 'Container ID: {{.Id}} | Restart count: {{.RestartCount}} | Status: {{.State.Status}} | Started: {{.State.StartedAt}}' "$(docker compose ps -q aggregator)"
+
+docker compose exec -T redpanda rpk group describe shipment-aggregator
 
 ## C2. Forced Database Transaction Failure
 
