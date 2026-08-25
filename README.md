@@ -12,9 +12,9 @@ Local event-driven prototype for parcel shipment aggregation.
 - `producer-logistic-center`: simulates logistics-center domain events
 - `producer-delivery-base`: simulates Delivery Base domain events
 - `redpanda`: Kafka-compatible event streaming broker
-- `aggregator`: consumes events and builds a shipment projection in PostgreSQL
+- `aggregator`: consumes events and builds a current shipment-state projection in PostgreSQL
 - `api`: GraphQL API + simple web UI
-- `postgres`: persistence for raw events + projection
+- `postgres`: persistence for `all_shipment_events` + `current_shipment_state`
 
 ## Run
 

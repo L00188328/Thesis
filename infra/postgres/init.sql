@@ -1,4 +1,4 @@
-CREATE TABLE IF NOT EXISTS shipment_events (
+CREATE TABLE IF NOT EXISTS all_shipment_events (
     event_id TEXT PRIMARY KEY,
     shipment_id TEXT NOT NULL,
     event_version BIGINT NOT NULL,
@@ -9,13 +9,13 @@ CREATE TABLE IF NOT EXISTS shipment_events (
     details JSONB NOT NULL
 );
 
-ALTER TABLE shipment_events
+ALTER TABLE all_shipment_events
 ADD COLUMN IF NOT EXISTS event_version BIGINT NOT NULL DEFAULT 0;
 
-CREATE INDEX IF NOT EXISTS idx_shipment_events_shipment_id ON shipment_events (shipment_id);
-CREATE INDEX IF NOT EXISTS idx_shipment_events_occurred_at ON shipment_events (occurred_at);
+CREATE INDEX IF NOT EXISTS idx_all_shipment_events_shipment_id ON all_shipment_events (shipment_id);
+CREATE INDEX IF NOT EXISTS idx_all_shipment_events_occurred_at ON all_shipment_events (occurred_at);
 
-CREATE TABLE IF NOT EXISTS shipment_projection (
+CREATE TABLE IF NOT EXISTS current_shipment_state (
     shipment_id TEXT PRIMARY KEY,
     latest_event_version BIGINT NOT NULL,
     latest_event_type TEXT NOT NULL,
@@ -25,5 +25,5 @@ CREATE TABLE IF NOT EXISTS shipment_projection (
     updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
 
-ALTER TABLE shipment_projection
+ALTER TABLE current_shipment_state
 ADD COLUMN IF NOT EXISTS latest_event_version BIGINT NOT NULL DEFAULT 0;

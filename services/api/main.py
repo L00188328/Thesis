@@ -109,7 +109,7 @@ def resolve_shipments(*_: Any, limit: int = 20) -> list[dict[str, str]]:
     rows = fetchall(
         """
         SELECT shipment_id, latest_event_version, latest_event_type, latest_event_domain, latest_event_time, latest_location
-        FROM shipment_projection
+        FROM current_shipment_state
         ORDER BY latest_event_time DESC NULLS LAST
         LIMIT %s
         """,
@@ -123,7 +123,7 @@ def resolve_shipment(*_: Any, shipmentId: str) -> dict[str, Any] | None:
     projection = fetchall(
         """
         SELECT shipment_id, latest_event_version, latest_event_type, latest_event_domain, latest_event_time, latest_location
-        FROM shipment_projection
+        FROM current_shipment_state
         WHERE shipment_id = %s
         """,
         (shipmentId,),
@@ -134,7 +134,7 @@ def resolve_shipment(*_: Any, shipmentId: str) -> dict[str, Any] | None:
     events = fetchall(
         """
         SELECT event_id, shipment_id, event_version, domain, event_type, occurred_at, location, details
-        FROM shipment_events
+        FROM all_shipment_events
         WHERE shipment_id = %s
         ORDER BY event_version ASC, occurred_at ASC
         """,
@@ -214,7 +214,7 @@ def health() -> dict[str, str]:
 def ready() -> JSONResponse:
     ready_now = database_ready(
         DATABASE_URL,
-        "SELECT 1 FROM shipment_projection LIMIT 1",
+        "SELECT 1 FROM current_shipment_state LIMIT 1",
     )
     payload = {
         "status": "ok" if ready_now else "not_ready",

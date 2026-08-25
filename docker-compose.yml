@@ -78,6 +78,7 @@ services:
       INSTANCE_ID: aggregator-local
     ports:
       - "8081:8081"
+    restart: on-failure
     depends_on:
       - redpanda
       - postgres

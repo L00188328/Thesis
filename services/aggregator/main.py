@@ -79,7 +79,7 @@ def wait_for_db(timeout_seconds: int = 90) -> None:
 def project_event(cur: psycopg.Cursor, event: ShipmentEvent) -> None:
     cur.execute(
         """
-        INSERT INTO shipment_events (
+        INSERT INTO all_shipment_events (
             event_id, shipment_id, event_version, domain, event_type, occurred_at, location, details
         ) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
         ON CONFLICT (event_id) DO NOTHING
@@ -98,7 +98,7 @@ def project_event(cur: psycopg.Cursor, event: ShipmentEvent) -> None:
 
     cur.execute(
         """
-        INSERT INTO shipment_projection (
+        INSERT INTO current_shipment_state (
             shipment_id,
             latest_event_version,
             latest_event_type,
@@ -117,10 +117,10 @@ def project_event(cur: psycopg.Cursor, event: ShipmentEvent) -> None:
             latest_location = EXCLUDED.latest_location,
             updated_at = NOW()
         WHERE
-            EXCLUDED.latest_event_version > shipment_projection.latest_event_version
+            EXCLUDED.latest_event_version > current_shipment_state.latest_event_version
             OR (
-                EXCLUDED.latest_event_version = shipment_projection.latest_event_version
-                AND EXCLUDED.latest_event_time >= shipment_projection.latest_event_time
+                EXCLUDED.latest_event_version = current_shipment_state.latest_event_version
+                AND EXCLUDED.latest_event_time >= current_shipment_state.latest_event_time
             )
         """,
         (
@@ -150,7 +150,7 @@ def is_ready() -> bool:
     return (
         consumer_started
         and last_error is None
-        and database_ready(DATABASE_URL, "SELECT 1 FROM shipment_events LIMIT 1")
+        and database_ready(DATABASE_URL, "SELECT 1 FROM all_shipment_events LIMIT 1")
         and kafka_ready(BOOTSTRAP)
     )
 
@@ -220,7 +220,7 @@ def main() -> None:
             except Exception as exc:
                 readiness_state.mark_error(str(exc))
                 logger.exception("aggregation_failed")
-                time.sleep(1)
+                raise
 
 
 if __name__ == "__main__":

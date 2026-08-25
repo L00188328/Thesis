@@ -13,6 +13,14 @@ def get_instance_id(service_name: str) -> str:
     return os.getenv("INSTANCE_ID", f"{service_name}-{os.getpid()}")
 
 
+class ServiceLoggerAdapter(logging.LoggerAdapter):
+    def process(self, msg: object, kwargs: dict) -> tuple[object, dict]:
+        extra = dict(self.extra)
+        extra.update(kwargs.get("extra", {}))
+        kwargs["extra"] = extra
+        return msg, kwargs
+
+
 class JsonFormatter(logging.Formatter):
     def format(self, record: logging.LogRecord) -> str:
         payload: dict[str, object] = {
@@ -54,7 +62,7 @@ def configure_logging(service_name: str) -> logging.Logger:
         root_logger._thesis_json_logging = True
 
     logger = logging.getLogger(service_name)
-    logger = logging.LoggerAdapter(
+    logger = ServiceLoggerAdapter(
         logger,
         {
             "service_name": service_name,
