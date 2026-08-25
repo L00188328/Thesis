@@ -1,0 +1,20 @@
+{
+  "shipmentId": "SHP-0026",
+  "eventCount": 34,
+  "firstEvent": {
+    "eventId": "f59dded3-e5d4-4f99-b39d-d6abd3ceaa9a",
+    "eventVersion": 1,
+    "domain": "LogisticCenter",
+    "eventType": "ParcelReceivedAtHub",
+    "location": "Cork Hub",
+    "occurredAt": "2026-08-25T10:58:02.430470+00:00"
+  },
+  "latestEvent": {
+    "eventId": "ddccb2a9-b070-4e1d-aec6-aac929f47cf9",
+    "eventVersion": 34,
+    "domain": "LogisticCenter",
+    "eventType": "ParcelLoadedForTransit",
+    "location": "Cork Hub",
+    "occurredAt": "2026-08-25T11:21:13.453809+00:00"
+  }
+}
