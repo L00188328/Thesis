@@ -13,7 +13,7 @@ Complete each section only after observing the result.
 - PASS/FAIL: PASS
 - Relevant Kafka offsets: Produced at 621 and 622; final logistic committed/log-end offset `623/623`, lag 0. Delivery Base remained `442/442`, lag 0.
 - Relevant database row counts: Historical row count 1; current-state row count 1.
-- Evidence files: `Screenshots/01A-duplicate-event-kafka-deliveries.jpg`, `Screenshots/01B-duplicate-event-database-idempotency.jpg`, and `Screenshots/01C-duplicate-event-processing-and-zero-lag.jpg`.
+- Evidence files: `Screenshots/B-01A-duplicate-event-kafka-deliveries.jpg`, `Screenshots/B-01B-duplicate-event-database-idempotency.jpg`, and `Screenshots/B-01C-duplicate-event-processing-and-zero-lag.jpg`.
 - Anomalies or discarded attempts: Kafka member columns were visually concatenated by terminal rendering, but topic offsets and lag remained readable.
 
 ## B2. Out-of-Order Event
@@ -27,7 +27,7 @@ Complete each section only after observing the result.
 - PASS/FAIL: PASS
 - Relevant Kafka offsets: Produced at 623 and 624; final logistic committed/log-end offset `625/625`, lag 0. Delivery Base remained `442/442`, lag 0.
 - Relevant database row counts: Two historical rows, two distinct event IDs, and one current-state row at version 5.
-- Evidence files: `Screenshots/02A-out-of-order-kafka-deliveries.jpg`, `Screenshots/02B-out-of-order-history-and-current-state.jpg`, and `Screenshots/02C-out-of-order-processing-and-zero-lag.jpg`.
+- Evidence files: `Screenshots/B-02A-out-of-order-kafka-deliveries.jpg`, `Screenshots/B-02B-out-of-order-history-and-current-state.jpg`, and `Screenshots/B-02C-out-of-order-processing-and-zero-lag.jpg`.
 - Anomalies or discarded attempts: None observed.
 
 ## B3. Replay
@@ -41,5 +41,5 @@ Complete each section only after observing the result.
 - PASS/FAIL: PASS
 - Relevant Kafka offsets: Replayed at 625 and 626; final logistic committed/log-end offset `627/627`, lag 0. Delivery Base remained `442/442`, lag 0.
 - Relevant database row counts: Two historical rows, two distinct event IDs, and one current-state row at version 5; counts did not increase after replay.
-- Evidence files: `Screenshots/03A-replayed-event-kafka-deliveries.jpg`, `Screenshots/03B-replay-database-idempotency.jpg`, and `Screenshots/03C-replay-processing-and-zero-lag.jpg`.
+- Evidence files: `Screenshots/B-03A-replayed-event-kafka-deliveries.jpg`, `Screenshots/B-03B-replay-database-idempotency.jpg`, and `Screenshots/B-03C-replay-processing-and-zero-lag.jpg`.
 - Anomalies or discarded attempts: None observed.

@@ -14,7 +14,7 @@ Complete each section only after observing the result.
 - Kafka log-end offset: Delivery Base 442; Logistic Centre 627.
 - Kafka lag: Delivery Base 0; Logistic Centre 0; total lag 0.
 - Aggregator restart count: 0.
-- Evidence files: `Screenshots/01A-stable-baseline-offsets-and-restart-count.jpg`.
+- Evidence files: `Screenshots/C-01A-stable-baseline-offsets-and-restart-count.jpg`.
 - Anomalies or discarded attempts: Terminal spacing compressed the offset columns slightly, but all values remained unambiguous.
 
 ## C2. Forced Database Transaction Failure
@@ -35,7 +35,7 @@ Complete each section only after observing the result.
 - Aggregator restart count: 10 at evidence capture, increased automatically from baseline 0.
 - Historical row count: 0.
 - Current-state row count: 0.
-- Evidence files: `Screenshots/02A-db-failure-test-precondition.jpg`, `Screenshots/02B-temporary-db-failure-trigger.jpg`, `Screenshots/02C-failing-event-published.jpg`, `Screenshots/02D-docker-automatic-restart.jpg`, `Screenshots/02E-db-rollback-and-restart-count.jpg`, and `Screenshots/02F-uncommitted-offset-and-failure-logs.jpg`.
+- Evidence files: `Screenshots/C-02A-db-failure-test-precondition.jpg`, `Screenshots/C-02B-temporary-db-failure-trigger.jpg`, `Screenshots/C-02C-failing-event-published.jpg`, `Screenshots/C-02D-docker-automatic-restart.jpg`, `Screenshots/C-02E-db-rollback-and-restart-count.jpg`, and `Screenshots/C-02F-uncommitted-offset-and-failure-logs.jpg`.
 - Anomalies or discarded attempts: Docker inspection captured the replacement process while it was running, so its current exit code was 0; the prior `FinishedAt` timestamp, increased restart count, repeated traceback logs, and subsequent start timestamps prove the failed processes exited and were automatically restarted. The unrelated local mail notification has no bearing on the test.
 
 ## C3. Automatic Recovery
