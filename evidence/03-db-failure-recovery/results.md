@@ -40,13 +40,13 @@ Complete each section only after observing the result.
 
 ## C3. Automatic Recovery
 
-- Date/time: 2026-08-25 14:43:17 UTC (successful projection observed)
+- Date/time: 2026-08-25 14:43:17.562938 UTC (successful projection observed)
 - Test purpose: Demonstrate automatic Docker restart, Kafka redelivery of the uncommitted event, successful projection after removing only the artificial database failure, and offset advancement only after success.
 - Controlled shipment ID: `TST-DBFAIL-EVID-001`
 - Controlled event ID: `dbfail-evid-evt-001`
 - Failure-condition removal: PASS — PostgreSQL reported `DROP TRIGGER`, `DROP FUNCTION`, and trigger count 0. No Aggregator lifecycle command was used.
 - Expected result: Docker automatically runs the Aggregator again; Kafka redelivers offset 627; exactly one historical row and the correct current state are written; committed offset advances to 628; lag returns to zero.
-- Actual result: PostgreSQL contained exactly one historical row and one current-state row at version 1 with the expected event data. The logistic committed offset advanced from 627 to 628 only after successful projection and matched log end 628, returning lag to zero. The same Aggregator container ID was running with restart count 28. Structured logs showed automatic `aggregator_started` entries followed by `event_projected` for the controlled event.
+- Actual result: PostgreSQL contained exactly one historical row and one current-state row at version 1 with the expected event data. The logistic committed offset advanced from 627 to 628 only after successful projection and matched log end 628, returning lag to zero. The same Aggregator container ID was running with restart count 28. Structured logs showed automatic `aggregator_started` entries followed by `event_projected` for the controlled event at 14:43:17.562938 UTC.
 - PASS/FAIL: PASS
 - Kafka committed offset: Delivery Base 442; Logistic Centre 628.
 - Kafka log-end offset: Delivery Base 442; Logistic Centre 628.
@@ -59,19 +59,24 @@ Complete each section only after observing the result.
 
 ## C4. DB Commit / Offset Commit Crash Window
 
-- Date/time:
-- Test purpose:
-- Controlled shipment ID:
-- Controlled event ID:
-- Temporary instrumentation used:
-- Expected result:
-- Actual result:
-- PASS/FAIL:
-- Kafka offsets before crash:
-- Kafka offsets after crash:
-- Kafka offsets after recovery:
-- Historical row count after DB commit:
-- Historical row count after replay:
-- Current-state row count:
+- Date/time: 2026-08-25 15:01:30 UTC (baseline container start)
+- Test purpose: Demonstrate safe recovery when PostgreSQL commits an event projection but the Aggregator exits before committing the corresponding Kafka consumer offset.
+- Controlled shipment ID: `TST-POSTCOMMIT-EVID-001`
+- Controlled event ID: `postcommit-evid-evt-001`
+- Temporary instrumentation used: A test-only, event-ID-gated one-shot exit in `services/aggregator/main.py` terminates the process with exit code 86 after the PostgreSQL transaction commits and before `consumer.commit()`. The Compose environment enables it only for `postcommit-evid-evt-001`; a marker in `/tmp` prevents a second intentional exit after Docker restarts the same container.
+- Precondition: PASS — historical row count 0, current-state row count 0, and prior database failure-trigger count 0.
+- Baseline container: `af7a9b346572ffcdd54f6a05b097cfee88725256ce84cf38707d206fe3b67df9`, running with restart count 0.
+- Event publication: The controlled event was produced successfully to `logistic-center-events`, partition 0, at offset 628.
+- Expected result: The first delivery commits one historical row and the current state, then exits before offset commit. Docker restarts the Aggregator, Kafka redelivers the event, idempotency retains one historical row, the state remains correct, and the offset advances only after replay succeeds.
+- Actual result: After the database transaction, structured logs recorded `test_crash_after_db_commit` at 15:56:57.888438 UTC. Docker automatically restarted the same container once, logged `aggregator_started` at 15:56:58.962658 UTC, and Kafka redelivery produced `event_projected` for the same event at 15:57:06.611596 UTC. PostgreSQL subsequently contained exactly one historical row and the correct version-1 materialised state. The logistic committed offset reached 629, matching log end with zero lag.
+- PASS/FAIL: PASS, subject to removal and verification of the temporary instrumentation.
+- Kafka offsets before crash: Delivery Base committed/log-end 442/442; Logistic Centre committed/log-end 628/628; total lag 0.
+- Kafka offsets after crash: Not directly sampled during the approximately one-second automatic restart window. The event was published at offset 628 while the baseline committed offset was 628; the gated hook exited before `consumer.commit()`, and the subsequent `event_projected` entry for the same event after restart demonstrates redelivery.
+- Kafka offsets after recovery: Delivery Base committed/log-end 442/442; Logistic Centre committed/log-end 629/629; total lag 0.
+- Historical row count after DB commit: Not separately sampled before automatic replay because Docker restarted immediately.
+- Historical row count after replay: 1, with 1 distinct event ID.
+- Current-state row count: 1 at event version 1 with the expected domain, type, location, and event time.
 - Instrumentation removal verified:
-- Anomalies or discarded attempts:
+- Aggregator restart count: Increased automatically from 0 to 1; container ID remained `af7a9b346572ffcdd54f6a05b097cfee88725256ce84cf38707d206fe3b67df9`.
+- Evidence files: `Screenshots/C-04A-post-commit-test-database-preconditions.jpg`, `Screenshots/C-04B-post-commit-test-offset-and-container-baseline.jpg`, `Screenshots/C-04C-publish-controlled-event.jpg`, `Screenshots/C-04D-post-commit-crash-and-automatic-restart.jpg`, and `Screenshots/C-04E-post-commit-replay-database-and-offset-recovery.jpg`.
+- Anomalies or discarded attempts: The unrelated local mail notification has no bearing on the test.
