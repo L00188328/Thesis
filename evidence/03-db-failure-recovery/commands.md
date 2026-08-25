@@ -6,16 +6,6 @@ Record the exact commands actually executed for each evidence step. Do not add c
 
 docker inspect --format 'Container ID: {{.Id}} | Restart count: {{.RestartCount}} | Status: {{.State.Status}} | Started: {{.State.StartedAt}}' "$(docker compose ps -q aggregator)"
 
-printf '%s\n' '{"event_id":"postcommit-evid-evt-001","shipment_id":"TST-POSTCOMMIT-EVID-001","event_version":1,"domain":"LogisticCenter","event_type":"ParcelReceivedAtHub","occurred_at":"2026-08-25T15:10:00+00:00","location":"Linz Post-Commit Hub","details":{"test":"post-db-commit-crash-evidence","crashExpected":true}}' | docker compose exec -T redpanda rpk topic produce logistic-center-events --compression none --partition 0 --key TST-POSTCOMMIT-EVID-001
-
-docker inspect --format 'Container ID: {{.Id}} | Restart count: {{.RestartCount}} | Status: {{.State.Status}} | Started: {{.State.StartedAt}}' "$(docker compose ps -q aggregator)"
-
-docker compose logs --since 10m --no-color aggregator | grep -E 'postcommit-evid-evt-001|test_crash_after_db_commit|aggregator_started' | tail -n 30
-
-docker compose exec -T postgres psql -U postgres -d shipments -P pager=off -c "SELECT event_id, shipment_id, event_version, domain, event_type, occurred_at, location, details FROM all_shipment_events WHERE event_id = 'postcommit-evid-evt-001'; SELECT COUNT(*) AS historical_row_count, COUNT(DISTINCT event_id) AS unique_event_ids FROM all_shipment_events WHERE event_id = 'postcommit-evid-evt-001'; SELECT shipment_id, latest_event_version, latest_event_type, latest_event_domain, latest_location, latest_event_time FROM current_shipment_state WHERE shipment_id = 'TST-POSTCOMMIT-EVID-001';"
-
-docker compose exec -T redpanda rpk group describe shipment-aggregator
-
 docker compose exec -T redpanda rpk group describe shipment-aggregator
 
 ## C2. Forced Database Transaction Failure
@@ -57,3 +47,19 @@ docker compose exec -T postgres psql -U postgres -d shipments -c "SELECT COUNT(*
 docker compose exec -T redpanda rpk group describe shipment-aggregator
 
 docker inspect --format 'Container ID: {{.Id}} | Restart count: {{.RestartCount}} | Status: {{.State.Status}} | Started: {{.State.StartedAt}}' "$(docker compose ps -q aggregator)"
+
+printf '%s\n' '{"event_id":"postcommit-evid-evt-001","shipment_id":"TST-POSTCOMMIT-EVID-001","event_version":1,"domain":"LogisticCenter","event_type":"ParcelReceivedAtHub","occurred_at":"2026-08-25T15:10:00+00:00","location":"Linz Post-Commit Hub","details":{"test":"post-db-commit-crash-evidence","crashExpected":true}}' | docker compose exec -T redpanda rpk topic produce logistic-center-events --compression none --partition 0 --key TST-POSTCOMMIT-EVID-001
+
+docker inspect --format 'Container ID: {{.Id}} | Restart count: {{.RestartCount}} | Status: {{.State.Status}} | Started: {{.State.StartedAt}}' "$(docker compose ps -q aggregator)"
+
+docker compose logs --since 10m --no-color aggregator | grep -E 'postcommit-evid-evt-001|test_crash_after_db_commit|aggregator_started' | tail -n 30
+
+docker compose exec -T postgres psql -U postgres -d shipments -P pager=off -c "SELECT event_id, shipment_id, event_version, domain, event_type, occurred_at, location, details FROM all_shipment_events WHERE event_id = 'postcommit-evid-evt-001'; SELECT COUNT(*) AS historical_row_count, COUNT(DISTINCT event_id) AS unique_event_ids FROM all_shipment_events WHERE event_id = 'postcommit-evid-evt-001'; SELECT shipment_id, latest_event_version, latest_event_type, latest_event_domain, latest_location, latest_event_time FROM current_shipment_state WHERE shipment_id = 'TST-POSTCOMMIT-EVID-001';"
+
+docker compose exec -T redpanda rpk group describe shipment-aggregator
+
+docker compose up --build -d aggregator
+
+docker compose exec -T aggregator sh -c 'if printenv TEST_CRASH_AFTER_DB_COMMIT_EVENT_ID; then echo "FAIL: test environment variable remains"; exit 1; else echo "PASS: test environment variable absent"; fi; if grep -Eq "TEST_CRASH_AFTER_DB_COMMIT_EVENT_ID|TEST_CRASH_MARKER|test_crash_after_db_commit" /app/services/aggregator/main.py; then echo "FAIL: test hook remains"; exit 1; else echo "PASS: test hook absent from source"; fi'
+
+curl -i -s http://localhost:8081/ready; echo
