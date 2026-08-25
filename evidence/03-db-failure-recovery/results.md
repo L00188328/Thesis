@@ -14,24 +14,29 @@ Complete each section only after observing the result.
 - Kafka log-end offset: Delivery Base 442; Logistic Centre 627.
 - Kafka lag: Delivery Base 0; Logistic Centre 0; total lag 0.
 - Aggregator restart count: 0.
-- Anomalies or discarded attempts: Terminal spacing compressed the offset columns slightly, but all values remained unambiguous. No screenshot was present in the evidence directory at the time this result was recorded.
+- Evidence files: `Screenshots/01A-stable-baseline-offsets-and-restart-count.jpg`.
+- Anomalies or discarded attempts: Terminal spacing compressed the offset columns slightly, but all values remained unambiguous.
 
 ## C2. Forced Database Transaction Failure
 
-- Date/time:
-- Test purpose:
-- Controlled shipment ID:
-- Controlled event ID:
-- Expected result:
-- Actual result:
-- PASS/FAIL:
-- Kafka committed offset:
-- Kafka log-end offset:
-- Kafka lag:
-- Aggregator restart count:
-- Historical row count:
-- Current-state row count:
-- Anomalies or discarded attempts:
+- Date/time: 2026-08-25 14:22:17–14:24:56 UTC
+- Test purpose: Demonstrate atomic PostgreSQL rollback, non-commit of the failed Kafka offset, process termination, and Docker-managed automatic restart after a projection transaction failure.
+- Controlled shipment ID: `TST-DBFAIL-EVID-001`
+- Controlled event ID: `dbfail-evid-evt-001`
+- Precondition: PASS — historical row count 0, current-state row count 0, and trigger count 0 before instrumentation.
+- Temporary instrumentation: `fail_db_evidence()` and `trg_fail_db_evidence` were created successfully. PostgreSQL confirmed a `BEFORE INSERT OR UPDATE` trigger on `public.current_shipment_state` executing `fail_db_evidence()`.
+- Event publication: The controlled event was produced successfully to `logistic-center-events`, partition 0, at offset 627.
+- Expected result: The trigger aborts the transaction; neither table receives a partial row; committed offset remains unchanged; lag becomes 1; the Aggregator exits and Docker automatically restarts it.
+- Actual result: Both test-row counts remained zero. The logistic committed offset stayed at 627 while log end advanced to 628, producing lag 1. Structured logs repeatedly showed `aggregation_failed`, the forced PostgreSQL exception, process termination, and a subsequent `aggregator_started`. The same container ID remained in use and Docker increased its restart count from 0 to 10 without manual intervention.
+- PASS/FAIL: PASS
+- Kafka committed offset: Delivery Base 442; Logistic Centre 627.
+- Kafka log-end offset: Delivery Base 442; Logistic Centre 628.
+- Kafka lag: Delivery Base 0; Logistic Centre 1; total lag 1.
+- Aggregator restart count: 10 at evidence capture, increased automatically from baseline 0.
+- Historical row count: 0.
+- Current-state row count: 0.
+- Evidence files: `Screenshots/02A-db-failure-test-precondition.jpg`, `Screenshots/02B-temporary-db-failure-trigger.jpg`, `Screenshots/02C-failing-event-published.jpg`, `Screenshots/02D-docker-automatic-restart.jpg`, `Screenshots/02E-db-rollback-and-restart-count.jpg`, and `Screenshots/02F-uncommitted-offset-and-failure-logs.jpg`.
+- Anomalies or discarded attempts: Docker inspection captured the replacement process while it was running, so its current exit code was 0; the prior `FinishedAt` timestamp, increased restart count, repeated traceback logs, and subsequent start timestamps prove the failed processes exited and were automatically restarted. The unrelated local mail notification has no bearing on the test.
 
 ## C3. Automatic Recovery
 
