@@ -201,3 +201,89 @@ GROUP BY event_version
 HAVING COUNT(*) > 1
 ORDER BY event_version;
 "
+
+## D5. Controlled GraphQL API Pod Failure
+
+date -u '+T0 API baseline: %Y-%m-%dT%H:%M:%SZ'
+
+kubectl get pods -n thesis-ha -l app=api -o custom-columns='NAME:.metadata.name,UID:.metadata.uid,IP:.status.podIP,READY:.status.containerStatuses[0].ready,RESTARTS:.status.containerStatuses[0].restartCount,STARTED:.status.startTime'
+
+for pod in $(kubectl get pods -n thesis-ha -l app=api -o name); do echo -n "$pod INSTANCE_ID="; kubectl exec -n thesis-ha "$pod" -- printenv INSTANCE_ID; done
+
+kubectl get endpointslice -n thesis-ha -l kubernetes.io/service-name=api -o wide
+
+kubectl run d5-graphql-baseline -n thesis-ha --image=curlimages/curl:8.10.1 --restart=Never --rm -i -- sh -c 'payload="{\"query\":\"query { shipment(shipmentId: \\\"TST-K8S-FAILOVER-001\\\") { shipmentId latestEventVersion } }\"}"; for request in $(seq 1 20); do status=$(curl -sS -D /tmp/headers -o /tmp/body -w "%{http_code}" -X POST http://api:8000/graphql/ -H "Content-Type: application/json" --data "$payload"); instance=$(grep -i "^x-instance-id:" /tmp/headers | tail -n 1 | tr -d "\r" | cut -d " " -f 2); if [ "$status" = "200" ] && grep -q "\"latestEventVersion\":120" /tmp/body; then echo "request=$request status=200 valid=true instance=$instance"; else echo "request=$request status=$status valid=false instance=$instance body=$(cat /tmp/body)"; fi; done'
+
+kubectl run d5-graphql-baseline-capture -n thesis-ha --image=curlimages/curl:8.10.1 --restart=Never -- sh -c 'payload="{\"query\":\"query { shipment(shipmentId: \\\"TST-K8S-FAILOVER-001\\\") { shipmentId latestEventVersion } }\"}"; for request in $(seq 1 20); do status=$(curl -sS -D /tmp/headers -o /tmp/body -w "%{http_code}" -X POST http://api:8000/graphql/ -H "Content-Type: application/json" --data "$payload"); instance=$(grep -i "^x-instance-id:" /tmp/headers | tail -n 1 | tr -d "\r" | cut -d " " -f 2); if [ "$status" = "200" ] && grep -q "\"latestEventVersion\":120" /tmp/body; then echo "request=$request status=200 valid=true instance=$instance"; else echo "request=$request status=$status valid=false instance=$instance"; fi; sleep 0.2; done; sleep 5'
+
+kubectl wait --for=condition=Ready pod/d5-graphql-baseline-capture -n thesis-ha --timeout=60s
+
+kubectl logs -f pod/d5-graphql-baseline-capture -n thesis-ha | tee /tmp/d5-graphql-baseline.log
+
+echo "Successful valid requests:"
+
+grep -c 'status=200 valid=true' /tmp/d5-graphql-baseline.log
+
+echo "Invalid or failed requests:"
+
+grep -c 'valid=false' /tmp/d5-graphql-baseline.log || true
+
+echo "Requests per API instance:"
+
+grep -o 'instance=[^ ]*' /tmp/d5-graphql-baseline.log | sort | uniq -c
+
+kubectl delete pod d5-graphql-baseline-capture -n thesis-ha
+
+kubectl run d5-graphql-failover-stream -n thesis-ha --image=curlimages/curl:8.10.1 --restart=Never -- sh -c 'payload="{\"query\":\"query { shipment(shipmentId: \\\"TST-K8S-FAILOVER-001\\\") { shipmentId latestEventVersion } }\"}"; for request in $(seq 1 90); do timestamp=$(date -u "+%Y-%m-%dT%H:%M:%SZ"); status=$(curl -sS --connect-timeout 2 --max-time 5 -D /tmp/headers -o /tmp/body -w "%{http_code}" -X POST http://api:8000/graphql/ -H "Content-Type: application/json" --data "$payload" || echo "CURL_FAILED"); instance=$(grep -i "^x-instance-id:" /tmp/headers 2>/dev/null | tail -n 1 | tr -d "\r" | cut -d " " -f 2); if [ "$status" = "200" ] && grep -q "\"latestEventVersion\":120" /tmp/body; then echo "REQUEST number=$request timestamp=$timestamp status=200 valid=true instance=$instance"; else echo "REQUEST number=$request timestamp=$timestamp status=$status valid=false instance=${instance:-none}"; fi; sleep 1; done; echo "STREAM_COMPLETE timestamp=$(date -u "+%Y-%m-%dT%H:%M:%SZ")"'
+
+kubectl wait --for=condition=Ready pod/d5-graphql-failover-stream -n thesis-ha --timeout=60s
+
+kubectl logs -f pod/d5-graphql-failover-stream -n thesis-ha | tee /tmp/d5-graphql-failover.log
+
+date -u '+T1 API deletion requested: %Y-%m-%dT%H:%M:%SZ'
+
+kubectl delete pod api-566df6fbd9-mhzjc -n thesis-ha --wait=false
+
+date -u '+T1 API deletion command returned: %Y-%m-%dT%H:%M:%SZ'
+
+kubectl get pods -n thesis-ha -l app=api -o wide
+
+kubectl rollout status deployment/api -n thesis-ha --timeout=120s
+
+date -u '+T5 API replacement Ready: %Y-%m-%dT%H:%M:%SZ'
+
+kubectl get pods -n thesis-ha -l app=api -o custom-columns='NAME:.metadata.name,UID:.metadata.uid,IP:.status.podIP,READY:.status.containerStatuses[0].ready,RESTARTS:.status.containerStatuses[0].restartCount,STARTED:.status.startTime'
+
+echo "Total requests:"
+
+grep -c '^REQUEST ' /tmp/d5-graphql-failover.log
+
+echo "Successful valid requests:"
+
+grep -c 'status=200 valid=true' /tmp/d5-graphql-failover.log
+
+echo "Invalid or failed requests:"
+
+grep -c 'valid=false' /tmp/d5-graphql-failover.log || true
+
+echo "Requests per API instance:"
+
+grep -o 'instance=[^ ]*' /tmp/d5-graphql-failover.log | sort | uniq -c
+
+echo "First requests:"
+
+grep '^REQUEST ' /tmp/d5-graphql-failover.log | head -n 3
+
+echo "Last requests:"
+
+grep '^REQUEST ' /tmp/d5-graphql-failover.log | tail -n 3
+
+kubectl delete pod d5-graphql-failover-stream -n thesis-ha --ignore-not-found
+
+date -u '+D5 final state: %Y-%m-%dT%H:%M:%SZ'
+
+kubectl get deployment/api -n thesis-ha
+
+kubectl get pods -n thesis-ha -l app=api -o custom-columns='NAME:.metadata.name,UID:.metadata.uid,IP:.status.podIP,READY:.status.containerStatuses[0].ready,RESTARTS:.status.containerStatuses[0].restartCount'
+
+kubectl get endpointslice -n thesis-ha -l kubernetes.io/service-name=api -o wide
