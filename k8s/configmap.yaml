@@ -4,7 +4,7 @@ metadata:
   name: thesis-app-config
   namespace: thesis-ha
 data:
-  KAFKA_BOOTSTRAP_SERVERS: "replace-me-for-kind-or-k3d:9092"
+  KAFKA_BOOTSTRAP_SERVERS: "host.docker.internal:19092"
   KAFKA_TOPICS: "logistic-center-events,delivery-base-events"
   KAFKA_GROUP_ID: "shipment-aggregator"
   HEALTH_PORT: "8081"

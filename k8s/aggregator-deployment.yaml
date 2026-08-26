@@ -4,7 +4,7 @@ metadata:
   name: aggregator
   namespace: thesis-ha
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: aggregator
