@@ -110,3 +110,25 @@ Complete each deployment or resilience section only after observing its result. 
 - PASS/FAIL: PASS
 - Screenshot evidence: `Screenshots/D-05A-prefailure-api-pods-instance-ids-and-service-endpoints.png`, `Screenshots/D-05B-prefailure-graphql-all-20-valid-responses.png`, `Screenshots/D-05C-prefailure-graphql-success-count-and-instance-distribution.png`, `Screenshots/D-05D-api-pod-deletion-and-replacement-creation.png`, `Screenshots/D-05E-api-replacement-ready-and-two-replica-state.png`, `Screenshots/D-05F-graphql-stream-success-failure-and-instance-summary.png`, `Screenshots/D-05G-graphql-final-requests-served-by-survivor-and-replacement.png`, and `Screenshots/D-05H-final-api-two-replica-and-service-endpoint-state.png`.
 - Anomalies or discarded attempts: Output pasted from the two concurrent terminals appeared out of chronological order in the combined transcript. The embedded UTC timestamps establish the actual sequence and the screenshot captures remain internally consistent. The incomplete initial baseline attachment screenshot was discarded because it was superseded by the complete retained capture.
+
+## D6. Final Evidence and Runtime Audit
+
+- Audit time: 2026-08-27T05:15:08Z.
+- Test purpose: Confirm the Phase 2 evidence is complete, manifests are clean and reproducible, no temporary test-only runtime resources or failure instrumentation remain, and the local environment is left healthy and known.
+- Cluster state: PASS — context `docker-desktop` was reachable; node `docker-desktop` reported `Ready` on Kubernetes v1.32.2.
+- Application workloads: PASS — Deployments `aggregator` and `api` each reported `2/2` Ready, updated, and available. The namespace contained exactly two Aggregator Pods and two API Pods, all Running, Ready, and at zero restarts.
+- Service endpoints: PASS — the Aggregator EndpointSlice contained `10.1.0.40` and `10.1.0.46` on port 8081; the API EndpointSlice contained `10.1.0.39` and `10.1.0.50` on port 8000.
+- Health and readiness: PASS — `/health` and `/ready` returned `status: ok` from all four application Pods with the expected Pod-derived instance IDs.
+- Supporting dependencies: PASS — PostgreSQL and Redpanda remained Running in Docker Compose. Both background producers remained intentionally stopped with their earlier `Exited (137)` state, preserving the controlled final environment.
+- Kafka final state: PASS — consumer group `shipment-aggregator` was `Stable` with two members and total lag zero. Delivery Base remained at committed/log-end `443/443`; Logistic Centre remained at `751/751`.
+- PostgreSQL cleanup: PASS — no non-internal trigger or public function with a failure/test name remained. The D4 controlled shipment still contained 120 history rows, 120 unique event IDs, 120 unique versions spanning 1–120, and current state version 120.
+- Temporary Kubernetes resources: PASS — no temporary D2, D3, D4, or D5 test Pods remained and no Jobs or CronJobs existed. Only the four intended Deployment-managed application Pods remained. Expected ConfigMap and Secret resources remained alongside Kubernetes' standard root CA ConfigMap.
+- Manifest validation: PASS — all Kubernetes manifests used are saved under `k8s/`; client dry-run accepted the Namespace, ConfigMap, local Secret, Services, and both Deployments. `kubectl diff` returned exit code 0, confirming the live resources matched the saved manifests.
+- Instrumentation audit: PASS — repository search found no crash hook, crash environment variable, temporary PostgreSQL failure trigger/function, or temporary Kubernetes test-Pod name outside the evidence records. The retained `scripts/kubernetes/d4-controlled-stream.sh` is an explicit reusable evidence utility, not application runtime instrumentation.
+- Evidence reference audit: PASS — `results.md` referenced 34 screenshots; all 34 files existed, no references were missing, and no unnamed `image`/`copy` screenshots remained.
+- Git audit before D6 documentation: PASS — `git status --short`, `git diff --stat`, and `git diff --check` were empty before this D6 audit documentation and summary files were created. The tracked Phase 2 manifests, utility script, commands, results, and screenshots were already committed.
+- Local-secret assumption: `k8s/secret.local.yaml` is a tracked local-only manifest containing the prototype's default PostgreSQL credential. It is valid for this local Docker Desktop experiment but is not suitable for production or future Azure deployment.
+- Azure scope: PASS — no Azure, AKS, Availability Zone, regional failover, or cloud infrastructure work was introduced during Phase 2.
+- D6 status: PASS — evidence, runtime state, cleanup, manifests, and repository state satisfy the final local Kubernetes Pod-level resilience audit.
+- PASS/FAIL: PASS
+- Screenshot evidence: D6 is supported by the retained D2–D5 screenshots and the reproducible command/output audit recorded in this section; no additional screenshot was required.

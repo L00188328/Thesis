@@ -212,6 +212,56 @@ for pod in $(kubectl get pods -n thesis-ha -l app=api -o name); do echo -n "$pod
 
 kubectl get endpointslice -n thesis-ha -l kubernetes.io/service-name=api -o wide
 
+## D6. Final Evidence and Runtime Audit
+
+date -u '+%Y-%m-%dT%H:%M:%SZ'
+
+kubectl config current-context
+
+kubectl get nodes -o wide
+
+kubectl get deployments,pods,services -n thesis-ha -o wide
+
+kubectl get pods -n thesis-ha -o custom-columns='NAME:.metadata.name,STATUS:.status.phase,READY:.status.containerStatuses[0].ready,RESTARTS:.status.containerStatuses[0].restartCount'
+
+kubectl get endpointslice -n thesis-ha -o wide
+
+for pod in $(kubectl get pods -n thesis-ha -l app=aggregator -o name); do echo "=== $pod ==="; kubectl exec -n thesis-ha "$pod" -- python -c 'import urllib.request; print(urllib.request.urlopen("http://127.0.0.1:8081/health", timeout=5).read().decode()); print(urllib.request.urlopen("http://127.0.0.1:8081/ready", timeout=5).read().decode())'; done
+
+for pod in $(kubectl get pods -n thesis-ha -l app=api -o name); do echo "=== $pod ==="; kubectl exec -n thesis-ha "$pod" -- python -c 'import urllib.request; print(urllib.request.urlopen("http://127.0.0.1:8000/health", timeout=5).read().decode()); print(urllib.request.urlopen("http://127.0.0.1:8000/ready", timeout=5).read().decode())'; done
+
+docker compose ps -a postgres redpanda producer-logistic-center producer-delivery-base
+
+docker compose exec -T redpanda rpk group describe shipment-aggregator
+
+docker compose exec -T postgres psql -U postgres -d shipments -P pager=off -c "SELECT tgname FROM pg_trigger WHERE NOT tgisinternal AND (tgname ILIKE '%fail%' OR tgname ILIKE '%test%'); SELECT proname FROM pg_proc JOIN pg_namespace n ON n.oid = pg_proc.pronamespace WHERE n.nspname = 'public' AND (proname ILIKE '%fail%' OR proname ILIKE '%test%');"
+
+docker compose exec -T postgres psql -U postgres -d shipments -P pager=off -c "SELECT COUNT(*) AS history_rows, COUNT(DISTINCT event_id) AS unique_event_ids, COUNT(DISTINCT event_version) AS unique_versions, MIN(event_version) AS first_version, MAX(event_version) AS highest_version FROM all_shipment_events WHERE shipment_id = 'TST-K8S-FAILOVER-001'; SELECT shipment_id, latest_event_version FROM current_shipment_state WHERE shipment_id = 'TST-K8S-FAILOVER-001';"
+
+git status --short
+
+git diff --stat
+
+git diff --check
+
+git ls-files k8s scripts/kubernetes evidence/04-kubernetes-pod-failover | sort
+
+git check-ignore -v k8s/secret.local.yaml
+
+rg -n --hidden --glob '!evidence/**' --glob '!.git/**' 'TEST_CRASH|test_crash_after_db_commit|TEST_CRASH_MARKER|trg_fail_db_evidence|fail_db_evidence|d5-graphql|d2-health-check|d3-api-routing-check|k2-connectivity-check' .
+
+kubectl apply --dry-run=client -f k8s/namespace.yaml -f k8s/configmap.yaml -f k8s/secret.local.yaml -f k8s/services.yaml -f k8s/aggregator-deployment.yaml -f k8s/api-deployment.yaml -o name
+
+kubectl diff -f k8s/namespace.yaml -f k8s/configmap.yaml -f k8s/secret.local.yaml -f k8s/services.yaml -f k8s/aggregator-deployment.yaml -f k8s/api-deployment.yaml
+
+kubectl get configmap,secret -n thesis-ha
+
+kubectl get pods,jobs,cronjobs -n thesis-ha -o name
+
+rg -o 'Screenshots/[^` ]+' evidence/04-kubernetes-pod-failover/results.md | sort -u
+
+find evidence/04-kubernetes-pod-failover/Screenshots -maxdepth 1 -type f
+
 kubectl run d5-graphql-baseline -n thesis-ha --image=curlimages/curl:8.10.1 --restart=Never --rm -i -- sh -c 'payload="{\"query\":\"query { shipment(shipmentId: \\\"TST-K8S-FAILOVER-001\\\") { shipmentId latestEventVersion } }\"}"; for request in $(seq 1 20); do status=$(curl -sS -D /tmp/headers -o /tmp/body -w "%{http_code}" -X POST http://api:8000/graphql/ -H "Content-Type: application/json" --data "$payload"); instance=$(grep -i "^x-instance-id:" /tmp/headers | tail -n 1 | tr -d "\r" | cut -d " " -f 2); if [ "$status" = "200" ] && grep -q "\"latestEventVersion\":120" /tmp/body; then echo "request=$request status=200 valid=true instance=$instance"; else echo "request=$request status=$status valid=false instance=$instance body=$(cat /tmp/body)"; fi; done'
 
 kubectl run d5-graphql-baseline-capture -n thesis-ha --image=curlimages/curl:8.10.1 --restart=Never -- sh -c 'payload="{\"query\":\"query { shipment(shipmentId: \\\"TST-K8S-FAILOVER-001\\\") { shipmentId latestEventVersion } }\"}"; for request in $(seq 1 20); do status=$(curl -sS -D /tmp/headers -o /tmp/body -w "%{http_code}" -X POST http://api:8000/graphql/ -H "Content-Type: application/json" --data "$payload"); instance=$(grep -i "^x-instance-id:" /tmp/headers | tail -n 1 | tr -d "\r" | cut -d " " -f 2); if [ "$status" = "200" ] && grep -q "\"latestEventVersion\":120" /tmp/body; then echo "request=$request status=200 valid=true instance=$instance"; else echo "request=$request status=$status valid=false instance=$instance"; fi; sleep 0.2; done; sleep 5'
