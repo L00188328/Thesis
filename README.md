@@ -18,7 +18,10 @@ Local event-driven prototype for parcel shipment aggregation.
 
 ## Run
 
+Copy `.env.example` to the ignored `.env` file and replace every placeholder. Database credentials are supplied only through that environment file or an equivalent secret injection mechanism.
+
 ```bash
+cp .env.example .env
 docker compose up --build
 ```
 

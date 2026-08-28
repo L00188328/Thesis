@@ -1,0 +1,41 @@
+using '../aks-region.bicep'
+
+param location = 'northeurope'
+param clusterName = 'thesis-aks-region-b'
+param aksTier = 'Free'
+param kubernetesVersion = '1.35'
+param systemPoolVmSize = 'Standard_B2s'
+param systemPoolCount = 1
+param systemPoolZones = [
+  '1'
+]
+param appPools = [
+  {
+    name: 'appzone1'
+    count: 1
+    vmSize: 'Standard_D2as_v5'
+    zones: [
+      '1'
+    ]
+    nodeLabels: {
+      regionRole: 'region-b'
+    }
+  }
+  {
+    name: 'appzone2'
+    count: 1
+    vmSize: 'Standard_D2as_v5'
+    zones: [
+      '2'
+    ]
+    nodeLabels: {
+      regionRole: 'region-b'
+    }
+  }
+]
+param tags = {
+  project: 'masters-thesis'
+  phase: 'azure-ha'
+  regionRole: 'region-b'
+  owner: 'robyn'
+}

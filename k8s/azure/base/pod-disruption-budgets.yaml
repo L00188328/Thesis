@@ -1,0 +1,21 @@
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: aggregator
+  namespace: thesis-ha
+spec:
+  minAvailable: 1
+  selector:
+    matchLabels:
+      app: aggregator
+---
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: api
+  namespace: thesis-ha
+spec:
+  minAvailable: 1
+  selector:
+    matchLabels:
+      app: api

@@ -1,6 +1,8 @@
 import time
 from kafka import KafkaProducer
 
+from services.common.kafka_config import kafka_security_config
+
 
 def wait_for_kafka(bootstrap_servers: str, timeout_seconds: int = 90) -> None:
     deadline = time.time() + timeout_seconds
@@ -8,7 +10,10 @@ def wait_for_kafka(bootstrap_servers: str, timeout_seconds: int = 90) -> None:
 
     while time.time() < deadline:
         try:
-            producer = KafkaProducer(bootstrap_servers=bootstrap_servers)
+            producer = KafkaProducer(
+                bootstrap_servers=bootstrap_servers,
+                **kafka_security_config(),
+            )
             producer.close()
             return
         except Exception as exc:  # pragma: no cover - startup retry helper
@@ -20,7 +25,10 @@ def wait_for_kafka(bootstrap_servers: str, timeout_seconds: int = 90) -> None:
 
 def kafka_ready(bootstrap_servers: str) -> bool:
     try:
-        producer = KafkaProducer(bootstrap_servers=bootstrap_servers)
+        producer = KafkaProducer(
+            bootstrap_servers=bootstrap_servers,
+            **kafka_security_config(),
+        )
         producer.close()
         return True
     except Exception:

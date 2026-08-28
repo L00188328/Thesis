@@ -1,0 +1,61 @@
+{
+  "assumptions": [
+    "The EUR 50 ceiling is a conservative gross experiment-spend cap and does not assume educational credits or discounts.",
+    "Each measured run reserves 15 minutes, except G1 which reserves 20 minutes for passive-region activation.",
+    "The 600-event payload and one-second probes add negligible data-volume charges relative to compute and fixed service meters.",
+    "Fixed allocations include setup, warm-up, teardown and a reserve for omitted ancillary meters.",
+    "Resources are deleted or stopped promptly outside the planned windows."
+  ],
+  "budget": 50.0,
+  "configurations": [
+    {
+      "configuration": "E1",
+      "estimated_cost_per_repeat": 0.089843,
+      "estimated_hourly_burn": 0.359374,
+      "measured_hours_per_repeat": 0.25
+    },
+    {
+      "configuration": "E2-A",
+      "estimated_cost_per_repeat": 0.089843,
+      "estimated_hourly_burn": 0.359374,
+      "measured_hours_per_repeat": 0.25
+    },
+    {
+      "configuration": "E2-B",
+      "estimated_cost_per_repeat": 0.089843,
+      "estimated_hourly_burn": 0.359374,
+      "measured_hours_per_repeat": 0.25
+    },
+    {
+      "configuration": "F1",
+      "estimated_cost_per_repeat": 0.089843,
+      "estimated_hourly_burn": 0.359374,
+      "measured_hours_per_repeat": 0.25
+    },
+    {
+      "configuration": "G1",
+      "estimated_cost_per_repeat": 0.2032,
+      "estimated_hourly_burn": 0.6096,
+      "measured_hours_per_repeat": 0.333333
+    },
+    {
+      "configuration": "G2",
+      "estimated_cost_per_repeat": 0.1524,
+      "estimated_hourly_burn": 0.6096,
+      "measured_hours_per_repeat": 0.25
+    }
+  ],
+  "currency": "EUR",
+  "estimated_total": 16.344921,
+  "fixed_estimated_cost": 14.2,
+  "generated_timestamp_utc": "2026-08-27T13:45:35.662272+00:00",
+  "maximum_repeat_count_within_estimate": 50,
+  "one_repeat_all_configurations_cost": 0.714974,
+  "price_sources": [
+    "Azure Retail Prices API queried 2026-08-27 in EUR: https://prices.azure.com/api/retail/prices",
+    "Microsoft Front Door billing guidance: https://learn.microsoft.com/azure/frontdoor/billing"
+  ],
+  "requested_repeat_count": 3,
+  "requested_repeat_count_affordable": true,
+  "schema_version": 1
+}

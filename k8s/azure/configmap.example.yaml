@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: thesis-app-config
+  namespace: thesis-ha
+data:
+  KAFKA_BOOTSTRAP_SERVERS: "REPLACE_NAMESPACE.servicebus.windows.net:9093"
+  KAFKA_TOPICS: "logistic-center-events,delivery-base-events"
+  KAFKA_GROUP_ID: "shipment-aggregator"
+  KAFKA_SECURITY_PROTOCOL: "SASL_SSL"
+  KAFKA_SASL_MECHANISM: "PLAIN"
+  KAFKA_SASL_USERNAME: "$ConnectionString"
+  HEALTH_PORT: "8081"
+  AZURE_REGION: "REPLACE_REGION"

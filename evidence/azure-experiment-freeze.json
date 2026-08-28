@@ -1,0 +1,387 @@
+{
+  "billing": {
+    "budget_ceiling": 50.0,
+    "credits_or_discounts_assumed": false,
+    "currency": "EUR",
+    "estimated_hourly_burn_by_configuration": {
+      "E1": 0.359374,
+      "E2-A": 0.359374,
+      "E2-B": 0.359374,
+      "F1": 0.359374,
+      "G1": 0.6096,
+      "G2": 0.6096
+    },
+    "estimated_total": 16.344921,
+    "gross_spend_ceiling": 50.0,
+    "live_price_confirmation_status": "pending-final-predeployment-check",
+    "price_query_date": "2026-08-27",
+    "subscription_reference": "thesis-experiment-subscription"
+  },
+  "burn_estimate": {
+    "assumptions": [
+      "The EUR 50 ceiling is a conservative gross experiment-spend cap and does not assume educational credits or discounts.",
+      "Each measured run reserves 15 minutes, except G1 which reserves 20 minutes for passive-region activation.",
+      "The 600-event payload and one-second probes add negligible data-volume charges relative to compute and fixed service meters.",
+      "Fixed allocations include setup, warm-up, teardown and a reserve for omitted ancillary meters.",
+      "Resources are deleted or stopped promptly outside the planned windows."
+    ],
+    "budget": 50.0,
+    "configurations": [
+      {
+        "configuration": "E1",
+        "estimated_cost_per_repeat": 0.089843,
+        "estimated_hourly_burn": 0.359374,
+        "measured_hours_per_repeat": 0.25
+      },
+      {
+        "configuration": "E2-A",
+        "estimated_cost_per_repeat": 0.089843,
+        "estimated_hourly_burn": 0.359374,
+        "measured_hours_per_repeat": 0.25
+      },
+      {
+        "configuration": "E2-B",
+        "estimated_cost_per_repeat": 0.089843,
+        "estimated_hourly_burn": 0.359374,
+        "measured_hours_per_repeat": 0.25
+      },
+      {
+        "configuration": "F1",
+        "estimated_cost_per_repeat": 0.089843,
+        "estimated_hourly_burn": 0.359374,
+        "measured_hours_per_repeat": 0.25
+      },
+      {
+        "configuration": "G1",
+        "estimated_cost_per_repeat": 0.2032,
+        "estimated_hourly_burn": 0.6096,
+        "measured_hours_per_repeat": 0.333333
+      },
+      {
+        "configuration": "G2",
+        "estimated_cost_per_repeat": 0.1524,
+        "estimated_hourly_burn": 0.6096,
+        "measured_hours_per_repeat": 0.25
+      }
+    ],
+    "currency": "EUR",
+    "estimated_total": 16.344921,
+    "fixed_estimated_cost": 14.2,
+    "generated_timestamp_utc": "2026-08-27T13:45:35.662272+00:00",
+    "maximum_repeat_count_within_estimate": 50,
+    "one_repeat_all_configurations_cost": 0.714974,
+    "price_sources": [
+      "Azure Retail Prices API queried 2026-08-27 in EUR: https://prices.azure.com/api/retail/prices",
+      "Microsoft Front Door billing guidance: https://learn.microsoft.com/azure/frontdoor/billing"
+    ],
+    "requested_repeat_count": 3,
+    "requested_repeat_count_affordable": true,
+    "schema_version": 1
+  },
+  "event_hubs": {
+    "assignment_strategy": "RoundRobinPartitionAssignor",
+    "consumer_group": "shipment-aggregator",
+    "entities": [
+      "logistic-center-events",
+      "delivery-base-events"
+    ],
+    "namespace_tier": "Standard",
+    "partitioner": "kafka-python-ng murmur2",
+    "partitions_per_entity": 2,
+    "producer_client": "kafka-python-ng 2.2.3",
+    "retention_days": 1,
+    "throughput_units": 1
+  },
+  "external_host": {
+    "connection_type": "fixed Wi-Fi",
+    "dns_arrangement": "fixed home-network resolvers; addresses sanitised in run evidence",
+    "host_id": "robyn-macbook-pro-3",
+    "isp_arrangement": "fixed home ISP and access arrangement; provider details sanitised",
+    "kernel": "Darwin 21.6.0 x86_64",
+    "network_interface": "en0",
+    "operating_system": "macOS 12.7.4 (21H1123)",
+    "physical_location": "Vienna, Austria",
+    "power": "AC power; battery present",
+    "public_egress_label": "home-egress-01",
+    "sleep_policy_during_runs": "sleep disabled for measured window",
+    "time_synchronisation": "UTC clock and NTP status recorded before every run",
+    "tool_versions": {
+      "azure_cli_container": "2.89.0",
+      "bicep": "0.46.1",
+      "docker": "28.1.1",
+      "kafka_python_ng": "2.2.3",
+      "kubectl": "1.32.2",
+      "python": "3.12.2"
+    },
+    "vpn_proxy": "disabled"
+  },
+  "fault_mechanisms": {
+    "E2-A": {
+      "action": "delete one active Aggregator Pod",
+      "command": "kubectl delete pod"
+    },
+    "E2-B": {
+      "action": "delete one GraphQL API Pod",
+      "command": "kubectl delete pod"
+    },
+    "F1": {
+      "command": "az aks nodepool stop --no-wait",
+      "eligible_application_pools": [
+        "appzone1",
+        "appzone2"
+      ],
+      "script": "scripts/experiments/azure/stop_f1_zone_pool.sh",
+      "selection": "one pool selected and recorded before each run"
+    },
+    "G1": {
+      "ordered_region_b_application_pools": [
+        "appzone1",
+        "appzone2"
+      ],
+      "region_a_failure_reference": "fault_mechanisms.region_a_failure",
+      "region_b_activation_script": "scripts/experiments/azure/start_application_pools.sh"
+    },
+    "G2": {
+      "region_a_failure_reference": "fault_mechanisms.region_a_failure",
+      "region_b_state": "application pools already running"
+    },
+    "region_a_failure": {
+      "command": "az aks nodepool stop --no-wait",
+      "ordered_application_pools": [
+        "appzone1",
+        "appzone2"
+      ],
+      "script": "scripts/experiments/azure/stop_region_a_app_pools.sh"
+    }
+  },
+  "front_door": {
+    "additional_latency_milliseconds": 1000,
+    "certificate_name_check": false,
+    "client_protocol": "Https",
+    "endpoint_name": "thesis-ha",
+    "forwarding_protocol": "HttpOnly",
+    "graphql_caching": "Disabled",
+    "health_probe_enabled": true,
+    "origin_group_name": "thesis-origins",
+    "origin_http_port": 80,
+    "origin_weight": 1000,
+    "origins": [
+      {
+        "enabled": true,
+        "host_header_reference": "REGION_A_ORIGIN_HOST; sanitised value captured at final freeze",
+        "http_port": 80,
+        "name": "region-a",
+        "priorities": {
+          "G1": 1,
+          "G2": 1
+        },
+        "weight": 1000
+      },
+      {
+        "enabled": true,
+        "host_header_reference": "REGION_B_ORIGIN_HOST; sanitised value captured at final freeze",
+        "http_port": 80,
+        "name": "region-b",
+        "priorities": {
+          "G1": 2,
+          "G2": 1
+        },
+        "weight": 1000
+      }
+    ],
+    "probe_interval_seconds": 10,
+    "probe_method": "GET",
+    "probe_path": "/ready",
+    "probe_protocol": "Http",
+    "profile_name": "thesis-ha-frontdoor",
+    "route_name": "graphql-and-ui",
+    "sample_size": 4,
+    "session_affinity": "Disabled",
+    "successful_samples_required": 3,
+    "tier": "Standard_AzureFrontDoor"
+  },
+  "probe_transport": {
+    "E1": "HttpDirectRegionA",
+    "E2-A": "HttpDirectRegionA",
+    "E2-B": "HttpDirectRegionA",
+    "F1": "HttpDirectRegionA",
+    "G1": "HttpsFrontDoorToHttpOrigin",
+    "G2": "HttpsFrontDoorToHttpOrigin"
+  },
+  "protocol": {
+    "file": "evidence/azure-experimental-protocol.md",
+    "frozen_timestamp_utc": "2026-08-28T13:29:04.459006+00:00",
+    "git_commit": "d504533bb573a02527e0777b7f730ba4854e8a00",
+    "sha256": "00ade8fac239edf64af1075429317abd0c748f050b65310885d63645bf39e033",
+    "version": "1.0.2",
+    "worktree_clean": false
+  },
+  "regions": {
+    "external_probe_location": "Vienna, Austria",
+    "region_a": "westeurope",
+    "region_b": "northeurope"
+  },
+  "repeat_count": 3,
+  "schema_version": 2,
+  "skus": {
+    "aks_exact_patch": "pending-live-azure-authentication",
+    "aks_kubernetes_minor": "1.35",
+    "aks_tier": "Free",
+    "cluster_configurations": [
+      {
+        "application_pools": [
+          {
+            "autoscaling": false,
+            "desired": 1,
+            "max": 1,
+            "min": 1,
+            "mode": "User",
+            "name": "app",
+            "vm_size": "Standard_D2as_v5",
+            "zones": []
+          }
+        ],
+        "cluster_name": "thesis-aks-region-a",
+        "configuration": "E1",
+        "node_autoprovisioning": false,
+        "parameter_file": "infra/azure/parameters/region-a-e1.bicepparam",
+        "region": "westeurope",
+        "system_pool": {
+          "autoscaling": false,
+          "desired": 1,
+          "max": 1,
+          "min": 1,
+          "mode": "System",
+          "name": "system",
+          "vm_size": "Standard_B2s",
+          "zones": []
+        }
+      },
+      {
+        "application_pools": [
+          {
+            "autoscaling": false,
+            "desired": 2,
+            "max": 2,
+            "min": 2,
+            "mode": "User",
+            "name": "app",
+            "vm_size": "Standard_D2as_v5",
+            "zones": []
+          }
+        ],
+        "cluster_name": "thesis-aks-region-a",
+        "configuration": "E2-A/E2-B",
+        "node_autoprovisioning": false,
+        "parameter_file": "infra/azure/parameters/region-a-e2.bicepparam",
+        "region": "westeurope",
+        "system_pool": {
+          "autoscaling": false,
+          "desired": 1,
+          "max": 1,
+          "min": 1,
+          "mode": "System",
+          "name": "system",
+          "vm_size": "Standard_B2s",
+          "zones": []
+        }
+      },
+      {
+        "application_pools": [
+          {
+            "autoscaling": false,
+            "desired": 1,
+            "max": 1,
+            "min": 1,
+            "mode": "User",
+            "name": "appzone1",
+            "vm_size": "Standard_D2as_v5",
+            "zones": [
+              "1"
+            ]
+          },
+          {
+            "autoscaling": false,
+            "desired": 1,
+            "max": 1,
+            "min": 1,
+            "mode": "User",
+            "name": "appzone2",
+            "vm_size": "Standard_D2as_v5",
+            "zones": [
+              "2"
+            ]
+          }
+        ],
+        "cluster_name": "thesis-aks-region-a",
+        "configuration": "F1/G1/G2 Region A",
+        "node_autoprovisioning": false,
+        "parameter_file": "infra/azure/parameters/region-a-f1.bicepparam",
+        "region": "westeurope",
+        "system_pool": {
+          "autoscaling": false,
+          "desired": 1,
+          "max": 1,
+          "min": 1,
+          "mode": "System",
+          "name": "system",
+          "vm_size": "Standard_B2s",
+          "zones": [
+            "1"
+          ]
+        }
+      },
+      {
+        "application_pools": [
+          {
+            "autoscaling": false,
+            "desired": 1,
+            "max": 1,
+            "min": 1,
+            "mode": "User",
+            "name": "appzone1",
+            "vm_size": "Standard_D2as_v5",
+            "zones": [
+              "1"
+            ]
+          },
+          {
+            "autoscaling": false,
+            "desired": 1,
+            "max": 1,
+            "min": 1,
+            "mode": "User",
+            "name": "appzone2",
+            "vm_size": "Standard_D2as_v5",
+            "zones": [
+              "2"
+            ]
+          }
+        ],
+        "cluster_name": "thesis-aks-region-b",
+        "configuration": "G1/G2 Region B",
+        "node_autoprovisioning": false,
+        "parameter_file": "infra/azure/parameters/region-b.bicepparam",
+        "region": "northeurope",
+        "system_pool": {
+          "autoscaling": false,
+          "desired": 1,
+          "max": 1,
+          "min": 1,
+          "mode": "System",
+          "name": "system",
+          "vm_size": "Standard_B2s",
+          "zones": [
+            "1"
+          ]
+        }
+      }
+    ],
+    "container_registry": "Basic",
+    "event_hubs": "Standard",
+    "front_door": "Standard_AzureFrontDoor",
+    "postgresql": "Standard_B1ms",
+    "postgresql_storage_gib": 32
+  },
+  "warm_up_runs_per_configuration": 1
+}

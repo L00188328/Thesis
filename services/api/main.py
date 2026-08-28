@@ -17,12 +17,10 @@ from services.common.db_wait import database_ready, wait_for_db
 from services.common.logging_utils import configure_logging, get_instance_id, utc_now_iso
 from services.common.schema_init import ensure_projection_schema
 
-DATABASE_URL = os.getenv(
-    "DATABASE_URL",
-    "postgresql://postgres:postgres@postgres:5432/shipments",
-)
+DATABASE_URL = os.environ["DATABASE_URL"]
 SERVICE_NAME = "api"
 INSTANCE_ID = get_instance_id(SERVICE_NAME)
+AZURE_REGION = os.getenv("AZURE_REGION", "local")
 logger = configure_logging(SERVICE_NAME)
 
 def fetchall(query: str, params: tuple = ()) -> list[dict]:
@@ -181,6 +179,7 @@ async def log_requests(request: Request, call_next: Any) -> Any:
 
     latency_ms = round((perf_counter() - started_at) * 1000, 2)
     response.headers["X-Instance-ID"] = INSTANCE_ID
+    response.headers["X-Region"] = AZURE_REGION
     logger.info(
         "request_complete",
         extra={
@@ -189,6 +188,7 @@ async def log_requests(request: Request, call_next: Any) -> Any:
             "latency_ms": latency_ms,
             "method": request.method,
             "path": request.url.path,
+            "region": AZURE_REGION,
         },
     )
     return response

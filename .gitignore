@@ -1,0 +1,24 @@
+__pycache__/
+*.py[cod]
+
+# Local environment and credential material
+.env
+.env.*
+!.env.example
+**/secret.local.yaml
+**/secrets.local.yaml
+**/*.secret.local.yaml
+**/secret.*.local.yaml
+*.pem
+*.key
+*.pfx
+*.p12
+*.jks
+*.keystore
+
+# Deployment-local parameter and unredacted evidence material
+infra/azure/.parameters.local/
+infra/azure/parameters/*.local.bicepparam
+evidence/private/
+evidence/**/private/
+evidence/**/unredacted/

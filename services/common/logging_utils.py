@@ -41,6 +41,9 @@ class JsonFormatter(logging.Formatter):
             "method",
             "path",
             "ready",
+            "region",
+            "consumer_group",
+            "topic_partitions",
         ):
             value = getattr(record, key, None)
             if value is not None:

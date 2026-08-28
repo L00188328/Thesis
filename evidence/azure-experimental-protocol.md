@@ -1,5 +1,15 @@
 # Azure High-Availability Experimental Protocol
 
+**Methodology version:** 1.0.2
+**Status:** Frozen
+**Frozen at:** 2026-08-28T13:02:58Z
+
+Methodological changes after this point are prohibited unless pre-E1 validation discovers a genuine technical incompatibility. Any such change requires a versioned amendment and the reruns defined by this protocol.
+
+**Version 1.0.1 compatibility amendment:** Pre-E1 IaC validation established that the AKS API origin is an HTTP `LoadBalancer` Service with no repository-managed public certificate or TLS ingress. Adding certificate/DNS infrastructure solely for this experiment would materially increase scope and complexity. External clients still use HTTPS to Azure Front Door, but Front Door forwards and probes the controlled AKS origin over HTTP port 80. Validation also found the originally drafted AKS `1.32.2` pin was out of standard support; the IaC now requests supported minor `1.35`, and pre-deployment validation must resolve and record one identical patch available in both regions before either cluster is created. No availability, recovery, workload, integrity, cost, or fault definition changed.
+
+**Version 1.0.2 transport clarification:** E1, E2-A, E2-B, and F1 send the external availability probe directly to the Region A HTTP `LoadBalancer` application endpoint. G1 and G2 send the external probe over HTTPS to Azure Front Door, which forwards and probes the AKS origins over HTTP port 80. No TLS ingress, certificate manager, or experiment-only DNS/certificate infrastructure is introduced. All availability, recovery, workload, integrity, cost, and fault definitions remain unchanged. Because the direct and Front Door paths contain different routing and TLS components, latency comparisons must identify the path and must not attribute path-induced differences solely to the application topology.
+
 ## 1. Scope and Freeze Rule
 
 This protocol governs the comparison:
@@ -44,9 +54,9 @@ Also report the percentage, total successes, total failures, longest consecutive
 
 **Probe target**
 
-- Send an HTTPS `POST` to the user-facing `/graphql/` endpoint.
-- E1, E2-A, E2-B, and F1 use the Region A public application endpoint.
-- G1 and G2 use the Azure Front Door endpoint.
+- Send a `POST` to the user-facing `/graphql/` endpoint using the frozen transport for the configuration.
+- E1, E2-A, E2-B, and F1 use HTTP to the direct Region A public `LoadBalancer` application endpoint.
+- G1 and G2 use HTTPS from the external client to the Azure Front Door endpoint; Front Door forwards to the AKS origin over HTTP.
 - Use a fixed canary shipment created and fully materialised before T0.
 - Query:
 
@@ -193,6 +203,8 @@ Final PASS requires no missing controlled events, no duplicate historical rows, 
 
 From successful availability probes report p50, p95, p99, and maximum response latency for the fixed window. Failed probes remain availability failures and are not assigned artificial latency values. Latency is secondary to availability and recovery.
 
+Always label latency results with the routing path. E1/E2-A/E2-B/F1 measure the direct external-host-to-Region-A HTTP path, while G1/G2 include external HTTPS termination and routing at Azure Front Door plus the HTTP origin hop. Preserve the same latency calculation, probe cadence, and timeout definitions, but do not interpret differences between these paths as application-topology effects alone.
+
 ## 4. Azure Test Matrix
 
 Supporting Event Hubs and PostgreSQL remain as constant as practical and outside the comparative HA scope.
@@ -327,14 +339,14 @@ Do not disable, remove, reprioritise, or reconfigure the Region A Front Door ori
 
 Restore Region A by starting the same application pools only after the measured window, unless safety requires earlier recovery; record any deviation and invalidate the run if it changes the measured fault.
 
-### 4.6 Azure Front Door Parameters — Proposed Freeze Decision
+### 4.6 Azure Front Door Parameters — Frozen Decision
 
 Use Azure Front Door Standard with one origin group and freeze these settings for G1 and G2:
 
 | Parameter | Frozen value |
 |---|---|
 | Health probe | Enabled |
-| Probe protocol | HTTPS |
+| Probe protocol | HTTP |
 | Probe request method | GET |
 | Probe path | `/ready` |
 | Probe interval | 10 seconds |
@@ -342,8 +354,10 @@ Use Azure Front Door Standard with one origin group and freeze these settings fo
 | Successful samples required | 3 |
 | Additional latency sensitivity | 1000 milliseconds |
 | Session affinity | Disabled |
-| Origin HTTPS port | 443 |
-| Origin certificate-name validation | Enabled |
+| Origin HTTP port | 80 |
+| Route forwarding protocol | HTTP only from Front Door to origin |
+| Client protocol | HTTPS to Azure Front Door |
+| Origin certificate-name validation | Not applicable to the HTTP origin connection |
 | Origin weight | 1000 for each origin |
 | GraphQL route caching | Disabled |
 
@@ -354,7 +368,7 @@ Origin routing differs only where the compared topology requires it:
 - G1: Region A priority 1 and Region B priority 2.
 - G2: Region A and Region B both priority 1 with equal weight 1000. The 1000-millisecond additional-latency setting is intended to keep both healthy origins eligible for the controlled client location; actual returned region/instance headers remain the evidence.
 
-Keep both origins enabled throughout G1 and G2. Freeze the Front Door profile tier, endpoint, route, origin host headers, priorities, weights, health-probe settings, load-balancing settings, session-affinity state, and caching state in `evidence/azure-experiment-freeze.json` and export the effective configuration before each run.
+Keep both origins enabled throughout G1 and G2. Freeze the Front Door profile tier, endpoint, route, origin host headers/ports, priorities, weights, health-probe settings, load-balancing settings, session-affinity state, and caching state in `evidence/azure-experiment-freeze.json` and export the effective configuration before each run.
 
 ## 5. Common Controlled Workload
 
@@ -447,12 +461,13 @@ Do not store credentials, connection strings, access tokens, or unredacted subsc
 
 Before E1, create `evidence/azure-experiment-freeze.json` from the reviewed protocol and deployment parameters. It must contain:
 
-- `protocol`: version `1.0`, the Git commit containing the frozen protocol, and UTC freeze timestamp;
+- `protocol`: version `1.0.2`, the Git commit containing the frozen protocol, and UTC freeze timestamp;
 - `billing`: sanitised subscription reference, billing currency, estimated hourly burn by configuration, total planned burn, and budget ceiling;
 - `regions`: Region A and Region B, plus the sanitised physical location of the external laptop;
 - `skus`: Front Door/Event Hubs/AKS/PostgreSQL tiers and every cluster, node-pool, VM size, mode, zone, and desired/min/max node count;
 - `event_hubs`: namespace tier, entity names, two partitions per entity, retention, consumer group, producer/client version, producer partitioner, and `RoundRobinPartitionAssignor`;
-- `front_door`: profile tier, endpoint/route, origin names/host headers/ports, priorities, weights, HTTPS GET `/ready`, 10-second interval, sample size 4, successful samples 3, 1000-millisecond additional latency, disabled session affinity, enabled certificate-name validation, and disabled GraphQL caching;
+- `front_door`: profile tier, endpoint/route, origin names/host headers/ports, priorities, weights, HTTP GET `/ready` to origin, HTTPS client endpoint, 10-second interval, sample size 4, successful samples 3, 1000-millisecond additional latency, disabled session affinity, non-applicable HTTP-origin certificate-name validation, and disabled GraphQL caching;
+- `probe_transport`: direct Region A HTTP for E1/E2-A/E2-B/F1 and external HTTPS to Front Door with an HTTP AKS origin hop for G1/G2;
 - `repeat_count`: the fixed measured-run count selected from the recorded burn estimate and used for every comparable configuration;
 - `fault_mechanisms`: F1's single zone-aligned user-pool stop and the ordered Region A application-pool list/script used identically by G1 and G2, plus G1's separate Region B activation action;
 - `external_host`: stable laptop ID, sanitised physical location, OS/kernel, tool/container versions, mains-power/sleep state, wired/Wi-Fi connection state, ISP/public-egress arrangement, DNS configuration, time synchronisation, and VPN/proxy state.
@@ -613,7 +628,7 @@ AKS, Front Door, Event Hubs, PostgreSQL, and registry creation/deletion times mu
 
 The proposed order is:
 
-1. Estimate Azure burn, select the fixed repeat count, freeze protocol v1.0 and all required parameters, and create/checksum `evidence/azure-experiment-freeze.json` before deployment.
+1. Estimate Azure burn, select the fixed repeat count, freeze protocol v1.0.2 and all required parameters, and create/checksum `evidence/azure-experiment-freeze.json` before deployment.
 2. Prepare reusable IaC and parameter files for E1, E2-A, E2-B, F1, G1, and G2; validate locally without deployment.
 3. Prepare and locally verify probe, workload, consumer-progress, integrity, timeline, sanitisation, and evidence-export scripts. Validate the consumer-progress collector against local Redpanda and then an Event Hubs smoke workload; preselect and broker-verify every measured run's unique key pair, save the complete `evidence/partition-key-map.json`, and remove the temporary verification Event Hub before any measured E1 run.
 4. Configure only `RoundRobinPartitionAssignor`, add the fixed assignment/revocation structured logs, and verify locally that assignment changes do not alter event-processing semantics. Freeze this configuration before E1.

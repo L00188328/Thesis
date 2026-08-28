@@ -4,11 +4,11 @@ import time
 import psycopg
 
 
-DEFAULT_DATABASE_URL = "postgresql://postgres:postgres@postgres:5432/shipments"
-
-
 def get_database_url() -> str:
-    return os.getenv("DATABASE_URL", DEFAULT_DATABASE_URL)
+    database_url = os.getenv("DATABASE_URL")
+    if not database_url:
+        raise RuntimeError("DATABASE_URL must be supplied through the environment or a mounted secret")
+    return database_url
 
 
 def wait_for_db(database_url: str, timeout_seconds: int = 90) -> None:

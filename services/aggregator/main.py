@@ -6,10 +6,13 @@ from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from threading import Lock, Thread
 
 from kafka import KafkaConsumer
+from kafka.consumer.subscription_state import ConsumerRebalanceListener
+from kafka.coordinator.assignors.roundrobin import RoundRobinPartitionAssignor
 import psycopg
 
 from services.common.db_wait import database_ready
 from services.common.event_schema import ShipmentEvent
+from services.common.kafka_config import kafka_security_config
 from services.common.kafka_wait import kafka_ready, wait_for_kafka
 from services.common.logging_utils import configure_logging, get_instance_id, utc_now_iso
 from services.common.schema_init import ensure_projection_schema
@@ -23,14 +26,41 @@ TOPICS = [
     if topic.strip()
 ]
 GROUP_ID = os.getenv("KAFKA_GROUP_ID", "shipment-aggregator")
-DATABASE_URL = os.getenv(
-    "DATABASE_URL",
-    "postgresql://postgres:postgres@postgres:5432/shipments",
-)
+AZURE_REGION = os.getenv("AZURE_REGION", "local")
+DATABASE_URL = os.environ["DATABASE_URL"]
 HEALTH_PORT = int(os.getenv("HEALTH_PORT", "8081"))
 SERVICE_NAME = "aggregator"
 INSTANCE_ID = get_instance_id(SERVICE_NAME)
 logger = configure_logging(SERVICE_NAME)
+
+
+def serialize_partitions(partitions: list) -> list[dict[str, object]]:
+    return [
+        {"topic": partition.topic, "partition": partition.partition}
+        for partition in sorted(partitions, key=lambda item: (item.topic, item.partition))
+    ]
+
+
+class AssignmentLogger(ConsumerRebalanceListener):
+    def on_partitions_revoked(self, revoked: list) -> None:
+        logger.info(
+            "partitions_revoked",
+            extra={
+                "region": AZURE_REGION,
+                "consumer_group": GROUP_ID,
+                "topic_partitions": serialize_partitions(revoked),
+            },
+        )
+
+    def on_partitions_assigned(self, assigned: list) -> None:
+        logger.info(
+            "partitions_assigned",
+            extra={
+                "region": AZURE_REGION,
+                "consumer_group": GROUP_ID,
+                "topic_partitions": serialize_partitions(assigned),
+            },
+        )
 
 
 class ReadinessState:
@@ -189,14 +219,16 @@ def main() -> None:
     ensure_projection_schema(DATABASE_URL)
 
     consumer = KafkaConsumer(
-        *TOPICS,
         bootstrap_servers=BOOTSTRAP,
         group_id=GROUP_ID,
         auto_offset_reset="earliest",
         enable_auto_commit=False,
+        partition_assignment_strategy=[RoundRobinPartitionAssignor],
         value_deserializer=lambda value: value.decode("utf-8"),
         key_deserializer=lambda value: value.decode("utf-8") if value else None,
+        **kafka_security_config(),
     )
+    consumer.subscribe(TOPICS, listener=AssignmentLogger())
     readiness_state.mark_consumer_started()
 
     logger.info("aggregator_started")
