@@ -3,7 +3,7 @@ using '../aks-region.bicep'
 param location = 'northeurope'
 param clusterName = 'thesis-aks-region-b'
 param aksTier = 'Free'
-param kubernetesVersion = '1.35'
+param kubernetesVersion = '1.35.7'
 param systemPoolVmSize = 'Standard_B2s'
 param systemPoolCount = 1
 param systemPoolZones = [

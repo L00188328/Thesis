@@ -4,17 +4,17 @@
     "credits_or_discounts_assumed": false,
     "currency": "EUR",
     "estimated_hourly_burn_by_configuration": {
-      "E1": 0.359374,
+      "E1": 0.267974,
       "E2-A": 0.359374,
       "E2-B": 0.359374,
       "F1": 0.359374,
       "G1": 0.6096,
       "G2": 0.6096
     },
-    "estimated_total": 16.344921,
+    "estimated_total": 16.276371,
     "gross_spend_ceiling": 50.0,
-    "live_price_confirmation_status": "pending-final-predeployment-check",
-    "price_query_date": "2026-08-27",
+    "live_price_confirmation_status": "confirmed",
+    "price_query_date": "2026-08-29",
     "subscription_reference": "thesis-experiment-subscription"
   },
   "burn_estimate": {
@@ -29,8 +29,8 @@
     "configurations": [
       {
         "configuration": "E1",
-        "estimated_cost_per_repeat": 0.089843,
-        "estimated_hourly_burn": 0.359374,
+        "estimated_cost_per_repeat": 0.066993,
+        "estimated_hourly_burn": 0.267974,
         "measured_hours_per_repeat": 0.25
       },
       {
@@ -65,13 +65,13 @@
       }
     ],
     "currency": "EUR",
-    "estimated_total": 16.344921,
+    "estimated_total": 16.276371,
     "fixed_estimated_cost": 14.2,
-    "generated_timestamp_utc": "2026-08-27T13:45:35.662272+00:00",
-    "maximum_repeat_count_within_estimate": 50,
-    "one_repeat_all_configurations_cost": 0.714974,
+    "generated_timestamp_utc": "2026-08-29T15:44:04.787251+00:00",
+    "maximum_repeat_count_within_estimate": 51,
+    "one_repeat_all_configurations_cost": 0.692124,
     "price_sources": [
-      "Azure Retail Prices API queried 2026-08-27 in EUR: https://prices.azure.com/api/retail/prices",
+      "Azure Retail Prices API queried 2026-08-29 in EUR: https://prices.azure.com/api/retail/prices",
       "Microsoft Front Door billing guidance: https://learn.microsoft.com/azure/frontdoor/billing"
     ],
     "requested_repeat_count": 3,
@@ -210,8 +210,8 @@
   },
   "protocol": {
     "file": "evidence/azure-experimental-protocol.md",
-    "frozen_timestamp_utc": "2026-08-28T13:29:04.459006+00:00",
-    "git_commit": "d504533bb573a02527e0777b7f730ba4854e8a00",
+    "frozen_timestamp_utc": "2026-08-29T15:44:04.942202+00:00",
+    "git_commit": "10f34e0e4cc729a146b2ceb607e1444e90fd8298",
     "sha256": "00ade8fac239edf64af1075429317abd0c748f050b65310885d63645bf39e033",
     "version": "1.0.2",
     "worktree_clean": false
@@ -224,7 +224,7 @@
   "repeat_count": 3,
   "schema_version": 2,
   "skus": {
-    "aks_exact_patch": "pending-live-azure-authentication",
+    "aks_exact_patch": "1.35.7",
     "aks_kubernetes_minor": "1.35",
     "aks_tier": "Free",
     "cluster_configurations": [

@@ -11,7 +11,7 @@ Parameter files under `parameters/` are reusable reviewed defaults. Secrets and 
 
 No deployment command should be run until `evidence/azure-experiment-freeze.json` is complete and explicit approval has been given.
 
-The region parameter files request AKS minor version `1.35`. Before deployment, use `az aks get-versions` in both regions, choose one patch offered in both, replace every region parameter value with that exact patch, and regenerate the freeze file. This metadata query does not create resources.
+The region parameter files pin AKS `1.35.7`, selected on 2026-08-29 as the latest patch offered to the experiment subscription in both `westeurope` and `northeurope`. Re-run `az aks get-versions` in both regions immediately before deployment; if availability has changed, stop and amend the freeze rather than silently selecting another version. This metadata query does not create resources.
 
 Region A reuses `aks-region.bicep` through three explicit parameter sets:
 

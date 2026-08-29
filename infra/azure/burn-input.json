@@ -22,7 +22,7 @@
       "measured_hours_per_repeat": 0.25,
       "resources": [
         {"name": "Region A system node", "hourly_rate": 0.0422},
-        {"name": "Region A application nodes", "hourly_rate": 0.0914, "quantity": 2},
+        {"name": "Region A application node", "hourly_rate": 0.0914, "quantity": 1},
         {"name": "Event Hubs Standard Kafka endpoint and TU", "hourly_rate": 0.1055},
         {"name": "PostgreSQL B1ms", "hourly_rate": 0.0175},
         {"name": "PostgreSQL 32 GiB storage hourly equivalent", "hourly_rate": 0.005274},
@@ -104,7 +104,7 @@
     "Resources are deleted or stopped promptly outside the planned windows."
   ],
   "price_sources": [
-    "Azure Retail Prices API queried 2026-08-27 in EUR: https://prices.azure.com/api/retail/prices",
+    "Azure Retail Prices API queried 2026-08-29 in EUR: https://prices.azure.com/api/retail/prices",
     "Microsoft Front Door billing guidance: https://learn.microsoft.com/azure/frontdoor/billing"
   ]
 }

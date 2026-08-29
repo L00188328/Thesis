@@ -4,8 +4,8 @@
     "currency": "EUR",
     "gross_spend_ceiling": 50.0,
     "credits_or_discounts_assumed": false,
-    "price_query_date": "2026-08-27",
-    "live_price_confirmation_status": "pending-final-predeployment-check"
+    "price_query_date": "2026-08-29",
+    "live_price_confirmation_status": "confirmed"
   },
   "regions": {
     "region_a": "westeurope",
@@ -15,7 +15,7 @@
   "skus": {
     "aks_tier": "Free",
     "aks_kubernetes_minor": "1.35",
-    "aks_exact_patch": "pending-live-azure-authentication",
+    "aks_exact_patch": "1.35.7",
     "event_hubs": "Standard",
     "front_door": "Standard_AzureFrontDoor",
     "cluster_configurations": [

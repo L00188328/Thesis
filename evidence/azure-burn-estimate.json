@@ -10,8 +10,8 @@
   "configurations": [
     {
       "configuration": "E1",
-      "estimated_cost_per_repeat": 0.089843,
-      "estimated_hourly_burn": 0.359374,
+      "estimated_cost_per_repeat": 0.066993,
+      "estimated_hourly_burn": 0.267974,
       "measured_hours_per_repeat": 0.25
     },
     {
@@ -46,13 +46,13 @@
     }
   ],
   "currency": "EUR",
-  "estimated_total": 16.344921,
+  "estimated_total": 16.276371,
   "fixed_estimated_cost": 14.2,
-  "generated_timestamp_utc": "2026-08-27T13:45:35.662272+00:00",
-  "maximum_repeat_count_within_estimate": 50,
-  "one_repeat_all_configurations_cost": 0.714974,
+  "generated_timestamp_utc": "2026-08-29T15:44:04.787251+00:00",
+  "maximum_repeat_count_within_estimate": 51,
+  "one_repeat_all_configurations_cost": 0.692124,
   "price_sources": [
-    "Azure Retail Prices API queried 2026-08-27 in EUR: https://prices.azure.com/api/retail/prices",
+    "Azure Retail Prices API queried 2026-08-29 in EUR: https://prices.azure.com/api/retail/prices",
     "Microsoft Front Door billing guidance: https://learn.microsoft.com/azure/frontdoor/billing"
   ],
   "requested_repeat_count": 3,

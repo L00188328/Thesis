@@ -190,10 +190,9 @@ class FreezeValidationTests(unittest.TestCase):
         settings = load_json("infra/azure/experiment-settings.json")
         validate_settings(settings, allow_live_placeholders=True)
 
-    def test_final_freeze_requires_live_gates(self) -> None:
+    def test_final_freeze_live_gates_are_satisfied(self) -> None:
         settings = load_json("infra/azure/experiment-settings.json")
-        with self.assertRaisesRegex(ValueError, "exact AKS 1.35 patch"):
-            validate_settings(settings, allow_live_placeholders=False)
+        validate_settings(settings, allow_live_placeholders=False)
 
 
 if __name__ == "__main__":
