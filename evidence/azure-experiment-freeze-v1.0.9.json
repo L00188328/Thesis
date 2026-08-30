@@ -1,0 +1,166 @@
+{
+  "schema_version": 4,
+  "protocol": {
+    "version": "1.0.9",
+    "status": "final_experimental_amendment_programme_closed",
+    "file": "evidence/azure-experimental-protocol.md",
+    "git_commit": "3deca19df8267ac918a647663050dca730067456",
+    "sha256": "d344728afc03f4123cf47b3db00f4ae273096b667d6ea85b5bac7b61acbee1be",
+    "frozen_timestamp_utc": "2026-08-30T15:31:08Z"
+  },
+  "amendment": {
+    "type": "final experimental programme closeout",
+    "reason": "The frozen Azure Front Door resource required for G1/G2 was rejected by the Azure for Students subscription before G1 workload execution.",
+    "no_alternative_routing_or_subscription": true,
+    "no_further_azure_experiments": true,
+    "final_run_plan": "evidence/azure-run-plan-v1.0.9.json",
+    "historical_freezes_unchanged": [
+      "evidence/azure-experiment-freeze.json",
+      "evidence/azure-experiment-freeze-v1.0.8.json"
+    ],
+    "historical_key_manifest_unchanged": "evidence/partition-key-map.json"
+  },
+  "empirical_evaluation_chain": [
+    "Application correctness",
+    "Local Kubernetes Pod resilience",
+    "E1 Azure baseline",
+    "F1 simulated zonal resilience"
+  ],
+  "configuration_status": {
+    "local_kubernetes_pod_ha": {
+      "status": "COMPLETED",
+      "runs_executed": "D4 Aggregator Pod failure; D5 API Pod failure",
+      "evidence": "evidence/04-kubernetes-pod-failover/"
+    },
+    "E1": {
+      "status": "COMPLETED",
+      "discarded_warm_up_runs": 1,
+      "measured_runs": 3,
+      "evidence": "evidence/05-azure-baseline/"
+    },
+    "F1": {
+      "status": "COMPLETED",
+      "discarded_warm_up_runs": 1,
+      "measured_runs": 2,
+      "evidence": "evidence/06-azure-az/"
+    },
+    "G1": {
+      "status": "BLOCKED_BEFORE_WORKLOAD_EXECUTION_AZURE_SUBSCRIPTION_CONSTRAINT",
+      "experimental_fail": false,
+      "discarded_warm_up_runs": 0,
+      "measured_runs": 0,
+      "empirical_metrics_exist": false,
+      "evidence": "evidence/07-azure-region/g1-blocked-2026-08-30/"
+    },
+    "G2": {
+      "status": "NOT_EXECUTED_FRONT_DOOR_SUBSCRIPTION_CONSTRAINT",
+      "experimental_fail": false,
+      "discarded_warm_up_runs": 0,
+      "measured_runs": 0,
+      "empirical_metrics_exist": false,
+      "evidence": "design_and_iac_only"
+    }
+  },
+  "empirical_boundary": {
+    "g1_g2_metrics_absent": [
+      "availability",
+      "recovery",
+      "latency",
+      "consumer_lag",
+      "integrity",
+      "consumer_assignment",
+      "cost_performance"
+    ],
+    "inference_or_estimation_prohibited": true,
+    "dissertation_treatment": "G1/G2 are designed strategies only for architecture/design and Limitations/Future Work; exclude them from empirical performance conclusions.",
+    "study_characterisation": "Descriptive prototype evaluation; completed repeat counts are not production SLA statistics."
+  },
+  "run_identity": {
+    "completed_discarded_warm_up": ["E1-warmup", "F1-warmup"],
+    "completed_measured": ["E1-r01", "E1-r02", "E1-r03", "F1-r01", "F1-r02"],
+    "g1_blocked_unused": ["G1-warmup", "G1-r01", "G1-r02"],
+    "g2_not_executed_unused": ["G2-warmup", "G2-r01", "G2-r02"],
+    "reserved_keys_reuse_prohibited": true,
+    "manifest": "evidence/partition-key-map.json",
+    "manifest_sha256": "8185ea085a406bcd4faedd72231721920126753078c403c84d3d517770b28cfc"
+  },
+  "g1_blocker": {
+    "region_a_topology": "F1 Region A AKS: system plus appzone1/appzone2 pools, Kubernetes 1.35.7, Italy North",
+    "region_b_topology": "Region B AKS: Standard_B2s system zone 1 plus Standard_D2as_v4 appzone1/appzone2 in zones 1/2, Kubernetes 1.35.7, Norway East",
+    "region_b_deployment_succeeded_utc": "2026-08-30T14:43:52.128098Z",
+    "front_door_operation_timestamp_utc": "2026-08-30T14:53:05.093622Z",
+    "front_door_deployment_failed_utc": "2026-08-30T14:54:16.1721727Z",
+    "azure_error": "Free Trial and Student account is forbidden for Azure Frontdoor resources.",
+    "front_door_resource_count_after_failure": 0,
+    "warm_up_started": false,
+    "t1_occurred": false,
+    "controlled_workload_started": false,
+    "measurement_started": false,
+    "region_a_aks_stop_succeeded_utc": "2026-08-30T14:57:25.5657551Z",
+    "region_b_aks_stop_succeeded_utc": "2026-08-30T14:57:27.8565742Z",
+    "postgresql_stop_succeeded_utc": "2026-08-30T14:58:22.0513052Z"
+  },
+  "cost_closeout": {
+    "currency": "EUR",
+    "gross_spend_ceiling": 50.0,
+    "actual_cost_status": "pending_cost_management_delay_or_rate_limit",
+    "final_query_result": "HTTP 429 Too Many Requests; no amount returned",
+    "fabricated_costs": false,
+    "e1_cost_reference": "evidence/05-azure-baseline/cost/E1-cost-window.md",
+    "f1_cost_reference": "evidence/06-azure-az/cost/F1-cost-window.md",
+    "g1_preparation_cost_reference": "evidence/08-azure-closeout/cost/final-cost-status.md",
+    "historical_plan_estimate_reference": "evidence/azure-burn-estimate-v1.0.8.json",
+    "billing_attribution_inventory": "evidence/08-azure-closeout/pre-teardown/",
+    "retained_non_billable_item": "subscription-level EUR 50 monthly thesis-experiments budget guard"
+  },
+  "teardown": {
+    "status": "COMPLETED",
+    "permanently_deleted": [
+      "Region A AKS and managed resources",
+      "Region B AKS and managed resources",
+      "PostgreSQL flexible server and storage",
+      "Event Hubs namespace, entities and consumer groups",
+      "Azure Container Registry",
+      "failed Front Door resource group",
+      "all thesis-ha resource groups"
+    ],
+    "front_door_resources_ever_created": 0,
+    "front_door_resource_group_deleted_utc": "2026-08-30T15:10:21.852853Z",
+    "region_a_aks_deleted_utc": "2026-08-30T15:15:27.2412309Z",
+    "region_b_aks_deleted_utc": "2026-08-30T15:15:30.210785Z",
+    "region_a_resource_group_deleted_utc": "2026-08-30T15:16:17.3285196Z",
+    "region_b_resource_group_deleted_utc": "2026-08-30T15:16:21.0850158Z",
+    "acr_deleted_utc": "2026-08-30T15:17:40.3804033Z",
+    "event_hubs_deleted_utc": "2026-08-30T15:17:40.2720957Z",
+    "postgresql_deleted_utc": "2026-08-30T15:22:11.8379877Z",
+    "shared_resource_group_absence_observed_utc": "2026-08-30T15:23:20Z",
+    "final_inventory_exported_utc": "2026-08-30T15:24:29.864298Z",
+    "final_inventory_counts": {
+      "thesis_resource_groups": 0,
+      "thesis_resources": 0,
+      "aks": 0,
+      "postgresql": 0,
+      "event_hubs": 0,
+      "acr": 0,
+      "front_door": 0
+    },
+    "intentionally_retained_azure_resources": [],
+    "intentionally_retained_non_resource_guard": "thesis-experiments budget"
+  },
+  "evidence": {
+    "historical_evidence_mutation": "none",
+    "pre_teardown_export_manifest": {
+      "path": "evidence/08-azure-closeout/pre-teardown/export-manifest.json",
+      "sha256": "e89f918d4b9a06e05cadb848dd1d8a6b92ea60fea454587156b2cc240ee4c1c2",
+      "exported_files": 28,
+      "rejected_files": 0
+    },
+    "post_teardown_export_manifest": {
+      "path": "evidence/08-azure-closeout/post-teardown/export-manifest.json",
+      "sha256": "58af131c7c5ba5e311afca310b53f9d03a8f4200b7d9bc12c341aa8bb64f8b95",
+      "exported_files": 12,
+      "rejected_files": 0
+    },
+    "final_matrix": "evidence/08-azure-closeout/final-experiment-matrix.md"
+  }
+}
