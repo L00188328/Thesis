@@ -1,0 +1,27 @@
+{
+  "agentPoolProfiles": [
+    {
+      "count": 1,
+      "mode": "System",
+      "name": "system",
+      "powerState": "Running",
+      "provisioningState": "Succeeded",
+      "vmSize": "Standard_B2s",
+      "zones": null
+    },
+    {
+      "count": 1,
+      "mode": "User",
+      "name": "app",
+      "powerState": "Running",
+      "provisioningState": "Succeeded",
+      "vmSize": "Standard_D2as_v4",
+      "zones": null
+    }
+  ],
+  "kubernetesVersion": "1.35.7",
+  "location": "italynorth",
+  "name": "thesis-aks-region-a",
+  "powerState": "Running",
+  "provisioningState": "Succeeded"
+}

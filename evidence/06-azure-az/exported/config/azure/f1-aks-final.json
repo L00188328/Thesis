@@ -1,0 +1,66 @@
+{
+  "agentPoolProfiles": [
+    {
+      "count": 1,
+      "mode": "System",
+      "name": "system",
+      "nodeLabels": {
+        "workload": "system"
+      },
+      "powerState": "Running",
+      "provisioningState": "Succeeded",
+      "vmSize": "Standard_B2s",
+      "zones": [
+        "1"
+      ]
+    },
+    {
+      "count": 1,
+      "mode": "User",
+      "name": "appzone1",
+      "nodeLabels": {
+        "configuration": "f1",
+        "experimentPool": "appzone1",
+        "regionRole": "region-a",
+        "workload": "thesis-app"
+      },
+      "powerState": "Running",
+      "provisioningState": "Succeeded",
+      "vmSize": "Standard_D2as_v4",
+      "zones": [
+        "1"
+      ]
+    },
+    {
+      "count": 1,
+      "mode": "User",
+      "name": "appzone2",
+      "nodeLabels": {
+        "configuration": "f1",
+        "experimentPool": "appzone2",
+        "regionRole": "region-a",
+        "workload": "thesis-app"
+      },
+      "powerState": "Running",
+      "provisioningState": "Succeeded",
+      "vmSize": "Standard_D2as_v4",
+      "zones": [
+        "2"
+      ]
+    }
+  ],
+  "id": "/subscriptions/[REDACTED]/resourcegroups/thesis-ha-region-a-rg/providers/Microsoft.ContainerService/managedClusters/thesis-aks-region-a",
+  "kubernetesVersion": "1.35.7",
+  "location": "italynorth",
+  "name": "thesis-aks-region-a",
+  "powerState": "Running",
+  "provisioningState": "Succeeded",
+  "tags": {
+    "configuration": "F1",
+    "owner": "robyn",
+    "phase": "azure-ha",
+    "project": "masters-thesis",
+    "regionRole": "region-a",
+    "run": "f1-series"
+  }
+}

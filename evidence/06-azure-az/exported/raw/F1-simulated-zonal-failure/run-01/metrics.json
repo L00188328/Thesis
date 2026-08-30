@@ -1,0 +1,80 @@
+{
+  "availability": {
+    "availability_percent": 99.0,
+    "failed_probes": 6,
+    "failure_timestamps_utc": [
+      "2026-08-30T12:42:55.054639+00:00",
+      "2026-08-30T12:43:07.053720+00:00",
+      "2026-08-30T12:44:09.022291+00:00",
+      "2026-08-30T12:44:14.190986+00:00",
+      "2026-08-30T12:49:19.037145+00:00",
+      "2026-08-30T12:49:24.043879+00:00"
+    ],
+    "latency_ms": {
+      "max": 3129.25,
+      "p50": 130.38,
+      "p95": 163.56,
+      "p99": 245.25
+    },
+    "longest_consecutive_failure_sequence": 2,
+    "successful_probes": 594,
+    "total_probes": 600
+  },
+  "consumer_lag": {
+    "final_three_samples_zero": true,
+    "last_sample_before_fault": 0,
+    "maximum_after_fault": 3
+  },
+  "discarded_warm_up": false,
+  "durations_from_t2_seconds": {
+    "backlog_recovery": 3.819,
+    "command_acceptance": 10.124,
+    "first_event_processing_recovery": 3.819,
+    "first_service_success": 0.442,
+    "node_unavailable": 52.383,
+    "pool_stopped": 10.026,
+    "replacement_api_ready_and_routed": 26.443,
+    "replacement_containers_started": 13.383,
+    "replacement_scheduled": 12.383,
+    "sustained_event_processing_recovery": 3.819,
+    "sustained_service_recovery": 0.442
+  },
+  "failed_pool": "appzone1",
+  "fault": "simulated zonal failure using az aks nodepool stop --no-wait",
+  "instrumentation_note": "The macOS live node watcher emitted literal .3N timestamps and stopped when Azure first reported the pool Stopped, before Kubernetes removed the node. Raw watcher evidence is retained unchanged; node-unavailable timing is recovered from the authoritative retained Kubernetes RemovingNode event at one-second precision.",
+  "integrity": {
+    "duplicate_rows": 0,
+    "missing_events": 0,
+    "pass": true,
+    "persisted_rows": 600,
+    "unique_event_ids": 600
+  },
+  "routing_path": "external host to direct Region A application endpoint over HTTP",
+  "run_id": "F1-r01",
+  "timing": {
+    "node_unavailable_authority": "retained Kubernetes RemovingNode event; live watcher stopped when Azure reported pool Stopped before node removal",
+    "node_unavailable_utc": "2026-08-30T12:41:39+00:00",
+    "pool_stopped_utc": "2026-08-30T12:40:56.643000+00:00",
+    "t1_utc": "2026-08-30T12:39:45.800005+00:00",
+    "t2_accepted_utc": "2026-08-30T12:40:56.741000+00:00",
+    "t2_command_utc": "2026-08-30T12:40:46.617000+00:00",
+    "t3_observation": "first service failure",
+    "t3_utc": "2026-08-30T12:42:55.054639+00:00",
+    "t4_first_service_success_utc": "2026-08-30T12:40:47.059482+00:00",
+    "t5_confirmation_utc": "2026-08-30T12:40:51.187644+00:00",
+    "t5_sustained_recovery_start_utc": "2026-08-30T12:40:47.059482+00:00",
+    "t6_stable_utc": "2026-08-30T12:53:49.681148+00:00",
+    "t7_backlog_recovery_utc": "2026-08-30T12:40:50.436418+00:00",
+    "t8_integrity_utc": "2026-08-30T13:16:19.996322+00:00"
+  },
+  "window_seconds": 600,
+  "workload": {
+    "freshness_rows": 240,
+    "partitions_observed": [
+      0,
+      1
+    ],
+    "progress_interruptions": 0,
+    "published_events": 600
+  }
+}

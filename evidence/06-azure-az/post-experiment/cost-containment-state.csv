@@ -1,0 +1,11 @@
+sample_timestamp_utc,aks_power_state,postgres_state
+2026-08-30T13:22:15Z,Stopped,Stopping
+2026-08-30T13:22:33Z,Stopped,Stopping
+2026-08-30T13:22:52Z,Stopped,Stopping
+2026-08-30T13:23:10Z,Stopped,Stopping
+2026-08-30T13:23:29Z,Stopped,Stopping
+2026-08-30T13:23:46Z,Stopped,Stopping
+2026-08-30T13:24:04Z,Stopped,Stopping
+2026-08-30T13:24:22Z,Stopped,Stopping
+2026-08-30T13:24:40Z,Stopped,Stopping
+2026-08-30T13:24:58Z,Stopped,Stopped

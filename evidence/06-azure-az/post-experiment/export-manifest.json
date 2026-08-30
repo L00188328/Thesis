@@ -1,0 +1,25 @@
+{
+  "binary_policy": "Binary and image files are rejected because text redaction cannot prove that they contain no secrets.",
+  "exported_files": [
+    {
+      "path": "cost-containment-state.csv",
+      "sha256": "7d24f8b8b765e8305859c3f13c238688c6cf69947ebce3e54449d4d7a864b34e"
+    },
+    {
+      "path": "cost-containment-timeline.csv",
+      "sha256": "483d8659475759568f5e36570243a8b41fa7ca555201de6d84fc1737131161a6"
+    },
+    {
+      "path": "final-stopped-aks.json",
+      "sha256": "1da5b25eb8d295ed6e8e7789551ef6df742ed9f1f74cabfda8c321caf43fa8b5"
+    },
+    {
+      "path": "final-stopped-postgres.json",
+      "sha256": "95b0191239537f4788e3498398e527f4545baa361cdd345cbac4116c42d44c83"
+    }
+  ],
+  "generated_timestamp_utc": "2026-08-30T13:25:30.396407+00:00",
+  "rejected_files": [],
+  "schema_version": 1,
+  "source_label": "post-source"
+}

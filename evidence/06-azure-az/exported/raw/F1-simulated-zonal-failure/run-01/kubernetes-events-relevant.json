@@ -1,0 +1,1694 @@
+{
+  "items": [
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2026-08-30T12:40:59Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "kind": "Pod",
+        "name": "api-58d9f5d75-cjknr",
+        "namespace": "thesis-ha",
+        "resourceVersion": "11011",
+        "uid": "ce374d53-f745-4842-9588-9177bf4f3fe6"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2026-08-30T12:40:59Z",
+      "message": "Successfully assigned thesis-ha/api-58d9f5d75-cjknr to aks-appzone2-18875896-vmss000000",
+      "metadata": {
+        "creationTimestamp": "2026-08-30T12:40:59Z",
+        "name": "api-58d9f5d75-cjknr.18d095b5b1d7fec6",
+        "namespace": "thesis-ha",
+        "resourceVersion": "11022",
+        "uid": "e1930325-e993-4d7c-98e5-c86483a040ca"
+      },
+      "reason": "Scheduled",
+      "reportingComponent": "default-scheduler",
+      "reportingInstance": "",
+      "source": {
+        "component": "default-scheduler"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2026-08-30T12:40:59Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "kind": "Node",
+        "name": "aks-appzone1-30860596-vmss000001",
+        "resourceVersion": "10404",
+        "uid": "e52ce717-d050-4364-8934-8bd08c4e7bdd"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2026-08-30T12:40:59Z",
+      "message": "Cordoning node aks-appzone1-30860596-vmss000001",
+      "metadata": {
+        "creationTimestamp": "2026-08-30T12:40:59Z",
+        "name": "aks-appzone1-30860596-vmss000001.18d095b5a465eef8",
+        "namespace": "default",
+        "resourceVersion": "10987",
+        "uid": "22363920-6688-4e88-a547-2997ce9ba889"
+      },
+      "reason": "Cordon",
+      "reportingComponent": "upgrader",
+      "reportingInstance": "",
+      "source": {
+        "component": "upgrader"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2026-08-30T12:40:59Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "kind": "Pod",
+        "name": "aggregator-76557885fd-7v8sv",
+        "namespace": "thesis-ha",
+        "resourceVersion": "11012",
+        "uid": "de578e38-6684-4b74-b434-f90cd3347561"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2026-08-30T12:40:59Z",
+      "message": "Successfully assigned thesis-ha/aggregator-76557885fd-7v8sv to aks-appzone2-18875896-vmss000000",
+      "metadata": {
+        "creationTimestamp": "2026-08-30T12:40:59Z",
+        "name": "aggregator-76557885fd-7v8sv.18d095b5b2311dbd",
+        "namespace": "thesis-ha",
+        "resourceVersion": "11025",
+        "uid": "0e4df78e-1189-423e-9fe7-a2bd75add242"
+      },
+      "reason": "Scheduled",
+      "reportingComponent": "default-scheduler",
+      "reportingInstance": "",
+      "source": {
+        "component": "default-scheduler"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2026-08-30T12:40:59Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.containers{aggregator}",
+        "kind": "Pod",
+        "name": "aggregator-76557885fd-gbbgq",
+        "namespace": "thesis-ha",
+        "resourceVersion": "10114",
+        "uid": "6a3a6818-c73b-46c9-b3b9-d7397700dfea"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2026-08-30T12:40:59Z",
+      "message": "Stopping container aggregator",
+      "metadata": {
+        "creationTimestamp": "2026-08-30T12:40:59Z",
+        "name": "aggregator-76557885fd-gbbgq.18d095b5afdd1b09",
+        "namespace": "thesis-ha",
+        "resourceVersion": "11007",
+        "uid": "1b274e60-b668-4dea-aca4-d1a7a4dbf917"
+      },
+      "reason": "Killing",
+      "reportingComponent": "kubelet",
+      "reportingInstance": "aks-appzone1-30860596-vmss000001",
+      "source": {
+        "component": "kubelet",
+        "host": "aks-appzone1-30860596-vmss000001"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2026-08-30T12:40:59Z",
+      "involvedObject": {
+        "apiVersion": "apps/v1",
+        "kind": "ReplicaSet",
+        "name": "aggregator-76557885fd",
+        "namespace": "thesis-ha",
+        "resourceVersion": "10270",
+        "uid": "f2087e16-cc8d-409c-ba81-fbfa53d05a15"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2026-08-30T12:40:59Z",
+      "message": "Created pod: aggregator-76557885fd-7v8sv",
+      "metadata": {
+        "creationTimestamp": "2026-08-30T12:40:59Z",
+        "name": "aggregator-76557885fd.18d095b5b1c95cd1",
+        "namespace": "thesis-ha",
+        "resourceVersion": "11019",
+        "uid": "0638ac5d-da84-4279-9929-67db2dde14cc"
+      },
+      "reason": "SuccessfulCreate",
+      "reportingComponent": "replicaset-controller",
+      "reportingInstance": "",
+      "source": {
+        "component": "replicaset-controller"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2026-08-30T12:40:59Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "kind": "Node",
+        "name": "aks-appzone1-30860596-vmss000001",
+        "resourceVersion": "10988",
+        "uid": "e52ce717-d050-4364-8934-8bd08c4e7bdd"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2026-08-30T12:40:59Z",
+      "message": "Draining node: aks-appzone1-30860596-vmss000001",
+      "metadata": {
+        "creationTimestamp": "2026-08-30T12:40:59Z",
+        "name": "aks-appzone1-30860596-vmss000001.18d095b5a7b6171b",
+        "namespace": "default",
+        "resourceVersion": "10990",
+        "uid": "d21440ac-50af-41c5-86d9-545a47e44224"
+      },
+      "reason": "Drain",
+      "reportingComponent": "upgrader",
+      "reportingInstance": "",
+      "source": {
+        "component": "upgrader"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2026-08-30T12:40:59Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "kind": "Node",
+        "name": "aks-appzone1-30860596-vmss000001",
+        "resourceVersion": "10988",
+        "uid": "e52ce717-d050-4364-8934-8bd08c4e7bdd"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2026-08-30T12:40:59Z",
+      "message": "Cordoned node aks-appzone1-30860596-vmss000001",
+      "metadata": {
+        "creationTimestamp": "2026-08-30T12:40:59Z",
+        "name": "aks-appzone1-30860596-vmss000001.18d095b5a7505f5b",
+        "namespace": "default",
+        "resourceVersion": "10989",
+        "uid": "98ae909e-2e29-4bbf-9689-8e709c622024"
+      },
+      "reason": "Cordon",
+      "reportingComponent": "upgrader",
+      "reportingInstance": "",
+      "source": {
+        "component": "upgrader"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2026-08-30T12:40:59Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.containers{api}",
+        "kind": "Pod",
+        "name": "api-58d9f5d75-gzx7k",
+        "namespace": "thesis-ha",
+        "resourceVersion": "10288",
+        "uid": "6012440e-6047-4778-97ed-187d6451f2ad"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2026-08-30T12:40:59Z",
+      "message": "Stopping container api",
+      "metadata": {
+        "creationTimestamp": "2026-08-30T12:40:59Z",
+        "name": "api-58d9f5d75-gzx7k.18d095b5af432b9a",
+        "namespace": "thesis-ha",
+        "resourceVersion": "11002",
+        "uid": "d0f4f5a3-667e-497c-b7a7-e974b14a94a8"
+      },
+      "reason": "Killing",
+      "reportingComponent": "kubelet",
+      "reportingInstance": "aks-appzone1-30860596-vmss000001",
+      "source": {
+        "component": "kubelet",
+        "host": "aks-appzone1-30860596-vmss000001"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2026-08-30T12:40:59Z",
+      "involvedObject": {
+        "apiVersion": "apps/v1",
+        "kind": "ReplicaSet",
+        "name": "api-58d9f5d75",
+        "namespace": "thesis-ha",
+        "resourceVersion": "10373",
+        "uid": "abb356b9-80a2-4166-b487-8b3363c7b161"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2026-08-30T12:40:59Z",
+      "message": "Created pod: api-58d9f5d75-cjknr",
+      "metadata": {
+        "creationTimestamp": "2026-08-30T12:40:59Z",
+        "name": "api-58d9f5d75.18d095b5b17da1c7",
+        "namespace": "thesis-ha",
+        "resourceVersion": "11015",
+        "uid": "d31ff41d-739a-4976-b1ed-2955011b3a48"
+      },
+      "reason": "SuccessfulCreate",
+      "reportingComponent": "replicaset-controller",
+      "reportingInstance": "",
+      "source": {
+        "component": "replicaset-controller"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2026-08-30T12:41:00Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.containers{aggregator}",
+        "kind": "Pod",
+        "name": "aggregator-76557885fd-7v8sv",
+        "namespace": "thesis-ha",
+        "resourceVersion": "11017",
+        "uid": "de578e38-6684-4b74-b434-f90cd3347561"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2026-08-30T12:41:00Z",
+      "message": "Container image \"thesishaacr.azurecr.io/thesis-aggregator@sha256:a41041c885ba594685d1533e6b436ce536015c1effd06a41651ec401a5ca34ff\" already present on machine and can be accessed by the pod",
+      "metadata": {
+        "creationTimestamp": "2026-08-30T12:41:00Z",
+        "name": "aggregator-76557885fd-7v8sv.18d095b5d8c41c56",
+        "namespace": "thesis-ha",
+        "resourceVersion": "11038",
+        "uid": "6c2a7814-9ad7-433f-869a-9cd5f72c4985"
+      },
+      "reason": "Pulled",
+      "reportingComponent": "kubelet",
+      "reportingInstance": "aks-appzone2-18875896-vmss000000",
+      "source": {
+        "component": "kubelet",
+        "host": "aks-appzone2-18875896-vmss000000"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2026-08-30T12:41:00Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.containers{aggregator}",
+        "kind": "Pod",
+        "name": "aggregator-76557885fd-7v8sv",
+        "namespace": "thesis-ha",
+        "resourceVersion": "11017",
+        "uid": "de578e38-6684-4b74-b434-f90cd3347561"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2026-08-30T12:41:00Z",
+      "message": "Container started",
+      "metadata": {
+        "creationTimestamp": "2026-08-30T12:41:00Z",
+        "name": "aggregator-76557885fd-7v8sv.18d095b5e140bb46",
+        "namespace": "thesis-ha",
+        "resourceVersion": "11045",
+        "uid": "7753531d-b00e-4341-8481-f49fbb2ed19e"
+      },
+      "reason": "Started",
+      "reportingComponent": "kubelet",
+      "reportingInstance": "aks-appzone2-18875896-vmss000000",
+      "source": {
+        "component": "kubelet",
+        "host": "aks-appzone2-18875896-vmss000000"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2026-08-30T12:41:00Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.containers{aggregator}",
+        "kind": "Pod",
+        "name": "aggregator-76557885fd-7v8sv",
+        "namespace": "thesis-ha",
+        "resourceVersion": "11017",
+        "uid": "de578e38-6684-4b74-b434-f90cd3347561"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2026-08-30T12:41:00Z",
+      "message": "Container created",
+      "metadata": {
+        "creationTimestamp": "2026-08-30T12:41:00Z",
+        "name": "aggregator-76557885fd-7v8sv.18d095b5dc6fcda7",
+        "namespace": "thesis-ha",
+        "resourceVersion": "11043",
+        "uid": "c95ed952-9488-481e-830c-b81d4b1c1f1f"
+      },
+      "reason": "Created",
+      "reportingComponent": "kubelet",
+      "reportingInstance": "aks-appzone2-18875896-vmss000000",
+      "source": {
+        "component": "kubelet",
+        "host": "aks-appzone2-18875896-vmss000000"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2026-08-30T12:41:00Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.containers{api}",
+        "kind": "Pod",
+        "name": "api-58d9f5d75-cjknr",
+        "namespace": "thesis-ha",
+        "resourceVersion": "11014",
+        "uid": "ce374d53-f745-4842-9588-9177bf4f3fe6"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2026-08-30T12:41:00Z",
+      "message": "Container created",
+      "metadata": {
+        "creationTimestamp": "2026-08-30T12:41:00Z",
+        "name": "api-58d9f5d75-cjknr.18d095b5ddb4d25d",
+        "namespace": "thesis-ha",
+        "resourceVersion": "11044",
+        "uid": "a4f7165b-1b62-4ab7-a1db-b0f21f4c583a"
+      },
+      "reason": "Created",
+      "reportingComponent": "kubelet",
+      "reportingInstance": "aks-appzone2-18875896-vmss000000",
+      "source": {
+        "component": "kubelet",
+        "host": "aks-appzone2-18875896-vmss000000"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2026-08-30T12:41:00Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.containers{api}",
+        "kind": "Pod",
+        "name": "api-58d9f5d75-cjknr",
+        "namespace": "thesis-ha",
+        "resourceVersion": "11014",
+        "uid": "ce374d53-f745-4842-9588-9177bf4f3fe6"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2026-08-30T12:41:00Z",
+      "message": "Container image \"thesishaacr.azurecr.io/thesis-api@sha256:2bfab63b2894046a842b36fd792a7530a6a28731775a886b081a6fdc3e556b5f\" already present on machine and can be accessed by the pod",
+      "metadata": {
+        "creationTimestamp": "2026-08-30T12:41:00Z",
+        "name": "api-58d9f5d75-cjknr.18d095b5db11327c",
+        "namespace": "thesis-ha",
+        "resourceVersion": "11041",
+        "uid": "261ba0fc-b17d-4938-aeaa-3918297d3c34"
+      },
+      "reason": "Pulled",
+      "reportingComponent": "kubelet",
+      "reportingInstance": "aks-appzone2-18875896-vmss000000",
+      "source": {
+        "component": "kubelet",
+        "host": "aks-appzone2-18875896-vmss000000"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2026-08-30T12:41:00Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.containers{api}",
+        "kind": "Pod",
+        "name": "api-58d9f5d75-cjknr",
+        "namespace": "thesis-ha",
+        "resourceVersion": "11014",
+        "uid": "ce374d53-f745-4842-9588-9177bf4f3fe6"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2026-08-30T12:41:00Z",
+      "message": "Container started",
+      "metadata": {
+        "creationTimestamp": "2026-08-30T12:41:00Z",
+        "name": "api-58d9f5d75-cjknr.18d095b5e20e0ac5",
+        "namespace": "thesis-ha",
+        "resourceVersion": "11046",
+        "uid": "b7d9070c-b948-436d-8924-8cb8fe5b461e"
+      },
+      "reason": "Started",
+      "reportingComponent": "kubelet",
+      "reportingInstance": "aks-appzone2-18875896-vmss000000",
+      "source": {
+        "component": "kubelet",
+        "host": "aks-appzone2-18875896-vmss000000"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2026-08-30T12:41:38Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "kind": "Service",
+        "name": "api",
+        "namespace": "thesis-ha",
+        "resourceVersion": "3158",
+        "uid": "1848af69-df8d-4821-9682-c47646d68c2f"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2026-08-30T12:41:38Z",
+      "message": "Error updating load balancer with new hosts [aks-appzone2-18875896-vmss000000 aks-system-40111161-vmss000000] [node names limited, total number of nodes: 2], error: PUT http://localhost:7788/subscriptions/[REDACTED]/resourceGroups/mc_thesis-ha-region-a-rg_thesis-aks-region-a_italynorth/providers/Microsoft.Compute/virtualMachineScaleSets/aks-appzone1-30860596-vmss/virtualMachines/1\n--------------------------------------------------------------------------------\nRESPONSE 400: 400 Bad Request\nERROR CODE: InvalidParameter\n--------------------------------------------------------------------------------\n{\n  \"error\": {\n    \"code\": \"InvalidParameter\",\n    \"message\": \"The provided instanceId 1 is not an active Virtual Machine Scale Set VM instanceId.\",\n    \"target\": \"instanceIds\"\n  }\n}\n--------------------------------------------------------------------------------\n",
+      "metadata": {
+        "creationTimestamp": "2026-08-30T12:41:38Z",
+        "name": "api.18d095bea0560fd6",
+        "namespace": "thesis-ha",
+        "resourceVersion": "11242",
+        "uid": "af6f878b-0758-4804-b051-c1c190d811eb"
+      },
+      "reason": "UpdateLoadBalancerFailed",
+      "reportingComponent": "service-controller",
+      "reportingInstance": "",
+      "source": {
+        "component": "service-controller"
+      },
+      "type": "Warning"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2026-08-30T12:41:39Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "kind": "Node",
+        "name": "aks-appzone1-30860596-vmss000001",
+        "uid": "e52ce717-d050-4364-8934-8bd08c4e7bdd"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2026-08-30T12:41:39Z",
+      "message": "Node aks-appzone1-30860596-vmss000001 event: Removing Node aks-appzone1-30860596-vmss000001 from Controller",
+      "metadata": {
+        "creationTimestamp": "2026-08-30T12:41:39Z",
+        "name": "aks-appzone1-30860596-vmss000001.18d095bf04e18d76",
+        "namespace": "default",
+        "resourceVersion": "11254",
+        "uid": "48170d9b-fca1-4c58-925e-6729db44633a"
+      },
+      "reason": "RemovingNode",
+      "reportingComponent": "node-controller",
+      "reportingInstance": "",
+      "source": {
+        "component": "node-controller"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2026-08-30T12:50:09Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "kind": "Pod",
+        "name": "integrity-f1-r01",
+        "namespace": "thesis-ha",
+        "resourceVersion": "13450",
+        "uid": "9726cd19-a692-4ef1-85ea-941924f67250"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2026-08-30T12:50:09Z",
+      "message": "Successfully assigned thesis-ha/integrity-f1-r01 to aks-system-40111161-vmss000000",
+      "metadata": {
+        "creationTimestamp": "2026-08-30T12:50:09Z",
+        "name": "integrity-f1-r01.18d09635c5e6634f",
+        "namespace": "thesis-ha",
+        "resourceVersion": "13452",
+        "uid": "bc9a1541-739e-4d7a-9fb3-ffea653cc291"
+      },
+      "reason": "Scheduled",
+      "reportingComponent": "default-scheduler",
+      "reportingInstance": "",
+      "source": {
+        "component": "default-scheduler"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2026-08-30T12:50:10Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.containers{integrity}",
+        "kind": "Pod",
+        "name": "integrity-f1-r01",
+        "namespace": "thesis-ha",
+        "resourceVersion": "13451",
+        "uid": "9726cd19-a692-4ef1-85ea-941924f67250"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2026-08-30T12:50:10Z",
+      "message": "Container image \"thesishaacr.azurecr.io/thesis-experiment-tools@sha256:d7a173146880a26cab1ae92a79b1958d60df52521d8ef13341d44128dfb984e7\" already present on machine and can be accessed by the pod",
+      "metadata": {
+        "creationTimestamp": "2026-08-30T12:50:10Z",
+        "name": "integrity-f1-r01.18d09635e771381c",
+        "namespace": "thesis-ha",
+        "resourceVersion": "13456",
+        "uid": "44b64b4f-0d2b-4397-a38c-5474e1c0987a"
+      },
+      "reason": "Pulled",
+      "reportingComponent": "kubelet",
+      "reportingInstance": "aks-system-40111161-vmss000000",
+      "source": {
+        "component": "kubelet",
+        "host": "aks-system-40111161-vmss000000"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2026-08-30T12:50:10Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.containers{integrity}",
+        "kind": "Pod",
+        "name": "integrity-f1-r01",
+        "namespace": "thesis-ha",
+        "resourceVersion": "13451",
+        "uid": "9726cd19-a692-4ef1-85ea-941924f67250"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2026-08-30T12:50:10Z",
+      "message": "Container created",
+      "metadata": {
+        "creationTimestamp": "2026-08-30T12:50:10Z",
+        "name": "integrity-f1-r01.18d09635ea52e3c0",
+        "namespace": "thesis-ha",
+        "resourceVersion": "13457",
+        "uid": "51af2e18-cd54-4b12-b7f3-abbd8fe184ed"
+      },
+      "reason": "Created",
+      "reportingComponent": "kubelet",
+      "reportingInstance": "aks-system-40111161-vmss000000",
+      "source": {
+        "component": "kubelet",
+        "host": "aks-system-40111161-vmss000000"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2026-08-30T12:50:10Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.containers{integrity}",
+        "kind": "Pod",
+        "name": "integrity-f1-r01",
+        "namespace": "thesis-ha",
+        "resourceVersion": "13451",
+        "uid": "9726cd19-a692-4ef1-85ea-941924f67250"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2026-08-30T12:50:10Z",
+      "message": "Container started",
+      "metadata": {
+        "creationTimestamp": "2026-08-30T12:50:10Z",
+        "name": "integrity-f1-r01.18d09635ed819e50",
+        "namespace": "thesis-ha",
+        "resourceVersion": "13458",
+        "uid": "5c7d2c33-e98c-40da-b838-97c7c94045e6"
+      },
+      "reason": "Started",
+      "reportingComponent": "kubelet",
+      "reportingInstance": "aks-system-40111161-vmss000000",
+      "source": {
+        "component": "kubelet",
+        "host": "aks-system-40111161-vmss000000"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2026-08-30T12:50:12Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.containers{integrity}",
+        "kind": "Pod",
+        "name": "integrity-f1-r01",
+        "namespace": "thesis-ha",
+        "resourceVersion": "13451",
+        "uid": "9726cd19-a692-4ef1-85ea-941924f67250"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2026-08-30T12:50:12Z",
+      "message": "Stopping container integrity",
+      "metadata": {
+        "creationTimestamp": "2026-08-30T12:50:12Z",
+        "name": "integrity-f1-r01.18d0963661dacd76",
+        "namespace": "thesis-ha",
+        "resourceVersion": "13469",
+        "uid": "13bed260-fab5-4068-a0f4-03d85d22f393"
+      },
+      "reason": "Killing",
+      "reportingComponent": "kubelet",
+      "reportingInstance": "aks-system-40111161-vmss000000",
+      "source": {
+        "component": "kubelet",
+        "host": "aks-system-40111161-vmss000000"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 7,
+      "eventTime": null,
+      "firstTimestamp": "2026-08-30T12:51:55Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "kind": "Node",
+        "name": "aks-appzone1-30860596-vmss000002"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2026-08-30T12:51:57Z",
+      "message": "Node aks-appzone1-30860596-vmss000002 status is now: NodeHasSufficientPID",
+      "metadata": {
+        "creationTimestamp": "2026-08-30T12:51:55Z",
+        "name": "aks-appzone1-30860596-vmss000002.18d0964e75dcb872",
+        "namespace": "default",
+        "resourceVersion": "14003",
+        "uid": "b8f93067-5ede-4bbf-aa0d-5d29cafd8e48"
+      },
+      "reason": "NodeHasSufficientPID",
+      "reportingComponent": "kubelet",
+      "reportingInstance": "aks-appzone1-30860596-vmss000002",
+      "source": {
+        "component": "kubelet",
+        "host": "aks-appzone1-30860596-vmss000002"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2026-08-30T12:51:55Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "kind": "Node",
+        "name": "aks-appzone1-30860596-vmss000002"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2026-08-30T12:51:55Z",
+      "message": "Starting kubelet.",
+      "metadata": {
+        "creationTimestamp": "2026-08-30T12:51:55Z",
+        "name": "aks-appzone1-30860596-vmss000002.18d0964e6b10f4c3",
+        "namespace": "default",
+        "resourceVersion": "13921",
+        "uid": "ddb78308-5f0a-4523-ac44-df1810d5d0f5"
+      },
+      "reason": "Starting",
+      "reportingComponent": "kubelet",
+      "reportingInstance": "aks-appzone1-30860596-vmss000002",
+      "source": {
+        "component": "kubelet",
+        "host": "aks-appzone1-30860596-vmss000002"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2026-08-30T12:51:55Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "kind": "Node",
+        "name": "aks-appzone1-30860596-vmss000002"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2026-08-30T12:51:55Z",
+      "message": "invalid capacity 0 on image filesystem",
+      "metadata": {
+        "creationTimestamp": "2026-08-30T12:51:55Z",
+        "name": "aks-appzone1-30860596-vmss000002.18d0964e704afbe3",
+        "namespace": "default",
+        "resourceVersion": "13922",
+        "uid": "8e1fdd6b-18dd-4014-8666-762dfbf8ada2"
+      },
+      "reason": "InvalidDiskCapacity",
+      "reportingComponent": "kubelet",
+      "reportingInstance": "aks-appzone1-30860596-vmss000002",
+      "source": {
+        "component": "kubelet",
+        "host": "aks-appzone1-30860596-vmss000002"
+      },
+      "type": "Warning"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 8,
+      "eventTime": null,
+      "firstTimestamp": "2026-08-30T12:51:55Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "kind": "Node",
+        "name": "aks-appzone1-30860596-vmss000002"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2026-08-30T12:51:57Z",
+      "message": "Node aks-appzone1-30860596-vmss000002 status is now: NodeHasSufficientMemory",
+      "metadata": {
+        "creationTimestamp": "2026-08-30T12:51:55Z",
+        "name": "aks-appzone1-30860596-vmss000002.18d0964e75d672fc",
+        "namespace": "default",
+        "resourceVersion": "14006",
+        "uid": "493a4b4d-fc29-4ffb-ae5e-fafec52a7daa"
+      },
+      "reason": "NodeHasSufficientMemory",
+      "reportingComponent": "kubelet",
+      "reportingInstance": "aks-appzone1-30860596-vmss000002",
+      "source": {
+        "component": "kubelet",
+        "host": "aks-appzone1-30860596-vmss000002"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 8,
+      "eventTime": null,
+      "firstTimestamp": "2026-08-30T12:51:55Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "kind": "Node",
+        "name": "aks-appzone1-30860596-vmss000002"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2026-08-30T12:51:57Z",
+      "message": "Node aks-appzone1-30860596-vmss000002 status is now: NodeHasNoDiskPressure",
+      "metadata": {
+        "creationTimestamp": "2026-08-30T12:51:55Z",
+        "name": "aks-appzone1-30860596-vmss000002.18d0964e75daf9f7",
+        "namespace": "default",
+        "resourceVersion": "14007",
+        "uid": "699f271d-7525-4b97-ab8c-cdb3e9e9488c"
+      },
+      "reason": "NodeHasNoDiskPressure",
+      "reportingComponent": "kubelet",
+      "reportingInstance": "aks-appzone1-30860596-vmss000002",
+      "source": {
+        "component": "kubelet",
+        "host": "aks-appzone1-30860596-vmss000002"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2026-08-30T12:51:56Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "kind": "Pod",
+        "name": "csi-azurefile-node-sxgqg",
+        "namespace": "kube-system",
+        "resourceVersion": "13973",
+        "uid": "08c926c6-44de-4eaf-af35-513411e54242"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2026-08-30T12:51:56Z",
+      "message": "Successfully assigned kube-system/csi-azurefile-node-sxgqg to aks-appzone1-30860596-vmss000002",
+      "metadata": {
+        "creationTimestamp": "2026-08-30T12:51:56Z",
+        "name": "csi-azurefile-node-sxgqg.18d0964eb3262b69",
+        "namespace": "kube-system",
+        "resourceVersion": "13977",
+        "uid": "85726830-359f-4721-bd71-f317ef034e0a"
+      },
+      "reason": "Scheduled",
+      "reportingComponent": "default-scheduler",
+      "reportingInstance": "",
+      "source": {
+        "component": "default-scheduler"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2026-08-30T12:51:56Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "kind": "Pod",
+        "name": "kube-proxy-drpqz",
+        "namespace": "kube-system",
+        "resourceVersion": "13940",
+        "uid": "bc846d41-259c-4dd0-8fd0-d6e14f148ed4"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2026-08-30T12:51:56Z",
+      "message": "Successfully assigned kube-system/kube-proxy-drpqz to aks-appzone1-30860596-vmss000002",
+      "metadata": {
+        "creationTimestamp": "2026-08-30T12:51:56Z",
+        "name": "kube-proxy-drpqz.18d0964eab3293bd",
+        "namespace": "kube-system",
+        "resourceVersion": "13945",
+        "uid": "1ffabce2-7395-4099-b055-5d3ceda1cafd"
+      },
+      "reason": "Scheduled",
+      "reportingComponent": "default-scheduler",
+      "reportingInstance": "",
+      "source": {
+        "component": "default-scheduler"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2026-08-30T12:51:56Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "kind": "Pod",
+        "name": "azure-cns-cth6j",
+        "namespace": "kube-system",
+        "resourceVersion": "13943",
+        "uid": "e7a40e02-2c7e-4288-aaa9-fb5fff9769f2"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2026-08-30T12:51:56Z",
+      "message": "Successfully assigned kube-system/azure-cns-cth6j to aks-appzone1-30860596-vmss000002",
+      "metadata": {
+        "creationTimestamp": "2026-08-30T12:51:56Z",
+        "name": "azure-cns-cth6j.18d0964eabbb752a",
+        "namespace": "kube-system",
+        "resourceVersion": "13951",
+        "uid": "b556b983-3855-4b10-a2b1-06a62b8a087d"
+      },
+      "reason": "Scheduled",
+      "reportingComponent": "default-scheduler",
+      "reportingInstance": "",
+      "source": {
+        "component": "default-scheduler"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2026-08-30T12:51:56Z",
+      "involvedObject": {
+        "apiVersion": "acn.azure.com/v1alpha",
+        "kind": "NodeNetworkConfig",
+        "name": "aks-appzone1-30860596-vmss000002",
+        "namespace": "kube-system",
+        "resourceVersion": "13938",
+        "uid": "294791df-b8ed-4cd3-8903-8f6f355dbcc2"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2026-08-30T12:51:56Z",
+      "message": "Creating new Overlay NC 5573f676-daa1-4d97-a8fc-8e21d2b8b760 for node 6a941c504e4a740001aac896_aks-appzone1-30860596-vmss000002",
+      "metadata": {
+        "creationTimestamp": "2026-08-30T12:51:56Z",
+        "name": "aks-appzone1-30860596-vmss000002.18d0964eab7ed972",
+        "namespace": "kube-system",
+        "resourceVersion": "13948",
+        "uid": "7526ef0c-f640-437d-9652-3c4c524fc867"
+      },
+      "reason": "CreatingNC",
+      "reportingComponent": "dnc-rc/nnc-reconciler",
+      "reportingInstance": "",
+      "source": {
+        "component": "dnc-rc/nnc-reconciler"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2026-08-30T12:51:56Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "kind": "Pod",
+        "name": "azure-npm-25mtp",
+        "namespace": "kube-system",
+        "resourceVersion": "13958",
+        "uid": "c70ce301-d11b-413e-a392-4cc26d0e4479"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2026-08-30T12:51:56Z",
+      "message": "Successfully assigned kube-system/azure-npm-25mtp to aks-appzone1-30860596-vmss000002",
+      "metadata": {
+        "creationTimestamp": "2026-08-30T12:51:56Z",
+        "name": "azure-npm-25mtp.18d0964eaed0b11f",
+        "namespace": "kube-system",
+        "resourceVersion": "13962",
+        "uid": "8ec81f14-0ec7-4798-b994-1d7954297746"
+      },
+      "reason": "Scheduled",
+      "reportingComponent": "default-scheduler",
+      "reportingInstance": "",
+      "source": {
+        "component": "default-scheduler"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2026-08-30T12:51:56Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "kind": "Pod",
+        "name": "csi-azuredisk-node-p5ccf",
+        "namespace": "kube-system",
+        "resourceVersion": "13968",
+        "uid": "c461dfa7-a517-44d5-8ba8-15e26e92f576"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2026-08-30T12:51:56Z",
+      "message": "Successfully assigned kube-system/csi-azuredisk-node-p5ccf to aks-appzone1-30860596-vmss000002",
+      "metadata": {
+        "creationTimestamp": "2026-08-30T12:51:56Z",
+        "name": "csi-azuredisk-node-p5ccf.18d0964eb1928cc5",
+        "namespace": "kube-system",
+        "resourceVersion": "13971",
+        "uid": "375f4738-cc36-4481-b9c6-815109afb6c8"
+      },
+      "reason": "Scheduled",
+      "reportingComponent": "default-scheduler",
+      "reportingInstance": "",
+      "source": {
+        "component": "default-scheduler"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2026-08-30T12:51:56Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "kind": "Node",
+        "name": "aks-appzone1-30860596-vmss000002"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2026-08-30T12:51:56Z",
+      "message": "Updated Node Allocatable limit across pods",
+      "metadata": {
+        "creationTimestamp": "2026-08-30T12:51:56Z",
+        "name": "aks-appzone1-30860596-vmss000002.18d0964eb2e88989",
+        "namespace": "default",
+        "resourceVersion": "13976",
+        "uid": "2773ec7e-25b4-42b8-b5c8-f04b562c7ead"
+      },
+      "reason": "NodeAllocatableEnforced",
+      "reportingComponent": "kubelet",
+      "reportingInstance": "aks-appzone1-30860596-vmss000002",
+      "source": {
+        "component": "kubelet",
+        "host": "aks-appzone1-30860596-vmss000002"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2026-08-30T12:51:56Z",
+      "involvedObject": {
+        "kind": "Node",
+        "name": "aks-appzone1-30860596-vmss000002",
+        "uid": "aks-appzone1-30860596-vmss000002"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2026-08-30T12:51:56Z",
+      "message": "Created NodeNetworkConfig aks-appzone1-30860596-vmss000002",
+      "metadata": {
+        "creationTimestamp": "2026-08-30T12:51:56Z",
+        "name": "aks-appzone1-30860596-vmss000002.18d0964ea88a06b6",
+        "namespace": "default",
+        "resourceVersion": "13937",
+        "uid": "a4006521-f887-4e4e-90e2-ff0aac686a18"
+      },
+      "reason": "CreatedNNC",
+      "reportingComponent": "dnc-rc/node-reconciler",
+      "reportingInstance": "",
+      "source": {
+        "component": "dnc-rc/node-reconciler"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2026-08-30T12:51:56Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "kind": "Pod",
+        "name": "cloud-node-manager-fwnk4",
+        "namespace": "kube-system",
+        "resourceVersion": "13963",
+        "uid": "26812f6a-b909-4f21-ad27-9de6d79c74e5"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2026-08-30T12:51:56Z",
+      "message": "Successfully assigned kube-system/cloud-node-manager-fwnk4 to aks-appzone1-30860596-vmss000002",
+      "metadata": {
+        "creationTimestamp": "2026-08-30T12:51:56Z",
+        "name": "cloud-node-manager-fwnk4.18d0964eb058ad47",
+        "namespace": "kube-system",
+        "resourceVersion": "13967",
+        "uid": "2d42418a-9625-423e-91ec-351fec86a57d"
+      },
+      "reason": "Scheduled",
+      "reportingComponent": "default-scheduler",
+      "reportingInstance": "",
+      "source": {
+        "component": "default-scheduler"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2026-08-30T12:51:56Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "kind": "Pod",
+        "name": "azure-ip-masq-agent-9b5ln",
+        "namespace": "kube-system",
+        "resourceVersion": "13953",
+        "uid": "3f28f8fd-12b3-47c8-b367-de3db4a1ca9d"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2026-08-30T12:51:56Z",
+      "message": "Successfully assigned kube-system/azure-ip-masq-agent-9b5ln to aks-appzone1-30860596-vmss000002",
+      "metadata": {
+        "creationTimestamp": "2026-08-30T12:51:56Z",
+        "name": "azure-ip-masq-agent-9b5ln.18d0964eadf89db1",
+        "namespace": "kube-system",
+        "resourceVersion": "13957",
+        "uid": "5a64bc69-bf80-4159-9e8b-1bc7602866a5"
+      },
+      "reason": "Scheduled",
+      "reportingComponent": "default-scheduler",
+      "reportingInstance": "",
+      "source": {
+        "component": "default-scheduler"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2026-08-30T12:51:57Z",
+      "involvedObject": {
+        "apiVersion": "acn.azure.com/v1alpha",
+        "kind": "NodeNetworkConfig",
+        "name": "aks-appzone1-30860596-vmss000002",
+        "namespace": "kube-system",
+        "resourceVersion": "13938",
+        "uid": "294791df-b8ed-4cd3-8903-8f6f355dbcc2"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2026-08-30T12:51:57Z",
+      "message": "Published NC 5573f676-daa1-4d97-a8fc-8e21d2b8b760",
+      "metadata": {
+        "creationTimestamp": "2026-08-30T12:51:57Z",
+        "name": "aks-appzone1-30860596-vmss000002.18d0964eea6bcfbc",
+        "namespace": "kube-system",
+        "resourceVersion": "14014",
+        "uid": "1062d763-a74e-4521-bbd0-a00c1a11e326"
+      },
+      "reason": "UpdatedNC",
+      "reportingComponent": "dnc-rc/nnc-reconciler",
+      "reportingInstance": "",
+      "source": {
+        "component": "dnc-rc/nnc-reconciler"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2026-08-30T12:51:59Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "kind": "Node",
+        "name": "aks-appzone1-30860596-vmss000002",
+        "uid": "84e33802-c251-4dd4-81a6-c7faccd9a6f7"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2026-08-30T12:51:59Z",
+      "message": "Node aks-appzone1-30860596-vmss000002 event: Registered Node aks-appzone1-30860596-vmss000002 in Controller",
+      "metadata": {
+        "creationTimestamp": "2026-08-30T12:51:59Z",
+        "name": "aks-appzone1-30860596-vmss000002.18d0964f65b36f04",
+        "namespace": "default",
+        "resourceVersion": "14038",
+        "uid": "41250648-54b4-4de9-be69-17355afa5637"
+      },
+      "reason": "RegisteredNode",
+      "reportingComponent": "node-controller",
+      "reportingInstance": "",
+      "source": {
+        "component": "node-controller"
+      },
+      "type": "Normal"
+    },
+    {
+      "action": "StartKubeProxy",
+      "apiVersion": "v1",
+      "eventTime": "2026-08-30T12:52:15.986374Z",
+      "firstTimestamp": null,
+      "involvedObject": {
+        "apiVersion": "v1",
+        "kind": "Node",
+        "name": "aks-appzone1-30860596-vmss000002"
+      },
+      "kind": "Event",
+      "lastTimestamp": null,
+      "metadata": {
+        "creationTimestamp": "2026-08-30T12:52:16Z",
+        "name": "aks-appzone1-30860596-vmss000002.18d09653295b1d6f",
+        "namespace": "default",
+        "resourceVersion": "14188",
+        "uid": "37e52c9c-adfb-421c-a717-58028e4db139"
+      },
+      "reason": "Starting",
+      "reportingComponent": "kube-proxy",
+      "reportingInstance": "kube-proxy-aks-appzone1-30860596-vmss000002",
+      "source": {},
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2026-08-30T12:52:37Z",
+      "involvedObject": {
+        "apiVersion": "apps/v1",
+        "kind": "ReplicaSet",
+        "name": "aggregator-76557885fd",
+        "namespace": "thesis-ha",
+        "resourceVersion": "11195",
+        "uid": "f2087e16-cc8d-409c-ba81-fbfa53d05a15"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2026-08-30T12:52:37Z",
+      "message": "Created pod: aggregator-76557885fd-smkpw",
+      "metadata": {
+        "creationTimestamp": "2026-08-30T12:52:37Z",
+        "name": "aggregator-76557885fd.18d096581ce73584",
+        "namespace": "thesis-ha",
+        "resourceVersion": "14305",
+        "uid": "2f8bc972-0501-479b-9a90-c713ff1a6fcd"
+      },
+      "reason": "SuccessfulCreate",
+      "reportingComponent": "replicaset-controller",
+      "reportingInstance": "",
+      "source": {
+        "component": "replicaset-controller"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2026-08-30T12:52:37Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "kind": "Pod",
+        "name": "aggregator-76557885fd-smkpw",
+        "namespace": "thesis-ha",
+        "resourceVersion": "14303",
+        "uid": "ded6ba97-5f9e-45ba-aeda-dbc6afaf4124"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2026-08-30T12:52:37Z",
+      "message": "Successfully assigned thesis-ha/aggregator-76557885fd-smkpw to aks-appzone1-30860596-vmss000002",
+      "metadata": {
+        "creationTimestamp": "2026-08-30T12:52:37Z",
+        "name": "aggregator-76557885fd-smkpw.18d096581d6d4c49",
+        "namespace": "thesis-ha",
+        "resourceVersion": "14310",
+        "uid": "ae8ab046-e873-4341-95b5-10058ebf7081"
+      },
+      "reason": "Scheduled",
+      "reportingComponent": "default-scheduler",
+      "reportingInstance": "",
+      "source": {
+        "component": "default-scheduler"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2026-08-30T12:52:37Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.containers{aggregator}",
+        "kind": "Pod",
+        "name": "aggregator-76557885fd-7v8sv",
+        "namespace": "thesis-ha",
+        "resourceVersion": "11017",
+        "uid": "de578e38-6684-4b74-b434-f90cd3347561"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2026-08-30T12:52:37Z",
+      "message": "Stopping container aggregator",
+      "metadata": {
+        "creationTimestamp": "2026-08-30T12:52:37Z",
+        "name": "aggregator-76557885fd-7v8sv.18d096581a8457e3",
+        "namespace": "thesis-ha",
+        "resourceVersion": "14301",
+        "uid": "635e3dbb-1ad9-4427-b06e-3eef18219505"
+      },
+      "reason": "Killing",
+      "reportingComponent": "kubelet",
+      "reportingInstance": "aks-appzone2-18875896-vmss000000",
+      "source": {
+        "component": "kubelet",
+        "host": "aks-appzone2-18875896-vmss000000"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2026-08-30T12:52:38Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.containers{aggregator}",
+        "kind": "Pod",
+        "name": "aggregator-76557885fd-smkpw",
+        "namespace": "thesis-ha",
+        "resourceVersion": "14307",
+        "uid": "ded6ba97-5f9e-45ba-aeda-dbc6afaf4124"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2026-08-30T12:52:38Z",
+      "message": "Pulling image \"thesishaacr.azurecr.io/thesis-aggregator@sha256:a41041c885ba594685d1533e6b436ce536015c1effd06a41651ec401a5ca34ff\"",
+      "metadata": {
+        "creationTimestamp": "2026-08-30T12:52:38Z",
+        "name": "aggregator-76557885fd-smkpw.18d0965864bde6b3",
+        "namespace": "thesis-ha",
+        "resourceVersion": "14320",
+        "uid": "6810777e-a090-4104-9979-f2df2ee5e200"
+      },
+      "reason": "Pulling",
+      "reportingComponent": "kubelet",
+      "reportingInstance": "aks-appzone1-30860596-vmss000002",
+      "source": {
+        "component": "kubelet",
+        "host": "aks-appzone1-30860596-vmss000002"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2026-08-30T12:52:41Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.containers{aggregator}",
+        "kind": "Pod",
+        "name": "aggregator-76557885fd-smkpw",
+        "namespace": "thesis-ha",
+        "resourceVersion": "14307",
+        "uid": "ded6ba97-5f9e-45ba-aeda-dbc6afaf4124"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2026-08-30T12:52:41Z",
+      "message": "Successfully pulled image \"thesishaacr.azurecr.io/thesis-aggregator@sha256:a41041c885ba594685d1533e6b436ce536015c1effd06a41651ec401a5ca34ff\" in 3.063s (3.063s including waiting). Image size: 52147755 bytes.",
+      "metadata": {
+        "creationTimestamp": "2026-08-30T12:52:41Z",
+        "name": "aggregator-76557885fd-smkpw.18d096591b5bbc4c",
+        "namespace": "thesis-ha",
+        "resourceVersion": "14334",
+        "uid": "65ad9b4c-c442-4101-b525-e93e9ce90f80"
+      },
+      "reason": "Pulled",
+      "reportingComponent": "kubelet",
+      "reportingInstance": "aks-appzone1-30860596-vmss000002",
+      "source": {
+        "component": "kubelet",
+        "host": "aks-appzone1-30860596-vmss000002"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2026-08-30T12:52:41Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.containers{aggregator}",
+        "kind": "Pod",
+        "name": "aggregator-76557885fd-smkpw",
+        "namespace": "thesis-ha",
+        "resourceVersion": "14307",
+        "uid": "ded6ba97-5f9e-45ba-aeda-dbc6afaf4124"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2026-08-30T12:52:41Z",
+      "message": "Container started",
+      "metadata": {
+        "creationTimestamp": "2026-08-30T12:52:41Z",
+        "name": "aggregator-76557885fd-smkpw.18d096592139481a",
+        "namespace": "thesis-ha",
+        "resourceVersion": "14336",
+        "uid": "bd52404d-ee2b-48a5-a75d-5c0f039b09dd"
+      },
+      "reason": "Started",
+      "reportingComponent": "kubelet",
+      "reportingInstance": "aks-appzone1-30860596-vmss000002",
+      "source": {
+        "component": "kubelet",
+        "host": "aks-appzone1-30860596-vmss000002"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2026-08-30T12:52:41Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.containers{aggregator}",
+        "kind": "Pod",
+        "name": "aggregator-76557885fd-smkpw",
+        "namespace": "thesis-ha",
+        "resourceVersion": "14307",
+        "uid": "ded6ba97-5f9e-45ba-aeda-dbc6afaf4124"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2026-08-30T12:52:41Z",
+      "message": "Container created",
+      "metadata": {
+        "creationTimestamp": "2026-08-30T12:52:41Z",
+        "name": "aggregator-76557885fd-smkpw.18d096591dfc51fc",
+        "namespace": "thesis-ha",
+        "resourceVersion": "14335",
+        "uid": "fde279ae-b188-4f88-be10-3c89f5541ed3"
+      },
+      "reason": "Created",
+      "reportingComponent": "kubelet",
+      "reportingInstance": "aks-appzone1-30860596-vmss000002",
+      "source": {
+        "component": "kubelet",
+        "host": "aks-appzone1-30860596-vmss000002"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2026-08-30T12:53:08Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.containers{api}",
+        "kind": "Pod",
+        "name": "api-58d9f5d75-cjknr",
+        "namespace": "thesis-ha",
+        "resourceVersion": "11014",
+        "uid": "ce374d53-f745-4842-9588-9177bf4f3fe6"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2026-08-30T12:53:08Z",
+      "message": "Stopping container api",
+      "metadata": {
+        "creationTimestamp": "2026-08-30T12:53:08Z",
+        "name": "api-58d9f5d75-cjknr.18d0965f7564c439",
+        "namespace": "thesis-ha",
+        "resourceVersion": "14476",
+        "uid": "b2f71539-4093-49b1-af99-9b29cb1d92c2"
+      },
+      "reason": "Killing",
+      "reportingComponent": "kubelet",
+      "reportingInstance": "aks-appzone2-18875896-vmss000000",
+      "source": {
+        "component": "kubelet",
+        "host": "aks-appzone2-18875896-vmss000000"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2026-08-30T12:53:08Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "kind": "Pod",
+        "name": "api-58d9f5d75-jkfxz",
+        "namespace": "thesis-ha",
+        "resourceVersion": "14479",
+        "uid": "ffd4c158-6bad-4d0c-9842-4510bf1a9043"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2026-08-30T12:53:08Z",
+      "message": "Successfully assigned thesis-ha/api-58d9f5d75-jkfxz to aks-appzone1-30860596-vmss000002",
+      "metadata": {
+        "creationTimestamp": "2026-08-30T12:53:08Z",
+        "name": "api-58d9f5d75-jkfxz.18d0965f77f8a6f7",
+        "namespace": "thesis-ha",
+        "resourceVersion": "14484",
+        "uid": "70df7903-4e63-4b35-bb5d-2975f23bb286"
+      },
+      "reason": "Scheduled",
+      "reportingComponent": "default-scheduler",
+      "reportingInstance": "",
+      "source": {
+        "component": "default-scheduler"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2026-08-30T12:53:08Z",
+      "involvedObject": {
+        "apiVersion": "apps/v1",
+        "kind": "ReplicaSet",
+        "name": "api-58d9f5d75",
+        "namespace": "thesis-ha",
+        "resourceVersion": "11105",
+        "uid": "abb356b9-80a2-4166-b487-8b3363c7b161"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2026-08-30T12:53:08Z",
+      "message": "Created pod: api-58d9f5d75-jkfxz",
+      "metadata": {
+        "creationTimestamp": "2026-08-30T12:53:08Z",
+        "name": "api-58d9f5d75.18d0965f77a3ef53",
+        "namespace": "thesis-ha",
+        "resourceVersion": "14480",
+        "uid": "ba0cff9a-fb79-4876-b71f-bf52686b58bf"
+      },
+      "reason": "SuccessfulCreate",
+      "reportingComponent": "replicaset-controller",
+      "reportingInstance": "",
+      "source": {
+        "component": "replicaset-controller"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2026-08-30T12:53:09Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.containers{api}",
+        "kind": "Pod",
+        "name": "api-58d9f5d75-jkfxz",
+        "namespace": "thesis-ha",
+        "resourceVersion": "14482",
+        "uid": "ffd4c158-6bad-4d0c-9842-4510bf1a9043"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2026-08-30T12:53:09Z",
+      "message": "Pulling image \"thesishaacr.azurecr.io/thesis-api@sha256:2bfab63b2894046a842b36fd792a7530a6a28731775a886b081a6fdc3e556b5f\"",
+      "metadata": {
+        "creationTimestamp": "2026-08-30T12:53:09Z",
+        "name": "api-58d9f5d75-jkfxz.18d0965f99974580",
+        "namespace": "thesis-ha",
+        "resourceVersion": "14497",
+        "uid": "c746e9a1-44a2-4a18-b696-c6dbf88a2d91"
+      },
+      "reason": "Pulling",
+      "reportingComponent": "kubelet",
+      "reportingInstance": "aks-appzone1-30860596-vmss000002",
+      "source": {
+        "component": "kubelet",
+        "host": "aks-appzone1-30860596-vmss000002"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2026-08-30T12:53:11Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.containers{api}",
+        "kind": "Pod",
+        "name": "api-58d9f5d75-jkfxz",
+        "namespace": "thesis-ha",
+        "resourceVersion": "14482",
+        "uid": "ffd4c158-6bad-4d0c-9842-4510bf1a9043"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2026-08-30T12:53:11Z",
+      "message": "Successfully pulled image \"thesishaacr.azurecr.io/thesis-api@sha256:2bfab63b2894046a842b36fd792a7530a6a28731775a886b081a6fdc3e556b5f\" in 1.701s (1.701s including waiting). Image size: 64151913 bytes.",
+      "metadata": {
+        "creationTimestamp": "2026-08-30T12:53:11Z",
+        "name": "api-58d9f5d75-jkfxz.18d0965fff02db3b",
+        "namespace": "thesis-ha",
+        "resourceVersion": "14505",
+        "uid": "f6cc1019-8f56-4bdb-ada1-9984c97eb91e"
+      },
+      "reason": "Pulled",
+      "reportingComponent": "kubelet",
+      "reportingInstance": "aks-appzone1-30860596-vmss000002",
+      "source": {
+        "component": "kubelet",
+        "host": "aks-appzone1-30860596-vmss000002"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2026-08-30T12:53:11Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.containers{api}",
+        "kind": "Pod",
+        "name": "api-58d9f5d75-jkfxz",
+        "namespace": "thesis-ha",
+        "resourceVersion": "14482",
+        "uid": "ffd4c158-6bad-4d0c-9842-4510bf1a9043"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2026-08-30T12:53:11Z",
+      "message": "Container created",
+      "metadata": {
+        "creationTimestamp": "2026-08-30T12:53:11Z",
+        "name": "api-58d9f5d75-jkfxz.18d0966000bf4408",
+        "namespace": "thesis-ha",
+        "resourceVersion": "14506",
+        "uid": "ecbd56b0-924a-4c35-a991-15bb64618398"
+      },
+      "reason": "Created",
+      "reportingComponent": "kubelet",
+      "reportingInstance": "aks-appzone1-30860596-vmss000002",
+      "source": {
+        "component": "kubelet",
+        "host": "aks-appzone1-30860596-vmss000002"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2026-08-30T12:53:11Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.containers{api}",
+        "kind": "Pod",
+        "name": "api-58d9f5d75-jkfxz",
+        "namespace": "thesis-ha",
+        "resourceVersion": "14482",
+        "uid": "ffd4c158-6bad-4d0c-9842-4510bf1a9043"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2026-08-30T12:53:11Z",
+      "message": "Container started",
+      "metadata": {
+        "creationTimestamp": "2026-08-30T12:53:11Z",
+        "name": "api-58d9f5d75-jkfxz.18d09660045a7be4",
+        "namespace": "thesis-ha",
+        "resourceVersion": "14507",
+        "uid": "ec3143a2-3c14-4c87-94cc-8424f4a3eccd"
+      },
+      "reason": "Started",
+      "reportingComponent": "kubelet",
+      "reportingInstance": "aks-appzone1-30860596-vmss000002",
+      "source": {
+        "component": "kubelet",
+        "host": "aks-appzone1-30860596-vmss000002"
+      },
+      "type": "Normal"
+    }
+  ]
+}

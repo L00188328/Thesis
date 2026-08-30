@@ -1,0 +1,17 @@
+[
+  {
+    "current": "2",
+    "limit": "4",
+    "name": "Standard DASv4 Family vCPUs"
+  },
+  {
+    "current": "4",
+    "limit": "6",
+    "name": "Total Regional vCPUs"
+  },
+  {
+    "current": "0",
+    "limit": "0",
+    "name": "Standard NDASv4_A100 Family vCPUs"
+  }
+]

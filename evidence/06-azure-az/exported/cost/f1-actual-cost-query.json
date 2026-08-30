@@ -1,0 +1,26 @@
+{
+  "eTag": null,
+  "id": "subscriptions/e21f069d-8303-4531-b864-98eab35ba089/providers/Microsoft.CostManagement/query/c0f8daa9-e1f5-4cd8-a458-bee0c7de86f6",
+  "location": null,
+  "name": "c0f8daa9-e1f5-4cd8-a458-bee0c7de86f6",
+  "properties": {
+    "columns": [
+      {
+        "name": "PreTaxCost",
+        "type": "Number"
+      },
+      {
+        "name": "ResourceGroup",
+        "type": "String"
+      },
+      {
+        "name": "Currency",
+        "type": "String"
+      }
+    ],
+    "nextLink": null,
+    "rows": []
+  },
+  "sku": null,
+  "type": "Microsoft.CostManagement/query"
+}

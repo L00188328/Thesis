@@ -1,0 +1,19 @@
+{
+  "connection_type": "wifi",
+  "dns_arrangement": "fixed home-network resolvers; addresses sanitised",
+  "docker_version": "unavailable",
+  "host_id": "robyn-macbook-pro-3",
+  "hostname_sha256_prefix": "7980c15cbc6dfa9f",
+  "kubectl_client_version": "unavailable",
+  "machine": "x86_64",
+  "network_interface": "en0",
+  "physical_location": "Vienna, Austria",
+  "platform": "Linux-6.10.14-linuxkit-x86_64-with-glibc2.41",
+  "power_state": "unavailable",
+  "public_egress_label": "home-egress-01",
+  "python_version": "3.12.14",
+  "sleep_settings": "unavailable",
+  "time_utc": "2026-08-30T12:21:42Z",
+  "timestamp_utc": "2026-08-30T12:21:42.058431+00:00",
+  "vpn_proxy_environment_present": false
+}

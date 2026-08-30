@@ -1,0 +1,4 @@
+timestamp_utc,label,detail
+2026-08-30T13:21:45.266003+00:00,F1-cost-containment-command,stop Region A AKS and PostgreSQL compute after sanitised evidence export
+2026-08-30T13:21:52.551636+00:00,F1-cost-containment-accepted,Azure accepted AKS and PostgreSQL stop operations
+2026-08-30T13:25:24.047783+00:00,F1-cost-containment-complete,Region A AKS Stopped; PostgreSQL Stopped; Event Hubs and ACR retained

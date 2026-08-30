@@ -1,0 +1,14 @@
+{
+  "availability_percent": 100.0,
+  "failed_probes": 0,
+  "failure_timestamps_utc": [],
+  "latency_ms": {
+    "max": 644.27,
+    "p50": 135.23,
+    "p95": 312.93,
+    "p99": 334.78
+  },
+  "longest_consecutive_failure_sequence": 0,
+  "successful_probes": 600,
+  "total_probes": 600
+}

@@ -1,0 +1,11 @@
+sample_timestamp_utc,group_id,topic,partition,committed_offset,end_offset,lag,total_lag,assignment_source,collector_error
+2026-08-30T12:54:20.011359+00:00,shipment-aggregator,logistic-center-events,0,900,900,0,,kafka_admin,
+2026-08-30T12:54:20.011359+00:00,shipment-aggregator,logistic-center-events,1,902,902,0,,kafka_admin,
+2026-08-30T12:54:20.011359+00:00,shipment-aggregator,delivery-base-events,0,900,900,0,,kafka_admin,
+2026-08-30T12:54:20.011359+00:00,shipment-aggregator,delivery-base-events,1,902,902,0,,kafka_admin,
+2026-08-30T12:54:20.011359+00:00,shipment-aggregator,__TOTAL__,-1,,,,0,kafka_admin,
+2026-08-30T12:54:25.008277+00:00,shipment-aggregator,logistic-center-events,0,900,900,0,,kafka_admin,
+2026-08-30T12:54:25.008277+00:00,shipment-aggregator,logistic-center-events,1,902,902,0,,kafka_admin,
+2026-08-30T12:54:25.008277+00:00,shipment-aggregator,delivery-base-events,0,900,900,0,,kafka_admin,
+2026-08-30T12:54:25.008277+00:00,shipment-aggregator,delivery-base-events,1,902,902,0,,kafka_admin,
+2026-08-30T12:54:25.008277+00:00,shipment-aggregator,__TOTAL__,-1,,,,0,kafka_admin,

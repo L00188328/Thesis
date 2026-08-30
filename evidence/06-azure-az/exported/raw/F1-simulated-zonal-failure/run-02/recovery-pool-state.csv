@@ -1,0 +1,11 @@
+sample_timestamp_utc,power_state,provisioning_state
+2026-08-30T13:06:00.3NZ,Running,Starting
+2026-08-30T13:06:08.3NZ,Running,Starting
+2026-08-30T13:06:16.3NZ,Running,Starting
+2026-08-30T13:06:24.3NZ,Running,Starting
+2026-08-30T13:06:33.3NZ,Running,Starting
+2026-08-30T13:06:41.3NZ,Running,Starting
+2026-08-30T13:06:49.3NZ,Running,Starting
+2026-08-30T13:06:57.3NZ,Running,Starting
+2026-08-30T13:07:05.3NZ,Running,Starting
+2026-08-30T13:07:14.3NZ,Running,Succeeded

@@ -1,0 +1,7 @@
+sample_timestamp_utc,power_state,provisioning_state
+2026-08-30T12:55:21.531Z,Running,Succeeded
+2026-08-30T12:55:24.845Z,Running,Succeeded
+2026-08-30T12:55:27.929Z,Running,Succeeded
+2026-08-30T12:55:30.400Z,Running,Succeeded
+2026-08-30T12:55:33.123Z,Running,Succeeded
+2026-08-30T12:55:36.174Z,Stopped,Stopping

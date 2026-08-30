@@ -1,0 +1,16 @@
+{
+  "availability_percent": 99.83333,
+  "failed_probes": 1,
+  "failure_timestamps_utc": [
+    "2026-08-30T12:58:13.283279+00:00"
+  ],
+  "latency_ms": {
+    "max": 419.06,
+    "p50": 111.95,
+    "p95": 140.84,
+    "p99": 206.97
+  },
+  "longest_consecutive_failure_sequence": 1,
+  "successful_probes": 599,
+  "total_probes": 600
+}

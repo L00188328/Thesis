@@ -1,0 +1,8 @@
+{
+  "git_commit": "397ed5e",
+  "images": {
+    "api": "thesishaacr.azurecr.io/thesis-api@sha256:2bfab63b2894046a842b36fd792a7530a6a28731775a886b081a6fdc3e556b5f",
+    "aggregator": "thesishaacr.azurecr.io/thesis-aggregator@sha256:a41041c885ba594685d1533e6b436ce536015c1effd06a41651ec401a5ca34ff",
+    "experiment_tools": "thesishaacr.azurecr.io/thesis-experiment-tools@sha256:d7a173146880a26cab1ae92a79b1958d60df52521d8ef13341d44128dfb984e7"
+  }
+}

@@ -1,0 +1,8 @@
+timestamp_utc,label,detail
+2026-08-30T11:57:40.564954+00:00,F1-cluster-delete-command,replace completed E1 non-zonal AKS with frozen F1 topology
+2026-08-30T11:57:44.838530+00:00,F1-cluster-delete-accepted,Azure accepted AKS deletion
+2026-08-30T12:03:53.441472+00:00,F1-cluster-delete-complete,old E1 AKS absent before F1 deployment
+2026-08-30T12:03:53.510209+00:00,F1-cluster-deploy-command,region-a-f1.bicepparam; AKS 1.35.7; appzone1/appzone2
+2026-08-30T12:10:30.762198+00:00,F1-cluster-deploy-complete,Azure deployment f1-region-a-v108 succeeded
+2026-08-30T12:13:28.460164+00:00,F1-application-ready,two Aggregator and two API replicas using immutable E1 digests
+2026-08-30T12:15:51.697645+00:00,F1-readiness-gate,65 consecutive direct HTTP canary probes; two Aggregators split four partitions; final lag zero; Pods split across zones

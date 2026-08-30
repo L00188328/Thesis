@@ -1,0 +1,469 @@
+{
+  "binary_policy": "Binary and image files are rejected because text redaction cannot prove that they contain no secrets.",
+  "exported_files": [
+    {
+      "path": "config/azure/f1-aks-final.json",
+      "sha256": "85bbeffd54dbbf6e270a9f22ad7b38ef379899ae335423bc75fe6f392d729f1c"
+    },
+    {
+      "path": "config/azure/region-a-resource-inventory.json",
+      "sha256": "a2a7f5570a3b52c349e4f81e163626dd703889cf30551b5e732140f11cc3aafd"
+    },
+    {
+      "path": "config/azure/shared-resource-inventory.json",
+      "sha256": "39b044f37a28096d312bb5304e25a71116bf82efd94afbb6b31f23e2cdfa97d6"
+    },
+    {
+      "path": "config/azure/transition-timeline.csv",
+      "sha256": "640afdd7f5f4a1132595f9104b9bf829199ee0ab27dedb4bb41b7c7ba3ee8dca"
+    },
+    {
+      "path": "config/image-digests.json",
+      "sha256": "71ffa5d6857cf48eb212dd22c483cade5874c3186b1af719fea9961e98142174"
+    },
+    {
+      "path": "config/kubernetes/aggregator-final.log",
+      "sha256": "68458610edf797a0d8548d18b29bc60621debb54a2e56ee33211273d3591dc38"
+    },
+    {
+      "path": "config/kubernetes/api-final.log",
+      "sha256": "e53559acfa95571bcdc891458c5c1889ddede76679e384534a640399de6cd461"
+    },
+    {
+      "path": "config/kubernetes/effective-objects.yaml",
+      "sha256": "7802bca862c45cbc2b09a91dbe5eab9ec8989e3c881990673915914e91d4af05"
+    },
+    {
+      "path": "config/kubernetes/events.json",
+      "sha256": "a1566c7b6b7796ed7a68bcd68fcfa92d9eb9f59aa2eb5f1c0c3e6e5422190478"
+    },
+    {
+      "path": "config/kubernetes/nodes-final.json",
+      "sha256": "78b842769292466f782b594a56fd8f12d2f4de9b1be6031269104f12759a12e8"
+    },
+    {
+      "path": "config/kubernetes/pods-final.json",
+      "sha256": "c9fa40660b967606be2136cc194f7f3d94a97b4c68e86676cd85292adb4d78bc"
+    },
+    {
+      "path": "config/partition-key-map-historical.json",
+      "sha256": "8185ea085a406bcd4faedd72231721920126753078c403c84d3d517770b28cfc"
+    },
+    {
+      "path": "cost/f1-actual-cost-query.json",
+      "sha256": "b585005c8620a86075ff19d26718f4b7c5ddcaaab2967ceda808c5d893a80ebc"
+    },
+    {
+      "path": "cost/f1-actual-cost-status.txt",
+      "sha256": "c08a16cd4f29246bbdf5d971df3e0167d0ea7f2d1be2af479c7837a78b6f8371"
+    },
+    {
+      "path": "preflight/aks-before-f1.json",
+      "sha256": "908d61dbafae5202460c6252a5d0eddd9782f73f74cc1a36fcec3da5a4492228"
+    },
+    {
+      "path": "preflight/aks-versions.json",
+      "sha256": "446b1cd79ee8ea61c0c3a4eab9f81a2fff128f9a2765fc95f91ba2899f92ab4e"
+    },
+    {
+      "path": "preflight/budgets.json",
+      "sha256": "6d4aa19c59c35edb8652491a3bcd73fc28af83fcea056e92273cfb5527aac0e4"
+    },
+    {
+      "path": "preflight/f1-acr-pull.json",
+      "sha256": "9bc21042c6a8724c996a6b745210de08d226f7553d6a7514abe71706f0dca49b"
+    },
+    {
+      "path": "preflight/f1-aks-summary.json",
+      "sha256": "ee709154ea42408483740ad695e45ea96efb2acf7d1ae77c47564c3f800a4e86"
+    },
+    {
+      "path": "preflight/f1-deployment.json",
+      "sha256": "70fe8a9f3273410e8cc20943e47a89f81c3635b54dfee86fa34aa47457bc4c1d"
+    },
+    {
+      "path": "preflight/quota.json",
+      "sha256": "e787cca888b5f8b447bc1c421c9f9c9b60363862dd0f871b07365f54fcbf2fb7"
+    },
+    {
+      "path": "preflight/shared-before-f1.json",
+      "sha256": "4d0460c796857f0069ab3c84527e317862c0cf1e0823fb0b162f249a843755de"
+    },
+    {
+      "path": "raw/F1-simulated-zonal-failure/run-01/assignments.jsonl",
+      "sha256": "a9b41e82b9e17d6265bda0be5d0b67622921c17b49e238d7a5497f2384457170"
+    },
+    {
+      "path": "raw/F1-simulated-zonal-failure/run-01/availability-summary.json",
+      "sha256": "1a0b4d986a0713700dc03345019b18b9568c13afb0821d8556b9775de95f8cec"
+    },
+    {
+      "path": "raw/F1-simulated-zonal-failure/run-01/availability.csv",
+      "sha256": "00f77d64e444c0928e86c9a93890c898daaaae49751a0b52902843a339d8b640"
+    },
+    {
+      "path": "raw/F1-simulated-zonal-failure/run-01/baseline-assignments.jsonl",
+      "sha256": "0efb04dc0fe667eb97a4cc4f689b6a7ec64303a81ba04caac7b9917a40ed48ab"
+    },
+    {
+      "path": "raw/F1-simulated-zonal-failure/run-01/baseline-consumer-progress.csv",
+      "sha256": "1c5158b231072f2b4dab0ee51b94ae93ba706d6d6e8a71e4354e7afb574d1560"
+    },
+    {
+      "path": "raw/F1-simulated-zonal-failure/run-01/consumer-progress.csv",
+      "sha256": "61c8bb894dd6fe643a9fb6579c9663d92287ca0025b32bc9e1bd75bef5d71d93"
+    },
+    {
+      "path": "raw/F1-simulated-zonal-failure/run-01/derived-timeline.csv",
+      "sha256": "9d91a4702894e4cdac7be4c63f40cfda20f2d33d9f1a7a375b050e8769a5071f"
+    },
+    {
+      "path": "raw/F1-simulated-zonal-failure/run-01/expected-events.jsonl",
+      "sha256": "356aa5bf19231dfe04b16c56fc3e51f7cc509f5718137d57189f8283f86a15fd"
+    },
+    {
+      "path": "raw/F1-simulated-zonal-failure/run-01/host-preflight.json",
+      "sha256": "ddcc105d4e3850a8d7d39b784723a6ed5bbd173fa04a28260c0c67fa1aea8fb3"
+    },
+    {
+      "path": "raw/F1-simulated-zonal-failure/run-01/integrity-final.csv",
+      "sha256": "482939ac6c90a91787eb2f0356b95449527beb0bf528eaf317387c197cd4a185"
+    },
+    {
+      "path": "raw/F1-simulated-zonal-failure/run-01/integrity-pod.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "raw/F1-simulated-zonal-failure/run-01/integrity.csv",
+      "sha256": "482939ac6c90a91787eb2f0356b95449527beb0bf528eaf317387c197cd4a185"
+    },
+    {
+      "path": "raw/F1-simulated-zonal-failure/run-01/kubernetes-events-relevant.json",
+      "sha256": "95810f8d7bf90a2128c3c2eced3d20c6748c6857e7f5eb1175513232ad05bcc5"
+    },
+    {
+      "path": "raw/F1-simulated-zonal-failure/run-01/metrics.json",
+      "sha256": "2214cf2a740a571004bfb09d6f096ccdddf6eced32f83ab15ba6b54df4847365"
+    },
+    {
+      "path": "raw/F1-simulated-zonal-failure/run-01/missing-events-final.json",
+      "sha256": "f79e70bbb362748b0097eea1be53004535359bf33268484f30568f463af5ce4f"
+    },
+    {
+      "path": "raw/F1-simulated-zonal-failure/run-01/missing-events.json",
+      "sha256": "f79e70bbb362748b0097eea1be53004535359bf33268484f30568f463af5ce4f"
+    },
+    {
+      "path": "raw/F1-simulated-zonal-failure/run-01/node-state.csv",
+      "sha256": "a1bcbde663b62d55fb7453ca2c875f9c6eac1c26354cf5c42fca93d4ff2e597e"
+    },
+    {
+      "path": "raw/F1-simulated-zonal-failure/run-01/pods-recovered.json",
+      "sha256": "2afefe23f278c130b3bb6db825adcf6bbaa0e398a02a95b4607c5de36597a25a"
+    },
+    {
+      "path": "raw/F1-simulated-zonal-failure/run-01/pods-t0.json",
+      "sha256": "a092223e241ebfbe3ef6b047c1bc708c6e1fe60bdb2d7ea0615ba5d254de4802"
+    },
+    {
+      "path": "raw/F1-simulated-zonal-failure/run-01/pool-state.csv",
+      "sha256": "e7ecec956b4826b89a9f2ede95d5fab5e711d7dcf3706c84820478957bc0d724"
+    },
+    {
+      "path": "raw/F1-simulated-zonal-failure/run-01/pool-stopped.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "raw/F1-simulated-zonal-failure/run-01/post-assignments.jsonl",
+      "sha256": "c4f70402ed27fdce4a53c6cc4482d90ff35ddad931b744cd16abc48cd6b87f73"
+    },
+    {
+      "path": "raw/F1-simulated-zonal-failure/run-01/post-consumer-progress.csv",
+      "sha256": "7ea0ad39bd9d9776b22bcf1a0f8143ca6a32a539a782970bf91a391e65a67fb0"
+    },
+    {
+      "path": "raw/F1-simulated-zonal-failure/run-01/published-events.csv",
+      "sha256": "c64a8c177e4cb8279799c1959850089e5f6d81ba80669bb23565bfe8c83e1baa"
+    },
+    {
+      "path": "raw/F1-simulated-zonal-failure/run-01/recovery-assignments.jsonl",
+      "sha256": "a1d132571d6939e31cb88c35d143200a6e141ea96e6e4ac49209f8878a57c53b"
+    },
+    {
+      "path": "raw/F1-simulated-zonal-failure/run-01/recovery-canary.csv",
+      "sha256": "89fbc995fdeb2afcce9d2d2e6dcfd9ce63b8d4a0085802beb1d8b240af66b5e8"
+    },
+    {
+      "path": "raw/F1-simulated-zonal-failure/run-01/recovery-consumer-progress.csv",
+      "sha256": "ee7ce134436cdcdc7fea2bca9f7f1801531cd64ff69d3e166db8c12233bc3990"
+    },
+    {
+      "path": "raw/F1-simulated-zonal-failure/run-01/recovery-pool-state.csv",
+      "sha256": "382f9191f402348d13b9c5c9be62ccfc98a07394334cd11e38276de6db44bad1"
+    },
+    {
+      "path": "raw/F1-simulated-zonal-failure/run-01/timeline.csv",
+      "sha256": "7e19775635557835481d55acebb6a1b2cd63cfe242f11ed2f70abafd0ac3c514"
+    },
+    {
+      "path": "raw/F1-simulated-zonal-failure/run-01/unused-key-check.txt",
+      "sha256": "5ca2aab7d9111050c4b627725cbddcbf666dae74680fb53a81e48ddd16fed0f7"
+    },
+    {
+      "path": "raw/F1-simulated-zonal-failure/run-01/workload-freshness.csv",
+      "sha256": "8a38f128fe14b2655955fdf30c45cf4c0c91f8d1fd0c6b1e926f9db90df58788"
+    },
+    {
+      "path": "raw/F1-simulated-zonal-failure/run-02/assignments.jsonl",
+      "sha256": "fdbd602d6c67e520af8bdca0beafdae3646740564b3718cb9d3fceb89481f4c7"
+    },
+    {
+      "path": "raw/F1-simulated-zonal-failure/run-02/availability-summary.json",
+      "sha256": "3b4fae9b9783c9ee611cadd7f837c4ca77b8fdf721aec1b96ada1425a99d5f53"
+    },
+    {
+      "path": "raw/F1-simulated-zonal-failure/run-02/availability.csv",
+      "sha256": "bf96d1c052376157083b60fc685203f1bedc3cb18de47e3720f259194d416ddd"
+    },
+    {
+      "path": "raw/F1-simulated-zonal-failure/run-02/baseline-assignments.jsonl",
+      "sha256": "b6a31b3d67c48c4ebe62de689894348265aa7a5177c530a6498dcf9b59c2f102"
+    },
+    {
+      "path": "raw/F1-simulated-zonal-failure/run-02/baseline-consumer-progress.csv",
+      "sha256": "9efa14124568e3c3d2e37f9a5b027fc296134ff246ced5f036d2c18343f24288"
+    },
+    {
+      "path": "raw/F1-simulated-zonal-failure/run-02/consumer-progress.csv",
+      "sha256": "74487374dc82eceb68d81f8eb373a0477f65b8e9f206218f3a5f7048cffd4a88"
+    },
+    {
+      "path": "raw/F1-simulated-zonal-failure/run-02/derived-timeline.csv",
+      "sha256": "fc61f17d903f3a9492550bea6fb8070d5c5438c5ff72454bf2c45fb9169cf767"
+    },
+    {
+      "path": "raw/F1-simulated-zonal-failure/run-02/expected-events.jsonl",
+      "sha256": "e43bcdd711b23bd672cd0317c2ede0247c1bb13402975a443e2d03c716bb14b3"
+    },
+    {
+      "path": "raw/F1-simulated-zonal-failure/run-02/host-preflight.json",
+      "sha256": "2afcf05d63eab24927e4fee3f8c64f8a4f39c6e958ad0049ed91c23d6891a3b8"
+    },
+    {
+      "path": "raw/F1-simulated-zonal-failure/run-02/integrity-final.csv",
+      "sha256": "627ee81eb2320bc23324312a2aa2d7226c82af740c4d50441fce7c366968b489"
+    },
+    {
+      "path": "raw/F1-simulated-zonal-failure/run-02/integrity-pod.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "raw/F1-simulated-zonal-failure/run-02/integrity.csv",
+      "sha256": "627ee81eb2320bc23324312a2aa2d7226c82af740c4d50441fce7c366968b489"
+    },
+    {
+      "path": "raw/F1-simulated-zonal-failure/run-02/kubernetes-events-relevant.json",
+      "sha256": "a7885547bca6644be1dae740539a70fb076c9859bd3fbc4e0dc17ea2b441d3c2"
+    },
+    {
+      "path": "raw/F1-simulated-zonal-failure/run-02/metrics.json",
+      "sha256": "3590c03effb7b90ff45a84d8955b549e90b1b10a9ef8f37ab48076dc9ebdf846"
+    },
+    {
+      "path": "raw/F1-simulated-zonal-failure/run-02/missing-events-final.json",
+      "sha256": "f79e70bbb362748b0097eea1be53004535359bf33268484f30568f463af5ce4f"
+    },
+    {
+      "path": "raw/F1-simulated-zonal-failure/run-02/missing-events.json",
+      "sha256": "f79e70bbb362748b0097eea1be53004535359bf33268484f30568f463af5ce4f"
+    },
+    {
+      "path": "raw/F1-simulated-zonal-failure/run-02/node-state.csv",
+      "sha256": "ceed3a33c143682c6f46ac57cc63c8084c0e7fcc395ac9984e4eb3644a977287"
+    },
+    {
+      "path": "raw/F1-simulated-zonal-failure/run-02/pods-recovered.json",
+      "sha256": "c9fa40660b967606be2136cc194f7f3d94a97b4c68e86676cd85292adb4d78bc"
+    },
+    {
+      "path": "raw/F1-simulated-zonal-failure/run-02/pods-t0.json",
+      "sha256": "2afefe23f278c130b3bb6db825adcf6bbaa0e398a02a95b4607c5de36597a25a"
+    },
+    {
+      "path": "raw/F1-simulated-zonal-failure/run-02/pool-state.csv",
+      "sha256": "fe9952f5861291389816a1855840e42a17ca95ebc49f85e4be6763388a93827b"
+    },
+    {
+      "path": "raw/F1-simulated-zonal-failure/run-02/pool-stopped.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "raw/F1-simulated-zonal-failure/run-02/post-assignments.jsonl",
+      "sha256": "4bc09a9fcfd85d2f5159e017a102e86b9e2a3551abb46d3ae3a77cca30e2a72b"
+    },
+    {
+      "path": "raw/F1-simulated-zonal-failure/run-02/post-consumer-progress.csv",
+      "sha256": "22a7381e599a4d87944936f4ce0ea649e40cd4bb9dc28b86533b0205ba7d1ed0"
+    },
+    {
+      "path": "raw/F1-simulated-zonal-failure/run-02/published-events.csv",
+      "sha256": "1701457af91729af8e15ca64421ec6241b32a061a5ea02e305cef6860c1bb533"
+    },
+    {
+      "path": "raw/F1-simulated-zonal-failure/run-02/recovery-assignments.jsonl",
+      "sha256": "38ab629c48306da0fcc241f5fa5fe90379a0fe4e01c85eb09a4ec3e486f7f8e0"
+    },
+    {
+      "path": "raw/F1-simulated-zonal-failure/run-02/recovery-canary.csv",
+      "sha256": "22d9e770cf63fa7f441d6a53831b4eb533cd2204b57d0b4eab4edc109b9250cf"
+    },
+    {
+      "path": "raw/F1-simulated-zonal-failure/run-02/recovery-consumer-progress.csv",
+      "sha256": "cc9154ae223b028f85289eface5a65f7d598e85a25af4ce997be398a89ca7529"
+    },
+    {
+      "path": "raw/F1-simulated-zonal-failure/run-02/recovery-pool-state.csv",
+      "sha256": "03ed3a31a66a833462964d3969296fde766a4997e1af8a583075d33e4c343218"
+    },
+    {
+      "path": "raw/F1-simulated-zonal-failure/run-02/timeline.csv",
+      "sha256": "4ade05c31d852e3efef28a82072a8b381faf3b725e596f31024fc2b462bdecd5"
+    },
+    {
+      "path": "raw/F1-simulated-zonal-failure/run-02/unused-key-check.txt",
+      "sha256": "5ca2aab7d9111050c4b627725cbddcbf666dae74680fb53a81e48ddd16fed0f7"
+    },
+    {
+      "path": "raw/F1-simulated-zonal-failure/run-02/workload-freshness.csv",
+      "sha256": "2c930e285fcc8c8e251787cc40ed106654068780bbcebbe350f329e0918e8ddd"
+    },
+    {
+      "path": "raw/F1-simulated-zonal-failure/warm-up/assignments.jsonl",
+      "sha256": "82adde750eb86f8d094a4ec45b91b8933837c1ef6bc8dcd6e9a8238f4c6e4907"
+    },
+    {
+      "path": "raw/F1-simulated-zonal-failure/warm-up/availability-summary.json",
+      "sha256": "0ece37a085d2e451d862657f2144f6507fee0863c2d5ef867805f396d134a015"
+    },
+    {
+      "path": "raw/F1-simulated-zonal-failure/warm-up/availability.csv",
+      "sha256": "234c6ea9c48d99aacfaec1359012d4cb1d17a941d1d991048f53a13ca17d48dc"
+    },
+    {
+      "path": "raw/F1-simulated-zonal-failure/warm-up/baseline-assignments.jsonl",
+      "sha256": "3480aec17cf1c18b2d9399e3fd0a118a3a718b7b475dc11e4e36d4b4f30a5b73"
+    },
+    {
+      "path": "raw/F1-simulated-zonal-failure/warm-up/baseline-consumer-progress.csv",
+      "sha256": "7d94bb8ca9338255472ed1320e3c601a8c7c2bbb651448aea870928eda01576a"
+    },
+    {
+      "path": "raw/F1-simulated-zonal-failure/warm-up/consumer-progress.csv",
+      "sha256": "988bac48adf7b3a0593695703c1207cea32290f8be2fca66ebecbb357162e8fc"
+    },
+    {
+      "path": "raw/F1-simulated-zonal-failure/warm-up/derived-timeline.csv",
+      "sha256": "7ecd26e9502229fa10bb50c73a1fdd8246b2d430171205b0a3b8be012b0567a0"
+    },
+    {
+      "path": "raw/F1-simulated-zonal-failure/warm-up/expected-events.jsonl",
+      "sha256": "64e2e9d66667c3fe121e7b4041d6a94f6136314f4f3f843865a7a6a0c5153685"
+    },
+    {
+      "path": "raw/F1-simulated-zonal-failure/warm-up/host-preflight.json",
+      "sha256": "29a81de44812273fe1db534e7c8d60bd8d635b828d8a9f75816bcc4d0e4169f7"
+    },
+    {
+      "path": "raw/F1-simulated-zonal-failure/warm-up/integrity-final.csv",
+      "sha256": "9c2c2f7539b79f9137017bde35e298a264e470b77517253493902b2d127d53bc"
+    },
+    {
+      "path": "raw/F1-simulated-zonal-failure/warm-up/integrity-pod.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "raw/F1-simulated-zonal-failure/warm-up/integrity.csv",
+      "sha256": "9c2c2f7539b79f9137017bde35e298a264e470b77517253493902b2d127d53bc"
+    },
+    {
+      "path": "raw/F1-simulated-zonal-failure/warm-up/kubernetes-events-relevant.json",
+      "sha256": "c4f6ef5f15896a322b01dfb9a1b69507311085af9a87e6a013754a84a63a060f"
+    },
+    {
+      "path": "raw/F1-simulated-zonal-failure/warm-up/metrics.json",
+      "sha256": "b2be4d2ceca407e50b355d2612fa796fe6011b3180f65785efa7635f216b03dd"
+    },
+    {
+      "path": "raw/F1-simulated-zonal-failure/warm-up/missing-events-final.json",
+      "sha256": "f79e70bbb362748b0097eea1be53004535359bf33268484f30568f463af5ce4f"
+    },
+    {
+      "path": "raw/F1-simulated-zonal-failure/warm-up/missing-events.json",
+      "sha256": "f79e70bbb362748b0097eea1be53004535359bf33268484f30568f463af5ce4f"
+    },
+    {
+      "path": "raw/F1-simulated-zonal-failure/warm-up/node-state.csv",
+      "sha256": "96c9d44af8a023c6df1566efef4728297074a3a78b0f2e935a3160b309003dc9"
+    },
+    {
+      "path": "raw/F1-simulated-zonal-failure/warm-up/pods-recovered.json",
+      "sha256": "a092223e241ebfbe3ef6b047c1bc708c6e1fe60bdb2d7ea0615ba5d254de4802"
+    },
+    {
+      "path": "raw/F1-simulated-zonal-failure/warm-up/pods-t0.json",
+      "sha256": "923325f6e0e7d16ede7e212923263c3eaf06cadf89a36418ade09782dfbef50a"
+    },
+    {
+      "path": "raw/F1-simulated-zonal-failure/warm-up/pool-state.csv",
+      "sha256": "07f1344e2cfea32ad5cb51d26db85d600e9666fb044bc343e5ce9e3c93eb5fe8"
+    },
+    {
+      "path": "raw/F1-simulated-zonal-failure/warm-up/pool-stopped.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "raw/F1-simulated-zonal-failure/warm-up/post-assignments.jsonl",
+      "sha256": "5050c68f94f332561e9d455d7c95878de158221a36a4546db5356110b95efe39"
+    },
+    {
+      "path": "raw/F1-simulated-zonal-failure/warm-up/post-consumer-progress.csv",
+      "sha256": "7707b3d3715d1cf1ee5640aa5efd0eeb10cde3682d32ff28af2b284d1241075a"
+    },
+    {
+      "path": "raw/F1-simulated-zonal-failure/warm-up/published-events.csv",
+      "sha256": "9c3966607fd15c75a63e58acdb9587730266526267e8c33717f3c6673f87a3a1"
+    },
+    {
+      "path": "raw/F1-simulated-zonal-failure/warm-up/recovery-assignments.jsonl",
+      "sha256": "f33198ec83be3795276ec064e8b35495f48b88903eb489f73478dbb5a5b14c78"
+    },
+    {
+      "path": "raw/F1-simulated-zonal-failure/warm-up/recovery-canary.csv",
+      "sha256": "43d24c7358a684304a51a18d08df215ad6bccd6f305727a1874fd125afd592a7"
+    },
+    {
+      "path": "raw/F1-simulated-zonal-failure/warm-up/recovery-consumer-progress.csv",
+      "sha256": "562d7365e85906d92dbf54e39eb0a667ffe62fc269a4783f22821652a8cea24f"
+    },
+    {
+      "path": "raw/F1-simulated-zonal-failure/warm-up/recovery-pool-state.csv",
+      "sha256": "921d838017ccfef23b7f4ec5238f8c0e2c55ca217ae3934f85969dc5753de2ad"
+    },
+    {
+      "path": "raw/F1-simulated-zonal-failure/warm-up/timeline.csv",
+      "sha256": "f629f45ec4ec63a8acb9035ce56df6d632f18c2620f373c25d0a0b8747f50311"
+    },
+    {
+      "path": "raw/F1-simulated-zonal-failure/warm-up/unused-key-check.txt",
+      "sha256": "5ca2aab7d9111050c4b627725cbddcbf666dae74680fb53a81e48ddd16fed0f7"
+    },
+    {
+      "path": "raw/F1-simulated-zonal-failure/warm-up/workload-freshness.csv",
+      "sha256": "c13b8f6092fd0b6cdf89abd17790b658a076fc1a8795b6053178c5e0779261f1"
+    }
+  ],
+  "generated_timestamp_utc": "2026-08-30T13:20:38.755573+00:00",
+  "rejected_files": [],
+  "schema_version": 1,
+  "source_label": "evidence-source"
+}

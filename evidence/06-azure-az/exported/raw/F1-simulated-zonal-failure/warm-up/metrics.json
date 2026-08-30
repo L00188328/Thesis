@@ -1,0 +1,73 @@
+{
+  "availability": {
+    "availability_percent": 100.0,
+    "failed_probes": 0,
+    "failure_timestamps_utc": [],
+    "latency_ms": {
+      "max": 644.27,
+      "p50": 135.23,
+      "p95": 312.93,
+      "p99": 334.78
+    },
+    "longest_consecutive_failure_sequence": 0,
+    "successful_probes": 600,
+    "total_probes": 600
+  },
+  "consumer_lag": {
+    "final_three_samples_zero": true,
+    "last_sample_before_fault": 0,
+    "maximum_after_fault": 6
+  },
+  "discarded_warm_up": true,
+  "durations_from_t2_seconds": {
+    "backlog_recovery": 3.153,
+    "command_acceptance": 11.931,
+    "first_event_processing_recovery": 3.153,
+    "first_service_success": 0.258,
+    "node_unavailable": 50.37,
+    "pool_stopped": 11.783,
+    "replacement_api_ready_and_routed": 30.258,
+    "replacement_containers_started": 15.37,
+    "replacement_scheduled": 14.37,
+    "sustained_event_processing_recovery": 3.153,
+    "sustained_service_recovery": 0.258
+  },
+  "failed_pool": "appzone1",
+  "fault": "simulated zonal failure using az aks nodepool stop --no-wait",
+  "instrumentation_note": "The macOS live node watcher emitted literal .3N timestamps and stopped when Azure first reported the pool Stopped, before Kubernetes removed the node. Raw watcher evidence is retained unchanged; node-unavailable timing is recovered from the authoritative retained Kubernetes RemovingNode event at one-second precision.",
+  "integrity": {
+    "duplicate_rows": 0,
+    "missing_events": 0,
+    "pass": true,
+    "persisted_rows": 600,
+    "unique_event_ids": 600
+  },
+  "routing_path": "external host to direct Region A application endpoint over HTTP",
+  "run_id": "F1-warmup",
+  "timing": {
+    "node_unavailable_authority": "retained Kubernetes RemovingNode event; live watcher stopped when Azure reported pool Stopped before node removal",
+    "node_unavailable_utc": "2026-08-30T12:23:54+00:00",
+    "pool_stopped_utc": "2026-08-30T12:23:15.413000+00:00",
+    "t1_utc": "2026-08-30T12:22:02.864807+00:00",
+    "t2_accepted_utc": "2026-08-30T12:23:15.561000+00:00",
+    "t2_command_utc": "2026-08-30T12:23:03.630000+00:00",
+    "t3_observation": "none",
+    "t3_utc": null,
+    "t4_first_service_success_utc": "2026-08-30T12:23:03.888286+00:00",
+    "t5_confirmation_utc": "2026-08-30T12:23:08.017858+00:00",
+    "t5_sustained_recovery_start_utc": "2026-08-30T12:23:03.888286+00:00",
+    "t6_stable_utc": "2026-08-30T12:39:09.790629+00:00",
+    "t7_backlog_recovery_utc": "2026-08-30T12:23:06.783155+00:00",
+    "t8_integrity_utc": "2026-08-30T13:15:45.060911+00:00"
+  },
+  "window_seconds": 600,
+  "workload": {
+    "freshness_rows": 240,
+    "partitions_observed": [
+      0,
+      1
+    ],
+    "progress_interruptions": 0,
+    "published_events": 600
+  }
+}

@@ -1,0 +1,12 @@
+timestamp_utc,label,detail
+2026-08-30T12:39:45.699592+00:00,T0,keys unused; two Pods per service split across appzone1/appzone2; two Aggregators assigned; baseline lag zero; canary materialised; selected failed pool=appzone1
+2026-08-30T12:39:45.800005+00:00,T1,F1-r01 600-second window and concurrent collectors started
+2026-08-30T12:40:46.617Z,F1-T2-command,pool=appzone1
+2026-08-30T12:40:56.741Z,F1-T2-accepted,pool=appzone1
+2026-08-30T12:40:56.643Z,F1-T2-pool-stopped,pool=appzone1
+2026-08-30T12:49:48.365570+00:00,measurement-window-complete,F1-r01 600-second window and concurrent collectors completed
+2026-08-30T12:51:02.379405+00:00,F1-recovery-start-command,pool=appzone1
+2026-08-30T12:51:14.783478+00:00,F1-recovery-start-accepted,pool=appzone1
+2026-08-30T12:52:35.055122+00:00,F1-recovery-pool-running,pool=appzone1
+2026-08-30T12:52:36.214002+00:00,F1-recovery-node-ready,pool=appzone1
+2026-08-30T12:53:49.681148+00:00,T6,failed pool Running; node Ready; API/Aggregator redistributed across both zones; two consumers assigned; canary stable; lag zero

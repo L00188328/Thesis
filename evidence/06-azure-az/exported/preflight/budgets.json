@@ -1,0 +1,13 @@
+[
+  {
+    "amount": "50.0",
+    "currentSpend": "0.0",
+    "name": "thesis-experiments",
+    "notifications": [
+      "actual50",
+      "actual80",
+      "actual100"
+    ],
+    "timeGrain": "Monthly"
+  }
+]

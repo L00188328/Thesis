@@ -1,0 +1,472 @@
+apiVersion: v1
+items:
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      deployment.kubernetes.io/revision: "1"
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"apps/v1","kind":"Deployment","metadata":{"annotations":{},"name":"aggregator","namespace":"thesis-ha"},"spec":{"replicas":2,"selector":{"matchLabels":{"app":"aggregator"}},"template":{"metadata":{"labels":{"app":"aggregator"}},"spec":{"affinity":{"nodeAffinity":{"requiredDuringSchedulingIgnoredDuringExecution":{"nodeSelectorTerms":[{"matchExpressions":[{"key":"workload","operator":"In","values":["thesis-app"]}]}]}},"podAntiAffinity":{"preferredDuringSchedulingIgnoredDuringExecution":[{"podAffinityTerm":{"labelSelector":{"matchLabels":{"app":"aggregator"}},"topologyKey":"kubernetes.io/hostname"},"weight":100}]}},"containers":[{"command":["python","-m","services.aggregator.main"],"env":[{"name":"INSTANCE_ID","valueFrom":{"fieldRef":{"fieldPath":"metadata.name"}}}],"envFrom":[{"configMapRef":{"name":"thesis-app-config"}},{"secretRef":{"name":"thesis-app-secrets"}}],"image":"thesishaacr.azurecr.io/thesis-aggregator@sha256:a41041c885ba594685d1533e6b436ce536015c1effd06a41651ec401a5ca34ff","imagePullPolicy":"IfNotPresent","livenessProbe":{"httpGet":{"path":"/health","port":"health"},"initialDelaySeconds":10,"periodSeconds":10},"name":"aggregator","ports":[{"containerPort":8081,"name":"health"}],"readinessProbe":{"httpGet":{"path":"/ready","port":"health"},"initialDelaySeconds":10,"periodSeconds":10},"resources":{"limits":{"cpu":"500m","memory":"512Mi"},"requests":{"cpu":"100m","memory":"128Mi"}}}],"tolerations":[{"effect":"NoSchedule","key":"workload","operator":"Equal","value":"thesis-app"}],"topologySpreadConstraints":[{"labelSelector":{"matchLabels":{"app":"aggregator"}},"maxSkew":1,"topologyKey":"topology.kubernetes.io/zone","whenUnsatisfiable":"ScheduleAnyway"}]}}}}
+    creationTimestamp: "2026-08-30T12:13:09Z"
+    generation: 1
+    name: aggregator
+    namespace: thesis-ha
+    resourceVersion: "18669"
+    uid: c21be07d-2651-41b4-9553-be861aa1fa00
+  spec:
+    progressDeadlineSeconds: 600
+    replicas: 2
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        app: aggregator
+    strategy:
+      rollingUpdate:
+        maxSurge: 25%
+        maxUnavailable: 25%
+      type: RollingUpdate
+    template:
+      metadata:
+        labels:
+          app: aggregator
+      spec:
+        affinity:
+          nodeAffinity:
+            requiredDuringSchedulingIgnoredDuringExecution:
+              nodeSelectorTerms:
+              - matchExpressions:
+                - key: workload
+                  operator: In
+                  values:
+                  - thesis-app
+          podAntiAffinity:
+            preferredDuringSchedulingIgnoredDuringExecution:
+            - podAffinityTerm:
+                labelSelector:
+                  matchLabels:
+                    app: aggregator
+                topologyKey: kubernetes.io/hostname
+              weight: 100
+        containers:
+        - command:
+          - python
+          - -m
+          - services.aggregator.main
+          env:
+          - name: INSTANCE_ID
+            valueFrom:
+              fieldRef:
+                apiVersion: v1
+                fieldPath: metadata.name
+          envFrom:
+          - configMapRef:
+              name: thesis-app-config
+          - secretRef:
+              name: thesis-app-secrets
+          image: thesishaacr.azurecr.io/thesis-aggregator@sha256:a41041c885ba594685d1533e6b436ce536015c1effd06a41651ec401a5ca34ff
+          imagePullPolicy: IfNotPresent
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /health
+              port: health
+              scheme: HTTP
+            initialDelaySeconds: 10
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 1
+          name: aggregator
+          ports:
+          - containerPort: 8081
+            name: health
+            protocol: TCP
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /ready
+              port: health
+              scheme: HTTP
+            initialDelaySeconds: 10
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 1
+          resources:
+            limits:
+              cpu: 500m
+              memory: 512Mi
+            requests:
+              cpu: 100m
+              memory: 128Mi
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+        tolerations:
+        - effect: NoSchedule
+          key: workload
+          operator: Equal
+          value: thesis-app
+        topologySpreadConstraints:
+        - labelSelector:
+            matchLabels:
+              app: aggregator
+          maxSkew: 1
+          topologyKey: topology.kubernetes.io/zone
+          whenUnsatisfiable: ScheduleAnyway
+  status:
+    availableReplicas: 2
+    conditions:
+    - lastTransitionTime: "2026-08-30T12:13:09Z"
+      lastUpdateTime: "2026-08-30T12:13:27Z"
+      message: ReplicaSet "aggregator-76557885fd" has successfully progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+    - lastTransitionTime: "2026-08-30T13:07:35Z"
+      lastUpdateTime: "2026-08-30T13:07:35Z"
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    observedGeneration: 1
+    readyReplicas: 2
+    replicas: 2
+    terminatingReplicas: 0
+    updatedReplicas: 2
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      deployment.kubernetes.io/revision: "1"
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"apps/v1","kind":"Deployment","metadata":{"annotations":{},"name":"api","namespace":"thesis-ha"},"spec":{"replicas":2,"selector":{"matchLabels":{"app":"api"}},"template":{"metadata":{"labels":{"app":"api"}},"spec":{"affinity":{"nodeAffinity":{"requiredDuringSchedulingIgnoredDuringExecution":{"nodeSelectorTerms":[{"matchExpressions":[{"key":"workload","operator":"In","values":["thesis-app"]}]}]}},"podAntiAffinity":{"preferredDuringSchedulingIgnoredDuringExecution":[{"podAffinityTerm":{"labelSelector":{"matchLabels":{"app":"api"}},"topologyKey":"kubernetes.io/hostname"},"weight":100}]}},"containers":[{"command":["uvicorn","services.api.main:app","--host","0.0.0.0","--port","8000"],"env":[{"name":"INSTANCE_ID","valueFrom":{"fieldRef":{"fieldPath":"metadata.name"}}}],"envFrom":[{"configMapRef":{"name":"thesis-app-config"}},{"secretRef":{"name":"thesis-app-secrets"}}],"image":"thesishaacr.azurecr.io/thesis-api@sha256:2bfab63b2894046a842b36fd792a7530a6a28731775a886b081a6fdc3e556b5f","imagePullPolicy":"IfNotPresent","livenessProbe":{"httpGet":{"path":"/health","port":"http"},"initialDelaySeconds":10,"periodSeconds":10},"name":"api","ports":[{"containerPort":8000,"name":"http"}],"readinessProbe":{"httpGet":{"path":"/ready","port":"http"},"initialDelaySeconds":10,"periodSeconds":10},"resources":{"limits":{"cpu":"500m","memory":"512Mi"},"requests":{"cpu":"100m","memory":"128Mi"}}}],"tolerations":[{"effect":"NoSchedule","key":"workload","operator":"Equal","value":"thesis-app"}],"topologySpreadConstraints":[{"labelSelector":{"matchLabels":{"app":"api"}},"maxSkew":1,"topologyKey":"topology.kubernetes.io/zone","whenUnsatisfiable":"ScheduleAnyway"}]}}}}
+    creationTimestamp: "2026-08-30T12:13:09Z"
+    generation: 1
+    name: api
+    namespace: thesis-ha
+    resourceVersion: "18775"
+    uid: cd953a50-4dda-4ee1-ae83-0936e7946104
+  spec:
+    progressDeadlineSeconds: 600
+    replicas: 2
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        app: api
+    strategy:
+      rollingUpdate:
+        maxSurge: 25%
+        maxUnavailable: 25%
+      type: RollingUpdate
+    template:
+      metadata:
+        labels:
+          app: api
+      spec:
+        affinity:
+          nodeAffinity:
+            requiredDuringSchedulingIgnoredDuringExecution:
+              nodeSelectorTerms:
+              - matchExpressions:
+                - key: workload
+                  operator: In
+                  values:
+                  - thesis-app
+          podAntiAffinity:
+            preferredDuringSchedulingIgnoredDuringExecution:
+            - podAffinityTerm:
+                labelSelector:
+                  matchLabels:
+                    app: api
+                topologyKey: kubernetes.io/hostname
+              weight: 100
+        containers:
+        - command:
+          - uvicorn
+          - services.api.main:app
+          - --host
+          - 0.0.0.0
+          - --port
+          - "8000"
+          env:
+          - name: INSTANCE_ID
+            valueFrom:
+              fieldRef:
+                apiVersion: v1
+                fieldPath: metadata.name
+          envFrom:
+          - configMapRef:
+              name: thesis-app-config
+          - secretRef:
+              name: thesis-app-secrets
+          image: thesishaacr.azurecr.io/thesis-api@sha256:2bfab63b2894046a842b36fd792a7530a6a28731775a886b081a6fdc3e556b5f
+          imagePullPolicy: IfNotPresent
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /health
+              port: http
+              scheme: HTTP
+            initialDelaySeconds: 10
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 1
+          name: api
+          ports:
+          - containerPort: 8000
+            name: http
+            protocol: TCP
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /ready
+              port: http
+              scheme: HTTP
+            initialDelaySeconds: 10
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 1
+          resources:
+            limits:
+              cpu: 500m
+              memory: 512Mi
+            requests:
+              cpu: 100m
+              memory: 128Mi
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+        tolerations:
+        - effect: NoSchedule
+          key: workload
+          operator: Equal
+          value: thesis-app
+        topologySpreadConstraints:
+        - labelSelector:
+            matchLabels:
+              app: api
+          maxSkew: 1
+          topologyKey: topology.kubernetes.io/zone
+          whenUnsatisfiable: ScheduleAnyway
+  status:
+    availableReplicas: 2
+    conditions:
+    - lastTransitionTime: "2026-08-30T12:13:09Z"
+      lastUpdateTime: "2026-08-30T12:13:28Z"
+      message: ReplicaSet "api-58d9f5d75" has successfully progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+    - lastTransitionTime: "2026-08-30T13:08:03Z"
+      lastUpdateTime: "2026-08-30T13:08:03Z"
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    observedGeneration: 1
+    readyReplicas: 2
+    replicas: 2
+    terminatingReplicas: 0
+    updatedReplicas: 2
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{},"name":"aggregator","namespace":"thesis-ha"},"spec":{"ports":[{"name":"health","port":8081,"targetPort":"health"}],"selector":{"app":"aggregator"}}}
+    creationTimestamp: "2026-08-30T12:13:08Z"
+    name: aggregator
+    namespace: thesis-ha
+    resourceVersion: "3153"
+    uid: 12d4ee33-5054-4d0b-920b-38dd943c8c4e
+  spec:
+    clusterIP: 10.0.16.167
+    clusterIPs:
+    - 10.0.16.167
+    internalTrafficPolicy: Cluster
+    ipFamilies:
+    - IPv4
+    ipFamilyPolicy: SingleStack
+    ports:
+    - name: health
+      port: 8081
+      protocol: TCP
+      targetPort: health
+    selector:
+      app: aggregator
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{},"name":"api","namespace":"thesis-ha"},"spec":{"ports":[{"name":"http","port":80,"targetPort":"http"}],"selector":{"app":"api"},"type":"LoadBalancer"}}
+    creationTimestamp: "2026-08-30T12:13:09Z"
+    finalizers:
+    - service.kubernetes.io/load-balancer-cleanup
+    name: api
+    namespace: thesis-ha
+    resourceVersion: "3276"
+    uid: 1848af69-df8d-4821-9682-c47646d68c2f
+  spec:
+    allocateLoadBalancerNodePorts: true
+    clusterIP: 10.0.220.191
+    clusterIPs:
+    - 10.0.220.191
+    externalTrafficPolicy: Cluster
+    internalTrafficPolicy: Cluster
+    ipFamilies:
+    - IPv4
+    ipFamilyPolicy: SingleStack
+    ports:
+    - name: http
+      nodePort: 31008
+      port: 80
+      protocol: TCP
+      targetPort: http
+    selector:
+      app: api
+    sessionAffinity: None
+    type: LoadBalancer
+  status:
+    loadBalancer:
+      ingress:
+      - ip: [REDACTED_PUBLIC_IP]
+        ipMode: VIP
+- apiVersion: policy/v1
+  kind: PodDisruptionBudget
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"policy/v1","kind":"PodDisruptionBudget","metadata":{"annotations":{},"name":"aggregator","namespace":"thesis-ha"},"spec":{"minAvailable":1,"selector":{"matchLabels":{"app":"aggregator"}}}}
+    creationTimestamp: "2026-08-30T12:13:09Z"
+    generation: 1
+    name: aggregator
+    namespace: thesis-ha
+    resourceVersion: "18674"
+    uid: 466343a3-e691-4433-81be-42fb3381d1d1
+  spec:
+    minAvailable: 1
+    selector:
+      matchLabels:
+        app: aggregator
+  status:
+    conditions:
+    - lastTransitionTime: "2026-08-30T13:07:35Z"
+      message: ""
+      observedGeneration: 1
+      reason: SufficientPods
+      status: "True"
+      type: DisruptionAllowed
+    currentHealthy: 2
+    desiredHealthy: 1
+    disruptionsAllowed: 1
+    expectedPods: 2
+    observedGeneration: 1
+- apiVersion: policy/v1
+  kind: PodDisruptionBudget
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"policy/v1","kind":"PodDisruptionBudget","metadata":{"annotations":{},"name":"api","namespace":"thesis-ha"},"spec":{"minAvailable":1,"selector":{"matchLabels":{"app":"api"}}}}
+    creationTimestamp: "2026-08-30T12:13:09Z"
+    generation: 1
+    name: api
+    namespace: thesis-ha
+    resourceVersion: "18771"
+    uid: 972b357b-e7d6-4813-a162-356b8886e183
+  spec:
+    minAvailable: 1
+    selector:
+      matchLabels:
+        app: api
+  status:
+    conditions:
+    - lastTransitionTime: "2026-08-30T13:08:03Z"
+      message: ""
+      observedGeneration: 1
+      reason: SufficientPods
+      status: "True"
+      type: DisruptionAllowed
+    currentHealthy: 2
+    desiredHealthy: 1
+    disruptionsAllowed: 1
+    expectedPods: 2
+    observedGeneration: 1
+- apiVersion: v1
+  data:
+    ca.crt: |
+      -----BEGIN CERTIFICATE-----
+      MIIE6DCCAtCgAwIBAgIQEOcVl5EBjUwdYPaoO80YijANBgkqhkiG9w0BAQsFADAN
+      MQswCQYDVQQDEwJjYTAgFw0yNjA4MzAxMTU0NTlaGA8yMDU2MDgzMDEyMDQ1OVow
+      DTELMAkGA1UEAxMCY2EwggIiMA0GCSqGSIb3DQEBAQUAA4ICDwAwggIKAoICAQC5
+      aFLa1bKOuekqYj5pEIGa2FeOmEnIgmU6LlctvuAB5bd8oLJu1aWmG6CvEQdEQ/I5
+      CLOFylDfn6RSRdunZpHuCsvPY3r2Z+ARibitYXcE8ou73O4oAET6Gm27y5DMjif+
+      VK6ir+a/Sw0Af3NScWCGem/AOUpMeaJpD1JMqtnWoYW5Rpwf9TfUjswaxCd3pNgb
+      SnQu93Ygy0aUAWP3kCv/2EnvfuaA94x6fMOm6mOeLI1OexC1WBeUzlU0hVZZMtB6
+      qMXLXeUFBWfAIGInbzRT2TG67KrlkVeE1Wp+fVAJOrhbo5GDZltCf7g0yBQ/2ars
+      AS8cU2gXkxUsMUbZxDuWhOBP7YNpUBMuBT5b3mr+8Q7TYruUEldsd7A+hvV1ycSa
+      OKSnQHi057Q+YCgN+vkEPd8rR8J2WtGdbGaD6z/IpOeLzKzxXFiFIJi4s+eJWIPr
+      Mjtwsx/RVDras5qDeo/p9Uf9I/BJ3uf92zo/xNOXIdsoN69paOud0nOGQylz4Asl
+      v1PF/JC4Md20Od1bPEEZ8+XwEI1RUM+zvt7aD2MbQY1EwYYzBS4qnKf3T2CcEdUm
+      epV/grJZmm+A9BlOh9FgNoGvusPhzxHj0cYJ/f0v6HANkAm3zp1oGr18dut0tz02
+      33LOrB22CStPNTeLbaVgXkirLM6lwHrd49CvtNVhNwIDAQABo0IwQDAOBgNVHQ8B
+      Af8EBAMCAqQwDwYDVR0TAQH/BAUwAwEB/zAdBgNVHQ4EFgQUoh2gIxG1rn7Yyt0r
+      rFLZnnkxbP0wDQYJKoZIhvcNAQELBQADggIBAApOF9bNe8sY3BebqDhGf8bVS9Ic
+      9YrsNIjLMoCZK2sZo4qQ2IvOJKJaEsTXeAfK2Kjwno4utNCf8l4KtUBq3lMFJQkW
+      4eJhtYDjVp1KviTYKceK5CrP0Q8aiZ6ymOrC9YDYgvQIQ1LwGNGTEsQoUvtNxN5f
+      0zTTk0amf2tj5yCnx7EoHp2ZI8mD+20Ag0IjYgd1TsARGqxyBxPrIMjTIveKCYTu
+      7caHmbPrWnwuIg7y17BXbMlY0/pNPrvB/kckvCEruS6v4znWKt5JJApPeLzDWN+6
+      kxpiywJABDYWZFJB5qB2UYHC/VDaQ0k15077WdrFg5LmiBkIDfPEv5JljF2RxpgF
+      hINuPRuOILmNdvKfZoM871XKPj+Ovz1PtKx244Pvm3xEISGTRflG8TiCECT4GuGO
+      RwgYQwLEo5VSHQRu6faKeUhvSYiSF946T2TEy9LTb+/lfAe81Z48VgSe4xbXxKbO
+      G4x2ZwMJQfpQeA7Hg2aE+7w2ilmjP14xuReGqgeS5R4tjLpxavU7HEfBzb66VOVo
+      nbIpOwSKTnIxqEPMEgermHWLjCK2DbC4FgQVloU3TXoAtZN5tU18Gkp2HhvnM7wh
+      O+8FxkV+Po0bwhCIkrX+VUshnoYbGRBM+xQkroLFRtBkeBTvYPbcPIN9UL1fbnzr
+      YFHIL961Kwzuq2Es
+      -----END CERTIFICATE-----
+  kind: ConfigMap
+  metadata:
+    annotations:
+      kubernetes.io/description: Contains a CA bundle that can be used to verify the
+        kube-apiserver when using internal endpoints such as the internal service
+        IP or kubernetes.default.svc. No other usage is guaranteed across distributions
+        of Kubernetes clusters.
+    creationTimestamp: "2026-08-30T12:13:07Z"
+    name: kube-root-ca.crt
+    namespace: thesis-ha
+    resourceVersion: "3144"
+    uid: 475fa9be-82ac-4d99-893c-10fd84eb7e2a
+- apiVersion: v1
+  data:
+    AZURE_REGION: italynorth
+    HEALTH_PORT: "8081"
+    KAFKA_BOOTSTRAP_SERVERS: thesisha-events.servicebus.windows.net:9093
+    KAFKA_GROUP_ID: shipment-aggregator
+    KAFKA_SASL_MECHANISM: PLAIN
+    KAFKA_SASL_USERNAME: $ConnectionString
+    KAFKA_SECURITY_PROTOCOL: SASL_SSL
+    KAFKA_TOPICS: logistic-center-events,delivery-base-events
+  kind: ConfigMap
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","data":{"AZURE_REGION":"italynorth","HEALTH_PORT":"8081","KAFKA_BOOTSTRAP_SERVERS":"thesisha-events.servicebus.windows.net:9093","KAFKA_GROUP_ID":"shipment-aggregator","KAFKA_SASL_MECHANISM":"PLAIN","KAFKA_SASL_USERNAME":"$ConnectionString","KAFKA_SECURITY_PROTOCOL":"SASL_SSL","KAFKA_TOPICS":"logistic-center-events,delivery-base-events"},"kind":"ConfigMap","metadata":{"annotations":{},"creationTimestamp":null,"name":"thesis-app-config","namespace":"thesis-ha"}}
+    creationTimestamp: "2026-08-30T12:13:07Z"
+    name: thesis-app-config
+    namespace: thesis-ha
+    resourceVersion: "3147"
+    uid: 10211b3d-a950-41de-bf91-1116653123ad
+kind: List
+metadata:
+  resourceVersion: ""

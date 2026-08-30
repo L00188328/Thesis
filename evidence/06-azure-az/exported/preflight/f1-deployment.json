@@ -1,0 +1,22 @@
+{
+  "name": "f1-region-a-v108",
+  "outputs": {
+    "applicationPoolNames": {
+      "type": "Array",
+      "value": [
+        "appzone1",
+        "appzone2"
+      ]
+    },
+    "clusterName": {
+      "type": "String",
+      "value": "thesis-aks-region-a"
+    },
+    "clusterResourceId": {
+      "type": "String",
+      "value": "/subscriptions/[REDACTED]/resourceGroups/thesis-ha-region-a-rg/providers/Microsoft.ContainerService/managedClusters/thesis-aks-region-a"
+    }
+  },
+  "state": "Succeeded",
+  "timestamp": "2026-08-30T12:10:21.162938+00:00"
+}

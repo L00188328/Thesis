@@ -1,0 +1,7 @@
+{
+  "location": "Italy North",
+  "name": "thesisha-postgres",
+  "sku": "Standard_B1ms",
+  "state": "Stopped",
+  "version": "16"
+}
