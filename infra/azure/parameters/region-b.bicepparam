@@ -13,7 +13,7 @@ param appPools = [
   {
     name: 'appzone1'
     count: 1
-    vmSize: 'Standard_D2as_v5'
+    vmSize: 'Standard_D2as_v4'
     zones: [
       '1'
     ]
@@ -24,7 +24,7 @@ param appPools = [
   {
     name: 'appzone2'
     count: 1
-    vmSize: 'Standard_D2as_v5'
+    vmSize: 'Standard_D2as_v4'
     zones: [
       '2'
     ]

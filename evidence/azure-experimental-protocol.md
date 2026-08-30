@@ -1,14 +1,16 @@
 # Azure High-Availability Experimental Protocol
 
-**Methodology version:** 1.0.2
+**Methodology version:** 1.0.3
 **Status:** Frozen
-**Frozen at:** 2026-08-28T13:02:58Z
+**Frozen at:** 2026-08-30T09:09:18Z
 
 Methodological changes after this point are prohibited unless pre-E1 validation discovers a genuine technical incompatibility. Any such change requires a versioned amendment and the reruns defined by this protocol.
 
 **Version 1.0.1 compatibility amendment:** Pre-E1 IaC validation established that the AKS API origin is an HTTP `LoadBalancer` Service with no repository-managed public certificate or TLS ingress. Adding certificate/DNS infrastructure solely for this experiment would materially increase scope and complexity. External clients still use HTTPS to Azure Front Door, but Front Door forwards and probes the controlled AKS origin over HTTP port 80. Validation also found the originally drafted AKS `1.32.2` pin was out of standard support; the IaC now requests supported minor `1.35`, and pre-deployment validation must resolve and record one identical patch available in both regions before either cluster is created. No availability, recovery, workload, integrity, cost, or fault definition changed.
 
 **Version 1.0.2 transport clarification:** E1, E2-A, E2-B, and F1 send the external availability probe directly to the Region A HTTP `LoadBalancer` application endpoint. G1 and G2 send the external probe over HTTPS to Azure Front Door, which forwards and probes the AKS origins over HTTP port 80. No TLS ingress, certificate manager, or experiment-only DNS/certificate infrastructure is introduced. All availability, recovery, workload, integrity, cost, and fault definitions remain unchanged. Because the direct and Front Door paths contain different routing and TLS components, latency comparisons must identify the path and must not attribute path-induced differences solely to the application topology.
+
+**Version 1.0.3 pre-E1 quota amendment:** Subscription quota discovery immediately before deployment found a zero-vCPU quota for the DASv5 family in both planned regions, making the frozen `Standard_D2as_v5` application nodes undeployable. Both regions expose `Standard_D2as_v4` with the required two-vCPU size and a four-vCPU family quota. Before any experimental Azure resource was created or any E1 run began, every application pool was therefore changed to `Standard_D2as_v4`, and the current EUR burn estimate was regenerated. System-pool sizing, application-node counts, zones, scheduling, workloads, metrics, routing, probes, repeat counts, fault mechanisms, transaction/commit behaviour, idempotency and event-version semantics remain unchanged. All configurations use the amended application VM size so comparability is preserved.
 
 ## 1. Scope and Freeze Rule
 
@@ -461,7 +463,7 @@ Do not store credentials, connection strings, access tokens, or unredacted subsc
 
 Before E1, create `evidence/azure-experiment-freeze.json` from the reviewed protocol and deployment parameters. It must contain:
 
-- `protocol`: version `1.0.2`, the Git commit containing the frozen protocol, and UTC freeze timestamp;
+- `protocol`: version `1.0.3`, the Git commit containing the frozen protocol, and UTC freeze timestamp;
 - `billing`: sanitised subscription reference, billing currency, estimated hourly burn by configuration, total planned burn, and budget ceiling;
 - `regions`: Region A and Region B, plus the sanitised physical location of the external laptop;
 - `skus`: Front Door/Event Hubs/AKS/PostgreSQL tiers and every cluster, node-pool, VM size, mode, zone, and desired/min/max node count;
@@ -628,7 +630,7 @@ AKS, Front Door, Event Hubs, PostgreSQL, and registry creation/deletion times mu
 
 The proposed order is:
 
-1. Estimate Azure burn, select the fixed repeat count, freeze protocol v1.0.2 and all required parameters, and create/checksum `evidence/azure-experiment-freeze.json` before deployment.
+1. Estimate Azure burn, select the fixed repeat count, freeze protocol v1.0.3 and all required parameters, and create/checksum `evidence/azure-experiment-freeze.json` before deployment.
 2. Prepare reusable IaC and parameter files for E1, E2-A, E2-B, F1, G1, and G2; validate locally without deployment.
 3. Prepare and locally verify probe, workload, consumer-progress, integrity, timeline, sanitisation, and evidence-export scripts. Validate the consumer-progress collector against local Redpanda and then an Event Hubs smoke workload; preselect and broker-verify every measured run's unique key pair, save the complete `evidence/partition-key-map.json`, and remove the temporary verification Event Hub before any measured E1 run.
 4. Configure only `RoundRobinPartitionAssignor`, add the fixed assignment/revocation structured logs, and verify locally that assignment changes do not alter event-processing semantics. Freeze this configuration before E1.

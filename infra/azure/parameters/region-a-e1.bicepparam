@@ -11,7 +11,7 @@ param appPools = [
   {
     name: 'app'
     count: 1
-    vmSize: 'Standard_D2as_v5'
+    vmSize: 'Standard_D2as_v4'
     zones: []
     nodeLabels: {
       regionRole: 'region-a'

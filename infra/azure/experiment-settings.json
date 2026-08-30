@@ -4,7 +4,7 @@
     "currency": "EUR",
     "gross_spend_ceiling": 50.0,
     "credits_or_discounts_assumed": false,
-    "price_query_date": "2026-08-29",
+    "price_query_date": "2026-08-30",
     "live_price_confirmation_status": "confirmed"
   },
   "regions": {
@@ -27,7 +27,7 @@
         "node_autoprovisioning": false,
         "system_pool": {"name": "system", "mode": "System", "vm_size": "Standard_B2s", "zones": [], "desired": 1, "min": 1, "max": 1, "autoscaling": false},
         "application_pools": [
-          {"name": "app", "mode": "User", "vm_size": "Standard_D2as_v5", "zones": [], "desired": 1, "min": 1, "max": 1, "autoscaling": false}
+          {"name": "app", "mode": "User", "vm_size": "Standard_D2as_v4", "zones": [], "desired": 1, "min": 1, "max": 1, "autoscaling": false}
         ]
       },
       {
@@ -38,7 +38,7 @@
         "node_autoprovisioning": false,
         "system_pool": {"name": "system", "mode": "System", "vm_size": "Standard_B2s", "zones": [], "desired": 1, "min": 1, "max": 1, "autoscaling": false},
         "application_pools": [
-          {"name": "app", "mode": "User", "vm_size": "Standard_D2as_v5", "zones": [], "desired": 2, "min": 2, "max": 2, "autoscaling": false}
+          {"name": "app", "mode": "User", "vm_size": "Standard_D2as_v4", "zones": [], "desired": 2, "min": 2, "max": 2, "autoscaling": false}
         ]
       },
       {
@@ -49,8 +49,8 @@
         "node_autoprovisioning": false,
         "system_pool": {"name": "system", "mode": "System", "vm_size": "Standard_B2s", "zones": ["1"], "desired": 1, "min": 1, "max": 1, "autoscaling": false},
         "application_pools": [
-          {"name": "appzone1", "mode": "User", "vm_size": "Standard_D2as_v5", "zones": ["1"], "desired": 1, "min": 1, "max": 1, "autoscaling": false},
-          {"name": "appzone2", "mode": "User", "vm_size": "Standard_D2as_v5", "zones": ["2"], "desired": 1, "min": 1, "max": 1, "autoscaling": false}
+          {"name": "appzone1", "mode": "User", "vm_size": "Standard_D2as_v4", "zones": ["1"], "desired": 1, "min": 1, "max": 1, "autoscaling": false},
+          {"name": "appzone2", "mode": "User", "vm_size": "Standard_D2as_v4", "zones": ["2"], "desired": 1, "min": 1, "max": 1, "autoscaling": false}
         ]
       },
       {
@@ -61,8 +61,8 @@
         "node_autoprovisioning": false,
         "system_pool": {"name": "system", "mode": "System", "vm_size": "Standard_B2s", "zones": ["1"], "desired": 1, "min": 1, "max": 1, "autoscaling": false},
         "application_pools": [
-          {"name": "appzone1", "mode": "User", "vm_size": "Standard_D2as_v5", "zones": ["1"], "desired": 1, "min": 1, "max": 1, "autoscaling": false},
-          {"name": "appzone2", "mode": "User", "vm_size": "Standard_D2as_v5", "zones": ["2"], "desired": 1, "min": 1, "max": 1, "autoscaling": false}
+          {"name": "appzone1", "mode": "User", "vm_size": "Standard_D2as_v4", "zones": ["1"], "desired": 1, "min": 1, "max": 1, "autoscaling": false},
+          {"name": "appzone2", "mode": "User", "vm_size": "Standard_D2as_v4", "zones": ["2"], "desired": 1, "min": 1, "max": 1, "autoscaling": false}
         ]
       }
     ],
