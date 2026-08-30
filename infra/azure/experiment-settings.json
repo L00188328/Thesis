@@ -12,6 +12,15 @@
     "region_b": "northeurope",
     "external_probe_location": "Vienna, Austria"
   },
+  "resource_tags": {
+    "shared": {"project": "masters-thesis", "phase": "azure-ha", "configuration": "shared", "run": "shared-series", "owner": "robyn"},
+    "E1": {"project": "masters-thesis", "phase": "azure-ha", "configuration": "E1", "run": "e1-series", "regionRole": "region-a", "owner": "robyn"},
+    "E2": {"project": "masters-thesis", "phase": "azure-ha", "configuration": "E2", "run": "e2-series", "regionRole": "region-a", "owner": "robyn"},
+    "F1": {"project": "masters-thesis", "phase": "azure-ha", "configuration": "F1", "run": "f1-series", "regionRole": "region-a", "owner": "robyn"},
+    "region_b": {"project": "masters-thesis", "phase": "azure-ha", "configuration": "G1-G2", "run": "multi-region-series", "regionRole": "region-b", "owner": "robyn"},
+    "G1_front_door": {"project": "masters-thesis", "phase": "azure-ha", "configuration": "G1", "run": "g1-series", "owner": "robyn"},
+    "G2_front_door": {"project": "masters-thesis", "phase": "azure-ha", "configuration": "G2", "run": "g2-series", "owner": "robyn"}
+  },
   "skus": {
     "aks_tier": "Free",
     "aks_kubernetes_minor": "1.35",

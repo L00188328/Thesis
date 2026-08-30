@@ -36,6 +36,8 @@ param appPools = [
 param tags = {
   project: 'masters-thesis'
   phase: 'azure-ha'
+  configuration: 'G1-G2'
+  run: 'multi-region-series'
   regionRole: 'region-b'
   owner: 'robyn'
 }

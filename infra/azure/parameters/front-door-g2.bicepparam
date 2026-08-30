@@ -11,5 +11,6 @@ param tags = {
   project: 'masters-thesis'
   phase: 'azure-ha'
   configuration: 'G2'
+  run: 'g2-series'
   owner: 'robyn'
 }

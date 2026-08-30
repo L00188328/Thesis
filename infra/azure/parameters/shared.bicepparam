@@ -13,5 +13,7 @@ param eventHubsRetentionDays = 1
 param tags = {
   project: 'masters-thesis'
   phase: 'azure-ha'
+  configuration: 'shared'
+  run: 'shared-series'
   owner: 'robyn'
 }

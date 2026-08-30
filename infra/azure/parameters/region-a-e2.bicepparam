@@ -23,6 +23,7 @@ param tags = {
   project: 'masters-thesis'
   phase: 'azure-ha'
   configuration: 'E2'
+  run: 'e2-series'
   regionRole: 'region-a'
   owner: 'robyn'
 }

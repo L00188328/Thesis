@@ -210,11 +210,11 @@
   },
   "protocol": {
     "file": "evidence/azure-experimental-protocol.md",
-    "frozen_timestamp_utc": "2026-08-30T09:15:33.780338+00:00",
-    "git_commit": "fdaf01e8499efd6ccd1a00ed7adac18b3bee6946",
-    "sha256": "374ca7410dce0e8e89d74fcacfe4409a5cfcc7ebcd3c56e319cbf19d63233786",
-    "version": "1.0.3",
-    "worktree_clean": true
+    "frozen_timestamp_utc": "2026-08-30T09:22:40.779731+00:00",
+    "git_commit": "e0c59c09263e0b48362015ef35cc7a9a29ab232f",
+    "sha256": "ba3eb869d7bfb88c576a18c658a0d16f480bf1432d40b0301c33e8234093f046",
+    "version": "1.0.4",
+    "worktree_clean": false
   },
   "regions": {
     "external_probe_location": "Vienna, Austria",
@@ -222,6 +222,61 @@
     "region_b": "northeurope"
   },
   "repeat_count": 3,
+  "resource_tags": {
+    "E1": {
+      "configuration": "E1",
+      "owner": "robyn",
+      "phase": "azure-ha",
+      "project": "masters-thesis",
+      "regionRole": "region-a",
+      "run": "e1-series"
+    },
+    "E2": {
+      "configuration": "E2",
+      "owner": "robyn",
+      "phase": "azure-ha",
+      "project": "masters-thesis",
+      "regionRole": "region-a",
+      "run": "e2-series"
+    },
+    "F1": {
+      "configuration": "F1",
+      "owner": "robyn",
+      "phase": "azure-ha",
+      "project": "masters-thesis",
+      "regionRole": "region-a",
+      "run": "f1-series"
+    },
+    "G1_front_door": {
+      "configuration": "G1",
+      "owner": "robyn",
+      "phase": "azure-ha",
+      "project": "masters-thesis",
+      "run": "g1-series"
+    },
+    "G2_front_door": {
+      "configuration": "G2",
+      "owner": "robyn",
+      "phase": "azure-ha",
+      "project": "masters-thesis",
+      "run": "g2-series"
+    },
+    "region_b": {
+      "configuration": "G1-G2",
+      "owner": "robyn",
+      "phase": "azure-ha",
+      "project": "masters-thesis",
+      "regionRole": "region-b",
+      "run": "multi-region-series"
+    },
+    "shared": {
+      "configuration": "shared",
+      "owner": "robyn",
+      "phase": "azure-ha",
+      "project": "masters-thesis",
+      "run": "shared-series"
+    }
+  },
   "schema_version": 2,
   "skus": {
     "aks_exact_patch": "1.35.7",
