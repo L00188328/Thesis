@@ -1,0 +1,9 @@
+[
+  {
+    "code": "BadRequest",
+    "message": "Free Trial and Student account is forbidden for Azure Frontdoor resources.",
+    "resourceType": "Microsoft.Cdn/profiles",
+    "state": "Failed"
+  }
+]
+

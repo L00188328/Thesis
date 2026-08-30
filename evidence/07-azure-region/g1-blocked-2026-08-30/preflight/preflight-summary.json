@@ -1,0 +1,20 @@
+{
+  "aksPatch": {
+    "italynorth": "1.35.7",
+    "norwayeast": "1.35.7"
+  },
+  "budget": {
+    "amountEur": 50.0,
+    "name": "thesis-experiments",
+    "timeGrain": "Monthly"
+  },
+  "costManagementActualCost": "delayed_or_unavailable_non_blocking",
+  "norwayEastQuota": {
+    "dasv4FamilyCurrent": 0,
+    "dasv4FamilyLimit": 4,
+    "regionalVcpuCurrent": 0,
+    "regionalVcpuLimit": 6
+  },
+  "subscriptionState": "Enabled",
+  "subscriptionType": "Azure for Students"
+}

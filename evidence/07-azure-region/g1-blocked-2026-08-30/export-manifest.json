@@ -1,0 +1,31 @@
+{
+  "artifactCount": 6,
+  "generatedAt": "2026-08-30T15:00:00Z",
+  "status": "blocked_before_workload_execution",
+  "artifacts": [
+    {
+      "path": "README.md",
+      "sha256": "9e202eda132717433a1a3f72df157325f702d2f0764d005a58418956d83125c1"
+    },
+    {
+      "path": "azure/front-door-failure.json",
+      "sha256": "3659a82fc911d830993cd211aa36a4e7a5a64e55d206fa97a3cd78f7437cd0d4"
+    },
+    {
+      "path": "azure/front-door-resource-inventory.json",
+      "sha256": "5239a7754876b9a70871c45e41f1bd9abbd91ed2de67af926c1cfcc9c9377d51"
+    },
+    {
+      "path": "azure/region-b-provisioned-topology.json",
+      "sha256": "03cddd0d1b301d089c8a86881fe50a76040857d5705d414e055854da265f23fb"
+    },
+    {
+      "path": "post-experiment/resource-state.json",
+      "sha256": "657a7d1adef08d96eaa900d50d977f844e9cdd2d5969e08754a047f93d982164"
+    },
+    {
+      "path": "preflight/preflight-summary.json",
+      "sha256": "41cb828a1e1213bc10be20f5312492c28b8a9943f95b9479e007c1276281a327"
+    }
+  ]
+}

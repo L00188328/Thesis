@@ -1,0 +1,27 @@
+{
+  "cluster": "thesis-aks-region-b",
+  "kubernetesVersion": "1.35.7",
+  "location": "norwayeast",
+  "pools": [
+    {
+      "count": 1,
+      "name": "system",
+      "size": "Standard_B2s",
+      "zones": ["1"]
+    },
+    {
+      "count": 1,
+      "name": "appzone1",
+      "size": "Standard_D2as_v4",
+      "zones": ["1"]
+    },
+    {
+      "count": 1,
+      "name": "appzone2",
+      "size": "Standard_D2as_v4",
+      "zones": ["2"]
+    }
+  ],
+  "provisioningState": "Succeeded"
+}
+

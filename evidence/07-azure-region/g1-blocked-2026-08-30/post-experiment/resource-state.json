@@ -1,0 +1,23 @@
+{
+  "capturedAt": "2026-08-30T14:58:25Z",
+  "frontDoorResources": [],
+  "postgresql": {
+    "location": "Italy North",
+    "name": "thesisha-postgres",
+    "state": "Stopped"
+  },
+  "regionA": {
+    "kubernetesVersion": "1.35.7",
+    "location": "italynorth",
+    "name": "thesis-aks-region-a",
+    "powerState": "Stopped",
+    "provisioningState": "Succeeded"
+  },
+  "regionB": {
+    "kubernetesVersion": "1.35.7",
+    "location": "norwayeast",
+    "name": "thesis-aks-region-b",
+    "powerState": "Stopped",
+    "provisioningState": "Succeeded"
+  }
+}
