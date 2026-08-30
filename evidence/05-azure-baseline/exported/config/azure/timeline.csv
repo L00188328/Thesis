@@ -1,0 +1,13 @@
+timestamp_utc,label,detail
+2026-08-30T09:26:38.724141+00:00,preflight_complete,"v1.0.4 freeze, budget, providers, quota, names, power and network checks passed"
+2026-08-30T09:26:38.803396+00:00,shared_resource_creation_requested,shared and Region A resource groups followed by shared.bicep deployment
+2026-08-30T09:27:36.943705+00:00,shared_deployment_rejected,"Azure best-available-regions policy rejected ACR, Event Hubs and PostgreSQL in westeurope; no shared services created"
+2026-08-30T09:42:32.828089+00:00,policy_compatible_retry_requested,v1.0.5; empty West Europe groups deleted; recreate shared and Region A groups in italynorth and deploy shared.bicep
+2026-08-30T09:49:01.057420+00:00,shared_deployment_succeeded,"ACR Basic, Event Hubs Standard with two two-partition hubs, Kafka authorization rule, PostgreSQL B1ms and shipments database provisioned in italynorth"
+2026-08-30T10:04:05.456989+00:00,broker_verification_hub_create_requested,Temporary two-partition Event Hub creation requested before E1
+2026-08-30T10:04:35.832820+00:00,broker_verification_hub_created,Temporary Event Hub active with two partitions and 24-hour retention
+2026-08-30T10:05:22.009392+00:00,broker_key_manifest_verified,All 48 unique key entries matched broker-observed partitions; producer and partitioner metadata complete
+2026-08-30T10:06:19.318714+00:00,broker_verification_hub_deleted,Temporary verification Event Hub deletion confirmed before E1
+2026-08-30T10:09:39.014540+00:00,e1_images_pushed,Commit-tagged API and Aggregator images pushed to ACR; digests recorded separately
+2026-08-30T10:09:39.106735+00:00,e1_aks_deployment_requested,E1 non-zonal Region A AKS deployment requested from frozen parameter set
+2026-08-30T10:17:03.729495+00:00,e1_aks_deployment_succeeded,E1 AKS deployment succeeded with application pool app

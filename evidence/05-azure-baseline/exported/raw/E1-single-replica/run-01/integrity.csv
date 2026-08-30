@@ -1,0 +1,4 @@
+scope,shipment_id,expected_events,persisted_rows,unique_event_ids,missing_events,duplicate_rows,highest_expected_version,materialised_version,materialised_event_type,materialised_domain,materialised_location,pass
+shipment,AZ-E1-R01-KEY-0001,300,300,300,0,0,300,300,OutForDelivery,DeliveryBase,Azure Controlled Delivery Base,true
+shipment,AZ-E1-R01-KEY-0002,300,300,300,0,0,300,300,OutForDelivery,DeliveryBase,Azure Controlled Delivery Base,true
+run_total,,600,600,600,0,0,,,,,,true

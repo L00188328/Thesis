@@ -1,0 +1,6 @@
+sample_timestamp_utc,group_id,topic,partition,committed_offset,end_offset,lag,total_lag,assignment_source,collector_error
+2026-08-30T10:42:46.327594+00:00,shipment-aggregator,logistic-center-events,0,150,150,0,,kafka_admin,
+2026-08-30T10:42:46.327594+00:00,shipment-aggregator,logistic-center-events,1,152,152,0,,kafka_admin,
+2026-08-30T10:42:46.327594+00:00,shipment-aggregator,delivery-base-events,0,150,150,0,,kafka_admin,
+2026-08-30T10:42:46.327594+00:00,shipment-aggregator,delivery-base-events,1,152,152,0,,kafka_admin,
+2026-08-30T10:42:46.327594+00:00,shipment-aggregator,__TOTAL__,-1,,,,0,kafka_admin,

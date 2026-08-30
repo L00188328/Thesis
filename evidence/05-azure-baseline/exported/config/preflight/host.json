@@ -1,0 +1,19 @@
+{
+  "connection_type": "wifi",
+  "dns_arrangement": "fixed home-network resolvers; addresses sanitised",
+  "docker_version": "Docker version 28.1.1, build 4eba377",
+  "host_id": "robyn-macbook-pro-3",
+  "hostname_sha256_prefix": "1c59a4b9ba6f6f4f",
+  "kubectl_client_version": "Client Version: v1.32.2\nKustomize Version: v5.5.0",
+  "machine": "x86_64",
+  "network_interface": "en0",
+  "physical_location": "Vienna, Austria",
+  "platform": "macOS-12.7.4-x86_64-i386-64bit",
+  "power_state": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=7209059)\t100%; charged; 0:00 remaining present: true",
+  "public_egress_label": "home-egress-01",
+  "python_version": "3.12.2",
+  "sleep_settings": "AC Power:\n lidwake              1\n autopoweroff         1\n standbydelayhigh     86400\n autopoweroffdelay    28800\n proximitywake        1\n standby              1\n standbydelaylow      10800\n ttyskeepawake        1\n hibernatemode        3\n powernap             1\n gpuswitch            2\n hibernatefile        /var/vm/sleepimage\n highstandbythreshold 50\n womp                 1\n displaysleep         10\n networkoversleep     0\n sleep                10\n tcpkeepalive         1\n halfdim              1\n acwake               0\n disksleep            10",
+  "time_utc": "2026-08-30T09:19:01Z",
+  "timestamp_utc": "2026-08-30T09:19:01.497941+00:00",
+  "vpn_proxy_environment_present": false
+}

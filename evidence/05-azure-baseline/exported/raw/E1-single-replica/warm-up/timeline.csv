@@ -1,0 +1,5 @@
+timestamp_utc,label,detail
+2026-08-30T10:24:16.191210+00:00,T0,E1 Pods Ready; database and Event Hubs reachable; four partitions assigned; baseline lag zero; fixed canary materialised
+2026-08-30T10:26:31.084075+00:00,T1,E1 no-fault 600-second window and concurrent collectors started
+2026-08-30T10:36:34.378015+00:00,T7,E1 no-fault 600-second window and concurrent collectors completed
+2026-08-30T10:41:43.807822+00:00,T8,"Integrity PASS: 600 expected/persisted/unique, no missing or duplicate events, both states version 300, final lag zero; discarded warm-up availability 592/600"

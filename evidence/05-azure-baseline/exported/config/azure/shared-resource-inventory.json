@@ -1,0 +1,38 @@
+[
+  {
+    "location": "italynorth",
+    "name": "thesisha-postgres",
+    "tags": {
+      "configuration": "shared",
+      "owner": "robyn",
+      "phase": "azure-ha",
+      "project": "masters-thesis",
+      "run": "shared-series"
+    },
+    "type": "Microsoft.DBforPostgreSQL/flexibleServers"
+  },
+  {
+    "location": "italynorth",
+    "name": "thesishaacr",
+    "tags": {
+      "configuration": "shared",
+      "owner": "robyn",
+      "phase": "azure-ha",
+      "project": "masters-thesis",
+      "run": "shared-series"
+    },
+    "type": "Microsoft.ContainerRegistry/registries"
+  },
+  {
+    "location": "italynorth",
+    "name": "thesisha-events",
+    "tags": {
+      "configuration": "shared",
+      "owner": "robyn",
+      "phase": "azure-ha",
+      "project": "masters-thesis",
+      "run": "shared-series"
+    },
+    "type": "Microsoft.EventHub/namespaces"
+  }
+]

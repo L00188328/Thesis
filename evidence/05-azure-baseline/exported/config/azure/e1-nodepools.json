@@ -1,0 +1,33 @@
+[
+  {
+    "availabilityZones": null,
+    "count": 1,
+    "enableAutoScaling": false,
+    "mode": "System",
+    "name": "system",
+    "nodeLabels": {
+      "workload": "system"
+    },
+    "nodeTaints": null,
+    "powerState": "Running",
+    "vmSize": "Standard_B2s"
+  },
+  {
+    "availabilityZones": null,
+    "count": 1,
+    "enableAutoScaling": false,
+    "mode": "User",
+    "name": "app",
+    "nodeLabels": {
+      "configuration": "e1",
+      "experimentPool": "app",
+      "regionRole": "region-a",
+      "workload": "thesis-app"
+    },
+    "nodeTaints": [
+      "workload=thesis-app:NoSchedule"
+    ],
+    "powerState": "Running",
+    "vmSize": "Standard_D2as_v4"
+  }
+]

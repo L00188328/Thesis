@@ -1,0 +1,5 @@
+timestamp_utc,label,detail
+2026-08-30T11:11:49.163949+00:00,T0,Run keys unused; partitioner matches frozen manifest; Pods Ready; four partitions assigned; baseline lag zero; canary materialised
+2026-08-30T11:13:20.752531+00:00,T1,E1 no-fault 600-second window and concurrent collectors started
+2026-08-30T11:23:22.105118+00:00,T7,E1 no-fault 600-second window and concurrent collectors completed
+2026-08-30T11:24:23.815242+00:00,T8,"Integrity PASS: 600 expected/persisted/unique, no missing or duplicate events, both states version 300, final lag zero"

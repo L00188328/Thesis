@@ -1,0 +1,8 @@
+CREATE TABLE
+psql:/schema/init.sql:13: NOTICE:  column "event_version" of relation "all_shipment_events" already exists, skipping
+ALTER TABLE
+CREATE INDEX
+CREATE INDEX
+CREATE TABLE
+psql:/schema/init.sql:29: NOTICE:  column "latest_event_version" of relation "current_shipment_state" already exists, skipping
+ALTER TABLE
