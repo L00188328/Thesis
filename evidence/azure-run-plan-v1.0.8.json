@@ -1,0 +1,54 @@
+{
+  "schema_version": 1,
+  "protocol_version": "1.0.8",
+  "amended_timestamp_utc": "2026-08-30T11:37:18Z",
+  "amendment_reason": "Observed protocol execution duration and resource/operational overhead after E1; not the numerical outcome of E1.",
+  "evaluation_chain": [
+    "Local Kubernetes Pod resilience",
+    "E1 Azure baseline",
+    "F1 zonal resilience",
+    "G1 active-passive regional resilience",
+    "G2 active-active regional resilience"
+  ],
+  "study_characterisation": "Descriptive prototype evaluation; repeat counts are not intended to establish production SLA statistics.",
+  "historical_artifacts": {
+    "broker_key_manifest": {
+      "path": "evidence/partition-key-map.json",
+      "sha256": "8185ea085a406bcd4faedd72231721920126753078c403c84d3d517770b28cfc",
+      "mutation": "none"
+    },
+    "pre_e1_freeze": {
+      "path": "evidence/azure-experiment-freeze.json",
+      "sha256": "039eaed91938d1783409278a341051df15ace5be65a81e16f98a5a6bb274332d",
+      "mutation": "none"
+    }
+  },
+  "repeat_matrix": {
+    "E1": {"warm_up_runs": 1, "measured_runs": 3, "state": "completed_under_v1.0.7"},
+    "F1": {"warm_up_runs": 1, "measured_runs": 2, "state": "remaining"},
+    "G1": {"warm_up_runs": 1, "measured_runs": 2, "state": "remaining"},
+    "G2": {"warm_up_runs": 1, "measured_runs": 2, "state": "remaining"},
+    "E2-A": {"warm_up_runs": 0, "measured_runs": 0, "state": "cancelled_use_local_phase_d_evidence"},
+    "E2-B": {"warm_up_runs": 0, "measured_runs": 0, "state": "cancelled_use_local_phase_d_evidence"}
+  },
+  "run_ids": {
+    "completed_measured": ["E1-r01", "E1-r02", "E1-r03"],
+    "completed_discarded_warm_up": ["E1-warmup"],
+    "remaining_measured": ["F1-r01", "F1-r02", "G1-r01", "G1-r02", "G2-r01", "G2-r02"],
+    "remaining_discarded_warm_up": ["F1-warmup", "G1-warmup", "G2-warmup"],
+    "planned_but_not_executed_after_protocol_amendment": [
+      "E2-A-warmup", "E2-A-r01", "E2-A-r02", "E2-A-r03",
+      "E2-B-warmup", "E2-B-r01", "E2-B-r02", "E2-B-r03",
+      "F1-r03", "G1-r03", "G2-r03"
+    ]
+  },
+  "key_usage_rule": "Use only the already broker-verified key pair for each remaining run ID. Retain but do not execute or reuse keys for cancelled IDs.",
+  "local_pod_failure_evidence": {
+    "path": "evidence/04-kubernetes-pod-failover/",
+    "replaces_future_azure_runs": ["E2-A", "E2-B"],
+    "coverage": [
+      "Aggregator Pod deletion, replacement, consumer reassignment, zero final lag and database integrity",
+      "GraphQL API Pod deletion, replacement and continued Kubernetes Service routing"
+    ]
+  }
+}

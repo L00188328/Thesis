@@ -20,7 +20,7 @@ REQUIRED_TOP_LEVEL = {
     "front_door",
     "probe_transport",
     "warm_up_runs_per_configuration",
-    "repeat_count",
+    "measured_repeat_counts",
     "fault_mechanisms",
     "external_host",
 }
@@ -47,14 +47,14 @@ def validate_settings(
     missing = sorted(REQUIRED_TOP_LEVEL - settings.keys())
     if missing:
         raise ValueError(f"missing freeze settings: {', '.join(missing)}")
-    if int(settings["repeat_count"]) != 3:
-        raise ValueError("methodology v1.0.7 requires exactly three measured repeats")
+    if settings["measured_repeat_counts"] != {"E1": 3, "F1": 2, "G1": 2, "G2": 2}:
+        raise ValueError("methodology v1.0.8 preserves three E1 repeats and requires two future F1/G1/G2 repeats")
     if int(settings["warm_up_runs_per_configuration"]) != 1:
-        raise ValueError("methodology v1.0.7 requires one discarded warm-up per configuration")
+        raise ValueError("methodology v1.0.8 requires one discarded warm-up per retained configuration")
     if settings["event_hubs"].get("partitions_per_entity") != 2:
-        raise ValueError("methodology v1.0.7 requires two partitions per Event Hub")
+        raise ValueError("methodology v1.0.8 requires two partitions per Event Hub")
     if settings["event_hubs"].get("assignment_strategy") != "RoundRobinPartitionAssignor":
-        raise ValueError("methodology v1.0.7 requires RoundRobinPartitionAssignor")
+        raise ValueError("methodology v1.0.8 requires RoundRobinPartitionAssignor")
     require_keys(
         settings["event_hubs"],
         "event_hubs",
@@ -86,6 +86,8 @@ def validate_settings(
             "credits_or_discounts_assumed",
             "price_query_date",
             "live_price_confirmation_status",
+            "completed_e1_cost_reference",
+            "completed_e1_actual_cost_status",
         },
     )
     require_keys(
@@ -94,33 +96,34 @@ def validate_settings(
         {"region_a", "region_b", "external_probe_location"},
     )
     if settings["regions"]["region_a"] != "italynorth" or settings["regions"]["region_b"] != "norwayeast":
-        raise ValueError("methodology v1.0.7 requires Italy North and Norway East")
+        raise ValueError("methodology v1.0.8 requires Italy North and Norway East")
     expected_resource_tags = {
         "shared": {"project": "masters-thesis", "phase": "azure-ha", "configuration": "shared", "run": "shared-series", "owner": "robyn"},
         "E1": {"project": "masters-thesis", "phase": "azure-ha", "configuration": "E1", "run": "e1-series", "regionRole": "region-a", "owner": "robyn"},
-        "E2": {"project": "masters-thesis", "phase": "azure-ha", "configuration": "E2", "run": "e2-series", "regionRole": "region-a", "owner": "robyn"},
         "F1": {"project": "masters-thesis", "phase": "azure-ha", "configuration": "F1", "run": "f1-series", "regionRole": "region-a", "owner": "robyn"},
         "region_b": {"project": "masters-thesis", "phase": "azure-ha", "configuration": "G1-G2", "run": "multi-region-series", "regionRole": "region-b", "owner": "robyn"},
         "G1_front_door": {"project": "masters-thesis", "phase": "azure-ha", "configuration": "G1", "run": "g1-series", "owner": "robyn"},
         "G2_front_door": {"project": "masters-thesis", "phase": "azure-ha", "configuration": "G2", "run": "g2-series", "owner": "robyn"},
     }
     if settings["resource_tags"] != expected_resource_tags:
-        raise ValueError("resource_tags must match methodology v1.0.7 cost-attribution tags")
-    configurations = ("E1", "E2-A", "E2-B", "F1", "G1", "G2")
-    expected_measured_run_ids = [
-        f"{configuration}-r{repeat:02d}"
-        for configuration in configurations
-        for repeat in range(1, 4)
-    ]
-    expected_warm_up_run_ids = [f"{configuration}-warmup" for configuration in configurations]
+        raise ValueError("resource_tags must match methodology v1.0.8 cost-attribution tags")
     if settings["run_identity"] != {
         "measured_format": "<configuration>-r<two-digit-repeat>",
         "warm_up_format": "<configuration>-warmup",
         "execution_utc_recorded_separately": True,
-        "measured_run_ids": expected_measured_run_ids,
-        "warm_up_run_ids": expected_warm_up_run_ids,
+        "completed_measured_run_ids": ["E1-r01", "E1-r02", "E1-r03"],
+        "completed_warm_up_run_ids": ["E1-warmup"],
+        "remaining_measured_run_ids": ["F1-r01", "F1-r02", "G1-r01", "G1-r02", "G2-r01", "G2-r02"],
+        "remaining_warm_up_run_ids": ["F1-warmup", "G1-warmup", "G2-warmup"],
+        "planned_but_not_executed_after_amendment": [
+            "E2-A-warmup", "E2-A-r01", "E2-A-r02", "E2-A-r03",
+            "E2-B-warmup", "E2-B-r01", "E2-B-r02", "E2-B-r03",
+            "F1-r03", "G1-r03", "G2-r03",
+        ],
+        "historical_manifest": "evidence/partition-key-map.json",
+        "amended_run_plan": "evidence/azure-run-plan-v1.0.8.json",
     }:
-        raise ValueError("run_identity must match methodology v1.0.7 stable run IDs")
+        raise ValueError("run_identity must match methodology v1.0.8 amended run plan")
     skus = settings["skus"]
     require_keys(
         skus,
@@ -178,11 +181,11 @@ def validate_settings(
                 {"name", "mode", "vm_size", "zones", "desired", "min", "max", "autoscaling"},
             )
             if pool["vm_size"] != "Standard_D2as_v4":
-                raise ValueError("methodology v1.0.7 requires Standard_D2as_v4 application pools")
+                raise ValueError("methodology v1.0.8 requires Standard_D2as_v4 application pools")
     configurations = {cluster["configuration"] for cluster in skus["cluster_configurations"]}
-    expected_configurations = {"E1", "E2-A/E2-B", "F1/G1/G2 Region A", "G1/G2 Region B"}
+    expected_configurations = {"E1", "F1/G1/G2 Region A", "G1/G2 Region B"}
     if configurations != expected_configurations:
-        raise ValueError("skus.cluster_configurations must define E1, E2, F1/Region A, and Region B")
+        raise ValueError("skus.cluster_configurations must define completed E1, F1/Region A, and Region B")
     e1 = next(cluster for cluster in skus["cluster_configurations"] if cluster["configuration"] == "E1")
     if len(e1["application_pools"]) != 1 or e1["application_pools"][0]["zones"]:
         raise ValueError("E1 must use one non-zonal application pool")
@@ -235,25 +238,21 @@ def validate_settings(
     require_keys(
         settings["fault_mechanisms"],
         "fault_mechanisms",
-        {"E2-A", "E2-B", "F1", "region_a_failure", "G1", "G2"},
+        {"F1", "region_a_failure", "G1", "G2"},
     )
     required_transports = {
         "E1": "HttpDirectRegionA",
-        "E2-A": "HttpDirectRegionA",
-        "E2-B": "HttpDirectRegionA",
         "F1": "HttpDirectRegionA",
         "G1": "HttpsFrontDoorToHttpOrigin",
         "G2": "HttpsFrontDoorToHttpOrigin",
     }
     if settings["probe_transport"] != required_transports:
-        raise ValueError("probe_transport must match methodology v1.0.7")
+        raise ValueError("probe_transport must match methodology v1.0.8")
     require_keys(
         settings["fault_mechanisms"]["region_a_failure"],
         "fault_mechanisms.region_a_failure",
         {"script", "ordered_application_pools", "command"},
     )
-    require_keys(settings["fault_mechanisms"]["E2-A"], "fault_mechanisms.E2-A", {"action", "command"})
-    require_keys(settings["fault_mechanisms"]["E2-B"], "fault_mechanisms.E2-B", {"action", "command"})
     require_keys(
         settings["fault_mechanisms"]["F1"],
         "fault_mechanisms.F1",
@@ -301,7 +300,7 @@ def validate_settings(
 
 
 def parse_args() -> argparse.Namespace:
-    parser = argparse.ArgumentParser(description="Create methodology v1.0.7 freeze evidence")
+    parser = argparse.ArgumentParser(description="Create methodology v1.0.8 amended freeze evidence")
     parser.add_argument("--settings", required=True)
     parser.add_argument("--protocol", required=True)
     parser.add_argument("--burn-estimate", required=True)
@@ -317,32 +316,40 @@ def main() -> None:
     validate_settings(settings, allow_live_placeholders=args.allow_dirty)
     protocol_path = Path(args.protocol)
     protocol_text = protocol_path.read_text()
-    if "**Methodology version:** 1.0.7" not in protocol_text or "**Status:** Frozen" not in protocol_text:
-        raise ValueError("protocol is not frozen as methodology version 1.0.7")
+    if "**Methodology version:** 1.0.8" not in protocol_text or "**Status:** Frozen" not in protocol_text:
+        raise ValueError("protocol is not frozen as methodology version 1.0.8")
     status = git_output(["status", "--porcelain"])
     if status and not args.allow_dirty:
         raise ValueError("Git worktree must be clean; commit the frozen protocol and tooling first")
     burn_estimate = load_json(args.burn_estimate)
-    if int(settings["repeat_count"]) != int(burn_estimate["requested_repeat_count"]):
-        raise ValueError("repeat_count does not match the burn estimate")
-    if not burn_estimate["requested_repeat_count_affordable"]:
-        raise ValueError("repeat_count is not affordable under the burn estimate")
+    remaining_repeat_counts = {key: value for key, value in settings["measured_repeat_counts"].items() if key != "E1"}
+    if remaining_repeat_counts != burn_estimate["requested_repeat_counts"]:
+        raise ValueError("remaining measured repeat counts do not match the burn estimate")
+    if not burn_estimate["requested_plan_affordable"]:
+        raise ValueError("remaining run plan is not affordable under the burn estimate")
     completed_settings = copy.deepcopy(settings)
     completed_settings["billing"]["estimated_hourly_burn_by_configuration"] = {
         item["configuration"]: item["estimated_hourly_burn"]
         for item in burn_estimate["configurations"]
     }
-    completed_settings["billing"]["estimated_total"] = burn_estimate["estimated_total"]
+    completed_settings["billing"]["estimated_remaining_total"] = burn_estimate["estimated_remaining_total"]
     completed_settings["billing"]["budget_ceiling"] = burn_estimate["budget"]
     payload = {
-        "schema_version": 2,
+        "schema_version": 3,
         "protocol": {
-            "version": "1.0.7",
+            "version": "1.0.8",
             "git_commit": git_output(["rev-parse", "HEAD"]),
             "file": str(protocol_path),
             "sha256": hashlib.sha256(protocol_text.encode("utf-8")).hexdigest(),
             "frozen_timestamp_utc": utc_now_iso(),
             "worktree_clean": not bool(status),
+        },
+        "amendment": {
+            "type": "post-E1 scope and repeat-count amendment",
+            "historical_freeze": "evidence/azure-experiment-freeze.json",
+            "historical_freeze_checksum": "evidence/azure-experiment-freeze.sha256",
+            "historical_key_manifest": "evidence/partition-key-map.json",
+            "amended_run_plan": "evidence/azure-run-plan-v1.0.8.json",
         },
         **completed_settings,
         "burn_estimate": burn_estimate,

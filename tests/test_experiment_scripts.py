@@ -1,4 +1,5 @@
 import argparse
+import hashlib
 import json
 import tempfile
 import unittest
@@ -89,6 +90,33 @@ class PartitionManifestTests(unittest.TestCase):
         for entry in entries:
             self.assertEqual(entry["producer_version"], "kafka-python-ng 2.2.3")
             self.assertEqual(entry["partitioner"], "kafka-python-ng murmur2")
+
+
+class AmendedRunPlanTests(unittest.TestCase):
+    def test_v108_plan_classifies_every_historical_manifest_run(self) -> None:
+        manifest_path = Path("evidence/partition-key-map.json")
+        self.assertEqual(
+            hashlib.sha256(manifest_path.read_bytes()).hexdigest(),
+            "8185ea085a406bcd4faedd72231721920126753078c403c84d3d517770b28cfc",
+        )
+        manifest = load_json(manifest_path)
+        plan = load_json("evidence/azure-run-plan-v1.0.8.json")
+        run_ids = plan["run_ids"]
+        classified = (
+            run_ids["completed_measured"]
+            + run_ids["completed_discarded_warm_up"]
+            + run_ids["remaining_measured"]
+            + run_ids["remaining_discarded_warm_up"]
+            + run_ids["planned_but_not_executed_after_protocol_amendment"]
+        )
+        self.assertEqual(len(classified), len(set(classified)))
+        manifest_run_ids = {entry["run_id"] for entry in manifest["entries"]}
+        self.assertEqual(set(classified), manifest_run_ids)
+        for run_id in manifest_run_ids:
+            self.assertEqual(
+                len([entry for entry in manifest["entries"] if entry["run_id"] == run_id]),
+                2,
+            )
 
 
 class ConsumerProgressTests(unittest.TestCase):
@@ -198,6 +226,32 @@ class BurnEstimateTests(unittest.TestCase):
         )
         self.assertTrue(result["requested_repeat_count_affordable"])
         self.assertEqual(result["estimated_total"], 6)
+
+    def test_per_configuration_repeat_plan(self) -> None:
+        result = calculate(
+            {
+                "budget": 20,
+                "currency": "EUR",
+                "requested_repeat_counts": {"F1": 2, "G1": 1},
+                "fixed_costs": [{"estimated_cost": 3}],
+                "configurations": [
+                    {
+                        "configuration": "F1",
+                        "measured_hours_per_repeat": 1,
+                        "resources": [{"hourly_rate": 2}],
+                    },
+                    {
+                        "configuration": "G1",
+                        "measured_hours_per_repeat": 1,
+                        "resources": [{"hourly_rate": 4}],
+                    },
+                ],
+            }
+        )
+        self.assertEqual(result["requested_repeat_counts"], {"F1": 2, "G1": 1})
+        self.assertEqual(result["planned_measured_cost"], 8)
+        self.assertEqual(result["estimated_remaining_total"], 11)
+        self.assertTrue(result["requested_plan_affordable"])
 
 
 class FreezeValidationTests(unittest.TestCase):

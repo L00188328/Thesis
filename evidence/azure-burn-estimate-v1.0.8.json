@@ -1,0 +1,64 @@
+{
+  "assumptions": [
+    "The EUR 50 ceiling is a conservative gross experiment-spend cap and does not assume educational credits or discounts.",
+    "Each remaining measured run reserves 15 minutes, except G1 which reserves 20 minutes for passive-region activation.",
+    "The 600-event payload and one-second probes add negligible data-volume charges relative to compute and fixed service meters.",
+    "Fixed remaining allocations conservatively retain setup/transition, one warm-up for each of F1/G1/G2, teardown and a reserve for omitted ancillary meters.",
+    "Completed E1 consumption is excluded from this remaining estimate and retained separately; actual billed E1 cost remains pending Azure Cost Management delay.",
+    "The future repeat reduction responds to observed operational duration/resource overhead, not to the numerical E1 outcome.",
+    "Resources are deleted or stopped promptly outside the planned windows."
+  ],
+  "budget": 50.0,
+  "completed_e1_cost": {
+    "evidence": "evidence/05-azure-baseline/cost/E1-cost-window.md",
+    "included_in_remaining_estimate": false,
+    "status": "pending_cost_management_delay"
+  },
+  "configurations": [
+    {
+      "configuration": "F1",
+      "estimated_cost_per_repeat": 0.093343,
+      "estimated_hourly_burn": 0.373374,
+      "estimated_measured_cost": 0.186687,
+      "measured_hours_per_repeat": 0.25,
+      "requested_measured_repeats": 2
+    },
+    {
+      "configuration": "G1",
+      "estimated_cost_per_repeat": 0.234233,
+      "estimated_hourly_burn": 0.7027,
+      "estimated_measured_cost": 0.468466,
+      "measured_hours_per_repeat": 0.333333,
+      "requested_measured_repeats": 2
+    },
+    {
+      "configuration": "G2",
+      "estimated_cost_per_repeat": 0.175675,
+      "estimated_hourly_burn": 0.7027,
+      "estimated_measured_cost": 0.35135,
+      "measured_hours_per_repeat": 0.25,
+      "requested_measured_repeats": 2
+    }
+  ],
+  "currency": "EUR",
+  "estimated_remaining_total": 15.206503,
+  "estimated_total": 15.206503,
+  "fixed_estimated_cost": 14.2,
+  "generated_timestamp_utc": "2026-08-30T11:46:02.564105+00:00",
+  "maximum_repeat_count_within_estimate": 71,
+  "one_repeat_all_configurations_cost": 0.503252,
+  "planned_measured_cost": 1.006503,
+  "price_sources": [
+    "Azure Retail Prices API queried 2026-08-29 in EUR; Italy North and Norway East amended meters queried 2026-08-30: https://prices.azure.com/api/retail/prices",
+    "Microsoft Front Door billing guidance: https://learn.microsoft.com/azure/frontdoor/billing"
+  ],
+  "requested_plan_affordable": true,
+  "requested_repeat_count_affordable": true,
+  "requested_repeat_counts": {
+    "F1": 2,
+    "G1": 2,
+    "G2": 2
+  },
+  "schema_version": 1,
+  "scope": "remaining_post-E1 Azure execution under protocol v1.0.8"
+}

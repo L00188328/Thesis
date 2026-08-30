@@ -1,58 +1,28 @@
 {
   "budget": 50.0,
   "currency": "EUR",
-  "requested_repeat_count": 3,
+  "scope": "remaining_post-E1 Azure execution under protocol v1.0.8",
+  "completed_e1_cost": {
+    "status": "pending_cost_management_delay",
+    "evidence": "evidence/05-azure-baseline/cost/E1-cost-window.md",
+    "included_in_remaining_estimate": false
+  },
+  "requested_repeat_counts": {"F1": 2, "G1": 2, "G2": 2},
   "fixed_costs": [
     {
-      "name": "single-region provisioning, warm-up and teardown allocation",
+      "name": "remaining Region A transition, F1 warm-up, recovery and teardown allocation",
       "estimated_cost": 4.32
     },
     {
-      "name": "multi-region provisioning, warm-up and teardown allocation",
+      "name": "remaining multi-region provisioning, G1/G2 warm-ups and teardown allocation",
       "estimated_cost": 4.88
     },
     {
-      "name": "managed disks, load balancers, public IPs, logging, data transfer and pricing-variance reserve",
+      "name": "remaining managed disks, load balancers, public IPs, logging, data transfer and pricing-variance reserve",
       "estimated_cost": 5.0
     }
   ],
   "configurations": [
-    {
-      "configuration": "E1",
-      "measured_hours_per_repeat": 0.25,
-      "resources": [
-        {"name": "Region A system node", "hourly_rate": 0.0422},
-        {"name": "Region A application node", "hourly_rate": 0.0984, "quantity": 1},
-        {"name": "Event Hubs Standard Kafka endpoint and TU", "hourly_rate": 0.1055},
-        {"name": "PostgreSQL B1ms", "hourly_rate": 0.0175},
-        {"name": "PostgreSQL 32 GiB storage hourly equivalent", "hourly_rate": 0.005274},
-        {"name": "ACR Basic daily fee hourly equivalent", "hourly_rate": 0.0061}
-      ]
-    },
-    {
-      "configuration": "E2-A",
-      "measured_hours_per_repeat": 0.25,
-      "resources": [
-        {"name": "Region A system node", "hourly_rate": 0.0422},
-        {"name": "Region A application nodes", "hourly_rate": 0.0984, "quantity": 2},
-        {"name": "Event Hubs Standard Kafka endpoint and TU", "hourly_rate": 0.1055},
-        {"name": "PostgreSQL B1ms", "hourly_rate": 0.0175},
-        {"name": "PostgreSQL storage", "hourly_rate": 0.005274},
-        {"name": "ACR Basic", "hourly_rate": 0.0061}
-      ]
-    },
-    {
-      "configuration": "E2-B",
-      "measured_hours_per_repeat": 0.25,
-      "resources": [
-        {"name": "Region A system node", "hourly_rate": 0.0422},
-        {"name": "Region A application nodes", "hourly_rate": 0.0984, "quantity": 2},
-        {"name": "Event Hubs Standard Kafka endpoint and TU", "hourly_rate": 0.1055},
-        {"name": "PostgreSQL B1ms", "hourly_rate": 0.0175},
-        {"name": "PostgreSQL storage", "hourly_rate": 0.005274},
-        {"name": "ACR Basic", "hourly_rate": 0.0061}
-      ]
-    },
     {
       "configuration": "F1",
       "measured_hours_per_repeat": 0.25,
@@ -98,9 +68,11 @@
   ],
   "assumptions": [
     "The EUR 50 ceiling is a conservative gross experiment-spend cap and does not assume educational credits or discounts.",
-    "Each measured run reserves 15 minutes, except G1 which reserves 20 minutes for passive-region activation.",
+    "Each remaining measured run reserves 15 minutes, except G1 which reserves 20 minutes for passive-region activation.",
     "The 600-event payload and one-second probes add negligible data-volume charges relative to compute and fixed service meters.",
-    "Fixed allocations include setup, warm-up, teardown and a reserve for omitted ancillary meters.",
+    "Fixed remaining allocations conservatively retain setup/transition, one warm-up for each of F1/G1/G2, teardown and a reserve for omitted ancillary meters.",
+    "Completed E1 consumption is excluded from this remaining estimate and retained separately; actual billed E1 cost remains pending Azure Cost Management delay.",
+    "The future repeat reduction responds to observed operational duration/resource overhead, not to the numerical E1 outcome.",
     "Resources are deleted or stopped promptly outside the planned windows."
   ],
   "price_sources": [

@@ -5,7 +5,9 @@
     "gross_spend_ceiling": 50.0,
     "credits_or_discounts_assumed": false,
     "price_query_date": "2026-08-30",
-    "live_price_confirmation_status": "confirmed"
+    "live_price_confirmation_status": "confirmed",
+    "completed_e1_cost_reference": "evidence/05-azure-baseline/cost/E1-cost-window.md",
+    "completed_e1_actual_cost_status": "pending_cost_management_delay"
   },
   "regions": {
     "region_a": "italynorth",
@@ -15,7 +17,6 @@
   "resource_tags": {
     "shared": {"project": "masters-thesis", "phase": "azure-ha", "configuration": "shared", "run": "shared-series", "owner": "robyn"},
     "E1": {"project": "masters-thesis", "phase": "azure-ha", "configuration": "E1", "run": "e1-series", "regionRole": "region-a", "owner": "robyn"},
-    "E2": {"project": "masters-thesis", "phase": "azure-ha", "configuration": "E2", "run": "e2-series", "regionRole": "region-a", "owner": "robyn"},
     "F1": {"project": "masters-thesis", "phase": "azure-ha", "configuration": "F1", "run": "f1-series", "regionRole": "region-a", "owner": "robyn"},
     "region_b": {"project": "masters-thesis", "phase": "azure-ha", "configuration": "G1-G2", "run": "multi-region-series", "regionRole": "region-b", "owner": "robyn"},
     "G1_front_door": {"project": "masters-thesis", "phase": "azure-ha", "configuration": "G1", "run": "g1-series", "owner": "robyn"},
@@ -25,15 +26,17 @@
     "measured_format": "<configuration>-r<two-digit-repeat>",
     "warm_up_format": "<configuration>-warmup",
     "execution_utc_recorded_separately": true,
-    "measured_run_ids": [
-      "E1-r01", "E1-r02", "E1-r03",
-      "E2-A-r01", "E2-A-r02", "E2-A-r03",
-      "E2-B-r01", "E2-B-r02", "E2-B-r03",
-      "F1-r01", "F1-r02", "F1-r03",
-      "G1-r01", "G1-r02", "G1-r03",
-      "G2-r01", "G2-r02", "G2-r03"
+    "completed_measured_run_ids": ["E1-r01", "E1-r02", "E1-r03"],
+    "completed_warm_up_run_ids": ["E1-warmup"],
+    "remaining_measured_run_ids": ["F1-r01", "F1-r02", "G1-r01", "G1-r02", "G2-r01", "G2-r02"],
+    "remaining_warm_up_run_ids": ["F1-warmup", "G1-warmup", "G2-warmup"],
+    "planned_but_not_executed_after_amendment": [
+      "E2-A-warmup", "E2-A-r01", "E2-A-r02", "E2-A-r03",
+      "E2-B-warmup", "E2-B-r01", "E2-B-r02", "E2-B-r03",
+      "F1-r03", "G1-r03", "G2-r03"
     ],
-    "warm_up_run_ids": ["E1-warmup", "E2-A-warmup", "E2-B-warmup", "F1-warmup", "G1-warmup", "G2-warmup"]
+    "historical_manifest": "evidence/partition-key-map.json",
+    "amended_run_plan": "evidence/azure-run-plan-v1.0.8.json"
   },
   "skus": {
     "aks_tier": "Free",
@@ -51,17 +54,6 @@
         "system_pool": {"name": "system", "mode": "System", "vm_size": "Standard_B2s", "zones": [], "desired": 1, "min": 1, "max": 1, "autoscaling": false},
         "application_pools": [
           {"name": "app", "mode": "User", "vm_size": "Standard_D2as_v4", "zones": [], "desired": 1, "min": 1, "max": 1, "autoscaling": false}
-        ]
-      },
-      {
-        "configuration": "E2-A/E2-B",
-        "region": "italynorth",
-        "cluster_name": "thesis-aks-region-a",
-        "parameter_file": "infra/azure/parameters/region-a-e2.bicepparam",
-        "node_autoprovisioning": false,
-        "system_pool": {"name": "system", "mode": "System", "vm_size": "Standard_B2s", "zones": [], "desired": 1, "min": 1, "max": 1, "autoscaling": false},
-        "application_pools": [
-          {"name": "app", "mode": "User", "vm_size": "Standard_D2as_v4", "zones": [], "desired": 2, "min": 2, "max": 2, "autoscaling": false}
         ]
       },
       {
@@ -132,17 +124,13 @@
   },
   "probe_transport": {
     "E1": "HttpDirectRegionA",
-    "E2-A": "HttpDirectRegionA",
-    "E2-B": "HttpDirectRegionA",
     "F1": "HttpDirectRegionA",
     "G1": "HttpsFrontDoorToHttpOrigin",
     "G2": "HttpsFrontDoorToHttpOrigin"
   },
   "warm_up_runs_per_configuration": 1,
-  "repeat_count": 3,
+  "measured_repeat_counts": {"E1": 3, "F1": 2, "G1": 2, "G2": 2},
   "fault_mechanisms": {
-    "E2-A": {"action": "delete one active Aggregator Pod", "command": "kubectl delete pod"},
-    "E2-B": {"action": "delete one GraphQL API Pod", "command": "kubectl delete pod"},
     "F1": {"script": "scripts/experiments/azure/stop_f1_zone_pool.sh", "eligible_application_pools": ["appzone1", "appzone2"], "selection": "one pool selected and recorded before each run", "command": "az aks nodepool stop --no-wait"},
     "region_a_failure": {"script": "scripts/experiments/azure/stop_region_a_app_pools.sh", "ordered_application_pools": ["appzone1", "appzone2"], "command": "az aks nodepool stop --no-wait"},
     "G1": {"region_a_failure_reference": "fault_mechanisms.region_a_failure", "region_b_activation_script": "scripts/experiments/azure/start_application_pools.sh", "ordered_region_b_application_pools": ["appzone1", "appzone2"]},
