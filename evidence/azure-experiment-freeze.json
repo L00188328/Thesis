@@ -210,11 +210,11 @@
   },
   "protocol": {
     "file": "evidence/azure-experimental-protocol.md",
-    "frozen_timestamp_utc": "2026-08-30T09:36:47.845531+00:00",
-    "git_commit": "f2272efcba03bcdc46d9f75a4884827d08b1f423",
+    "frozen_timestamp_utc": "2026-08-30T09:40:10.356438+00:00",
+    "git_commit": "79f869f5cc07bba249a70828e1555d1f81a55321",
     "sha256": "de59be160a246b476d209ae0051b2cc8e674150366c0553bbbf6bf090bc764f3",
     "version": "1.0.5",
-    "worktree_clean": false
+    "worktree_clean": true
   },
   "regions": {
     "external_probe_location": "Vienna, Austria",
