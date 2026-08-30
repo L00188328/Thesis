@@ -3,7 +3,7 @@ import json
 from pathlib import Path
 from typing import Any
 
-from kafka import KafkaProducer
+from kafka import KafkaProducer, __version__ as KAFKA_PRODUCER_VERSION
 from kafka.partitioner.default import murmur2
 
 from scripts.experiments.common import (
@@ -28,6 +28,29 @@ def select_pair(run_id: str, partition_count: int) -> tuple[str, str]:
         selected.setdefault(partition, shipment_id)
         candidate += 1
     return selected[0], selected[1]
+
+
+def build_entries(run_ids: list[str], partition_count: int) -> list[dict[str, Any]]:
+    entries: list[dict[str, Any]] = []
+    for run_id in run_ids:
+        shipment_a, shipment_b = select_pair(run_id, partition_count)
+        for key_role, shipment_id, expected_partition in (
+            ("A", shipment_a, 0),
+            ("B", shipment_b, 1),
+        ):
+            entries.append(
+                {
+                    "run_id": run_id,
+                    "shipment_id": shipment_id,
+                    "key_role": key_role,
+                    "producer_version": f"kafka-python-ng {KAFKA_PRODUCER_VERSION}",
+                    "partitioner": "kafka-python-ng murmur2",
+                    "expected_partition": expected_partition,
+                    "observed_partition": None,
+                    "verified": False,
+                }
+            )
+    return entries
 
 
 def verify_entries(
@@ -77,29 +100,7 @@ def main() -> None:
     args = parse_args()
     if args.partition_count != 2:
         raise ValueError("methodology v1.0 requires exactly two partitions")
-    entries: list[dict[str, Any]] = []
-    for run_id in args.run_id:
-        shipment_a, shipment_b = select_pair(run_id, args.partition_count)
-        entries.extend(
-            [
-                {
-                    "run_id": run_id,
-                    "shipment_id": shipment_a,
-                    "key_role": "A",
-                    "expected_partition": 0,
-                    "observed_partition": None,
-                    "verified": False,
-                },
-                {
-                    "run_id": run_id,
-                    "shipment_id": shipment_b,
-                    "key_role": "B",
-                    "expected_partition": 1,
-                    "observed_partition": None,
-                    "verified": False,
-                },
-            ]
-        )
+    entries = build_entries(args.run_id, args.partition_count)
 
     if args.verification_topic:
         producer = KafkaProducer(

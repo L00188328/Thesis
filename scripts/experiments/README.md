@@ -1,6 +1,6 @@
 # Azure experiment tools
 
-These scripts implement methodology version 1.0.6 without creating Azure resources. The pinned runtime is built with:
+These scripts implement methodology version 1.0.7 without creating Azure resources. The pinned runtime is built with:
 
 ```bash
 docker compose --profile tools build experiment-tools

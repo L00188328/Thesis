@@ -14,7 +14,12 @@ from scripts.experiments.create_freeze import validate_settings
 from scripts.experiments.evidence_export import export_evidence
 from scripts.experiments.estimate_azure_burn import calculate
 from scripts.experiments.kafka_consumer_progress import decode_assignment
-from scripts.experiments.partition_key_manifest import key_partition, select_pair
+from scripts.experiments.partition_key_manifest import (
+    KAFKA_PRODUCER_VERSION,
+    build_entries,
+    key_partition,
+    select_pair,
+)
 from scripts.experiments.workload_freshness import response_rows
 
 
@@ -74,6 +79,16 @@ class PartitionManifestTests(unittest.TestCase):
         self.assertEqual(key_partition(shipment_a, 2), 0)
         self.assertEqual(key_partition(shipment_b, 2), 1)
         self.assertNotEqual(shipment_a, shipment_b)
+
+    def test_pinned_producer_version_is_available(self) -> None:
+        self.assertEqual(KAFKA_PRODUCER_VERSION, "2.2.3")
+
+    def test_each_key_records_producer_and_partitioner(self) -> None:
+        entries = build_entries(["E1-r01"], 2)
+        self.assertEqual(len(entries), 2)
+        for entry in entries:
+            self.assertEqual(entry["producer_version"], "kafka-python-ng 2.2.3")
+            self.assertEqual(entry["partitioner"], "kafka-python-ng murmur2")
 
 
 class ConsumerProgressTests(unittest.TestCase):
