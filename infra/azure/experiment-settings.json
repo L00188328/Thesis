@@ -21,6 +21,20 @@
     "G1_front_door": {"project": "masters-thesis", "phase": "azure-ha", "configuration": "G1", "run": "g1-series", "owner": "robyn"},
     "G2_front_door": {"project": "masters-thesis", "phase": "azure-ha", "configuration": "G2", "run": "g2-series", "owner": "robyn"}
   },
+  "run_identity": {
+    "measured_format": "<configuration>-r<two-digit-repeat>",
+    "warm_up_format": "<configuration>-warmup",
+    "execution_utc_recorded_separately": true,
+    "measured_run_ids": [
+      "E1-r01", "E1-r02", "E1-r03",
+      "E2-A-r01", "E2-A-r02", "E2-A-r03",
+      "E2-B-r01", "E2-B-r02", "E2-B-r03",
+      "F1-r01", "F1-r02", "F1-r03",
+      "G1-r01", "G1-r02", "G1-r03",
+      "G2-r01", "G2-r02", "G2-r03"
+    ],
+    "warm_up_run_ids": ["E1-warmup", "E2-A-warmup", "E2-B-warmup", "F1-warmup", "G1-warmup", "G2-warmup"]
+  },
   "skus": {
     "aks_tier": "Free",
     "aks_kubernetes_minor": "1.35",

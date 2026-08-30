@@ -1,11 +1,11 @@
 # Azure experiment infrastructure
 
-Methodology version 1.0.5 uses four staged Bicep deployments:
+Methodology version 1.0.6 uses four staged Bicep deployments:
 
 1. `shared.bicep` creates ACR, one Event Hubs namespace with two two-partition Event Hubs, and PostgreSQL Flexible Server.
 2. `aks-region.bicep` creates one AKS cluster, a system pool, and the declared application user pools.
 3. `acr-pull.bicep` grants each deployed cluster's kubelet identity `AcrPull` on the shared registry. This is separate because the AKS-created kubelet identity is queried after cluster creation.
-4. `front-door.bicep` creates the frozen Azure Front Door Standard endpoint, origin group, origins, and GraphQL route. Clients use HTTPS; the controlled Front Door-to-AKS origin connection uses HTTP port 80 as frozen in protocol version 1.0.5.
+4. `front-door.bicep` creates the frozen Azure Front Door Standard endpoint, origin group, origins, and GraphQL route. Clients use HTTPS; the controlled Front Door-to-AKS origin connection uses HTTP port 80 as frozen in protocol version 1.0.6.
 
 Parameter files under `parameters/` are reusable reviewed defaults. Secrets and deployment-specific origin hostnames are supplied at deployment time and must never be committed.
 

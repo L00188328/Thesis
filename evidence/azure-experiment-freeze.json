@@ -210,11 +210,11 @@
   },
   "protocol": {
     "file": "evidence/azure-experimental-protocol.md",
-    "frozen_timestamp_utc": "2026-08-30T09:40:10.356438+00:00",
-    "git_commit": "79f869f5cc07bba249a70828e1555d1f81a55321",
-    "sha256": "de59be160a246b476d209ae0051b2cc8e674150366c0553bbbf6bf090bc764f3",
-    "version": "1.0.5",
-    "worktree_clean": true
+    "frozen_timestamp_utc": "2026-08-30T09:53:25.412162+00:00",
+    "git_commit": "53b9230e28052371b7b929c5c09857670db41f3a",
+    "sha256": "727a5acbcb088ea7e363777b5dd0fe80b2c085adf069317af9b3f388d91dbe08",
+    "version": "1.0.6",
+    "worktree_clean": false
   },
   "regions": {
     "external_probe_location": "Vienna, Austria",
@@ -276,6 +276,39 @@
       "project": "masters-thesis",
       "run": "shared-series"
     }
+  },
+  "run_identity": {
+    "execution_utc_recorded_separately": true,
+    "measured_format": "<configuration>-r<two-digit-repeat>",
+    "measured_run_ids": [
+      "E1-r01",
+      "E1-r02",
+      "E1-r03",
+      "E2-A-r01",
+      "E2-A-r02",
+      "E2-A-r03",
+      "E2-B-r01",
+      "E2-B-r02",
+      "E2-B-r03",
+      "F1-r01",
+      "F1-r02",
+      "F1-r03",
+      "G1-r01",
+      "G1-r02",
+      "G1-r03",
+      "G2-r01",
+      "G2-r02",
+      "G2-r03"
+    ],
+    "warm_up_format": "<configuration>-warmup",
+    "warm_up_run_ids": [
+      "E1-warmup",
+      "E2-A-warmup",
+      "E2-B-warmup",
+      "F1-warmup",
+      "G1-warmup",
+      "G2-warmup"
+    ]
   },
   "schema_version": 2,
   "skus": {

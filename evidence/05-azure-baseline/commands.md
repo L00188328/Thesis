@@ -1,6 +1,6 @@
 # E1 Azure Baseline — Operator Runbook
 
-Protocol v1.0.5. Commands that consume credentials use ignored environment files or mounted Kubernetes Secrets; credentials and raw subscription identifiers are never written here.
+Protocol v1.0.6. Commands that consume credentials use ignored environment files or mounted Kubernetes Secrets; credentials and raw subscription identifiers are never written here.
 
 1. Verify the final freeze checksum, Git checkpoint, host power/network controls, Azure login, budget alerts, provider registration, regional quota, exact AKS patch and frozen global-name availability.
 2. Create the tagged shared and Region A resource groups and record accepted/completed UTC timestamps.

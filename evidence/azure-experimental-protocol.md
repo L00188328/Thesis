@@ -1,8 +1,8 @@
 # Azure High-Availability Experimental Protocol
 
-**Methodology version:** 1.0.5
+**Methodology version:** 1.0.6
 **Status:** Frozen
-**Frozen at:** 2026-08-30T09:34:59Z
+**Frozen at:** 2026-08-30T09:52:12Z
 
 Methodological changes after this point are prohibited unless pre-E1 validation discovers a genuine technical incompatibility. Any such change requires a versioned amendment and the reruns defined by this protocol.
 
@@ -15,6 +15,8 @@ Methodological changes after this point are prohibited unless pre-E1 validation 
 **Version 1.0.4 pre-E1 cost-attribution amendment:** Final rendered-IaC review found that the parameter sets did not carry the protocol-required `run` tag, and the shared/Region B sets lacked an unambiguous configuration-series tag. Before any experimental Azure resource was created or E1 began, frozen resource-tag sets were added for shared, E1, E2, F1, Region B, G1 Front Door and G2 Front Door resources. Persistent resources use series labels rather than individual repeat IDs because they span warm-up and three measured runs. This amendment changes cost attribution metadata only; no infrastructure SKU, count, topology, zone, workload, timing, metric, routing, probe, failure or application semantic changed.
 
 **Version 1.0.5 pre-E1 subscription-policy amendment:** The first shared deployment request was rejected before resource creation by the Azure for Students `Allowed resource deployment regions` policy, which permits only Italy North, Switzerland North, Spain Central, Norway East and France Central. Read-only compatibility checks found that Italy North and Norway East both support every required service, non-preview AKS `1.35.7`, the frozen B2s/D2as_v4 sizes, sufficient family/total quota and unrestricted zones 1/2/3. France Central and Spain Central had subscription-specific zone restrictions for frozen sizes; Switzerland North was technically valid but not selected. Region A is therefore amended to Italy North and Region B to Norway East, and their current EUR VM meters are used in a regenerated burn estimate. The direct-versus-Front-Door routing definitions, region roles, node sizes/counts/zones, workloads, timings, metrics, failure mechanisms and application semantics remain unchanged. The rejected West Europe deployment created only empty resource groups and no experimental service resources.
+
+**Version 1.0.6 pre-E1 run-identity clarification:** Multi-day execution made the original date-bearing run-ID format incompatible with the requirement to broker-freeze every future run key before E1, because future execution dates are not yet known. Measured runs now use stable IDs `<configuration>-r<two-digit repeat>` and warm-ups use `<configuration>-warmup`; each run records its actual start/end UTC dates separately in primary evidence. The complete measured and warm-up ID sets are frozen before broker verification. This changes identifiers only and does not change key hashing, partitioning, workloads, counts, rates, timings, metrics or comparisons. Shared Azure services had been provisioned when this pre-E1 contradiction was resolved, but no key manifest, workload, AKS cluster or measured E1 run existed.
 
 ## 1. Scope and Freeze Rule
 
@@ -382,7 +384,7 @@ Use the same workload implementation and rates across E1, E2-A, E2-B, F1, G1, an
 
 ### 5.1 IDs and Event Design
 
-- Run ID: `<configuration>-r<repeat>-<UTC date>`, for example `F1-r02-20260915`.
+- Measured run ID: `<configuration>-r<two-digit repeat>`, for example `F1-r02`. Warm-up ID: `<configuration>-warmup`. Record the actual execution UTC date and timestamps separately in the run timeline rather than embedding an unknowable future date in the pre-frozen key identity.
 - Workload shipment IDs/Kafka keys: two unique values for each measured run, for example `AZ-<configuration>-R<repeat>-A-<candidate>` and `AZ-<configuration>-R<repeat>-B-<candidate>`.
 - Event IDs: `az-<configuration>-r<repeat>-evt-0001` through `...-0600`.
 - Event versions: independent integers 1 through 300 for each run-unique workload shipment, with no intentional gaps.
@@ -467,10 +469,11 @@ Do not store credentials, connection strings, access tokens, or unredacted subsc
 
 Before E1, create `evidence/azure-experiment-freeze.json` from the reviewed protocol and deployment parameters. It must contain:
 
-- `protocol`: version `1.0.5`, the Git commit containing the frozen protocol, and UTC freeze timestamp;
+- `protocol`: version `1.0.6`, the Git commit containing the frozen protocol, and UTC freeze timestamp;
 - `billing`: sanitised subscription reference, billing currency, estimated hourly burn by configuration, total planned burn, and budget ceiling;
 - `regions`: Region A and Region B, plus the sanitised physical location of the external laptop;
 - `resource_tags`: the frozen project, phase, configuration-series, run-series, owner and applicable region-role tags used for cost attribution;
+- `run_identity`: the stable format and complete measured/warm-up run-ID sets whose keys are broker-verified before E1, with execution UTC recorded separately;
 - `skus`: Front Door/Event Hubs/AKS/PostgreSQL tiers and every cluster, node-pool, VM size, mode, zone, and desired/min/max node count;
 - `event_hubs`: namespace tier, entity names, two partitions per entity, retention, consumer group, producer/client version, producer partitioner, and `RoundRobinPartitionAssignor`;
 - `front_door`: profile tier, endpoint/route, origin names/host headers/ports, priorities, weights, HTTP GET `/ready` to origin, HTTPS client endpoint, 10-second interval, sample size 4, successful samples 3, 1000-millisecond additional latency, disabled session affinity, non-applicable HTTP-origin certificate-name validation, and disabled GraphQL caching;
@@ -635,7 +638,7 @@ AKS, Front Door, Event Hubs, PostgreSQL, and registry creation/deletion times mu
 
 The proposed order is:
 
-1. Estimate Azure burn, select the fixed repeat count, freeze protocol v1.0.5 and all required parameters, and create/checksum `evidence/azure-experiment-freeze.json` before deployment.
+1. Estimate Azure burn, select the fixed repeat count, freeze protocol v1.0.6 and all required parameters, and create/checksum `evidence/azure-experiment-freeze.json` before deployment.
 2. Prepare reusable IaC and parameter files for E1, E2-A, E2-B, F1, G1, and G2; validate locally without deployment.
 3. Prepare and locally verify probe, workload, consumer-progress, integrity, timeline, sanitisation, and evidence-export scripts. Validate the consumer-progress collector against local Redpanda and then an Event Hubs smoke workload; preselect and broker-verify every measured run's unique key pair, save the complete `evidence/partition-key-map.json`, and remove the temporary verification Event Hub before any measured E1 run.
 4. Configure only `RoundRobinPartitionAssignor`, add the fixed assignment/revocation structured logs, and verify locally that assignment changes do not alter event-processing semantics. Freeze this configuration before E1.

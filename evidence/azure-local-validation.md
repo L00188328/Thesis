@@ -1,7 +1,7 @@
 # Azure Experiment Preparation — Local Validation
 
 **Date:** 2026-08-30
-**Protocol:** 1.0.5
+**Protocol:** 1.0.6
 **Azure resources created:** No
 
 | Validation | Observed result | Status |
@@ -19,10 +19,11 @@
 | Pre-E1 VM quota amendment | DASv5-family quota was 0 vCPUs in both regions; protocol v1.0.3 changed every application pool to available two-vCPU `Standard_D2as_v4`, for which each region has a four-vCPU family quota | PASS |
 | Pre-E1 cost-tag amendment | Protocol v1.0.4 froze project, phase, configuration-series, run-series, owner and applicable region-role tags in every reusable parameter set before resource creation | PASS |
 | Pre-E1 allowed-region amendment | Azure policy rejected West/North Europe before service creation; protocol v1.0.5 selected Italy North/ Norway East after service, AKS patch, quota and zone-restriction checks | PASS |
+| Pre-E1 run-identity amendment | Protocol v1.0.6 replaced unknowable future date-bearing IDs with 18 stable measured IDs and six warm-up IDs; execution UTC remains separately recorded | PASS |
 | Live Azure prices | Existing public EUR retail meters were reconfirmed on 2026-08-29; amended D2as_v4 meters were queried on 2026-08-30 at EUR 0.101/hour in West Europe and EUR 0.094/hour in North Europe | PASS |
-| Preliminary amended freeze | Schema version 2 / protocol 1.0.5 generated and checksummed after the allowed-region burn recalculation; `worktree_clean: false` pending committed-checkpoint regeneration | PASS |
+| Preliminary amended freeze | Schema version 2 / protocol 1.0.6 generated and checksummed with stable run identities; `worktree_clean: false` pending committed-checkpoint regeneration | PASS |
 | Repository secret scan | Current working tree and index contain only placeholders, test fixtures, redaction patterns, or environment-variable references; the local secret manifest is ignored and no longer tracked | PASS |
 
 The historical manual Phase 1 failure scenarios were not rerun. The blocker corrections did not change PostgreSQL transaction boundaries, history/current-state atomicity, post-transaction offset commit, fail-on-error behaviour, `event_id` idempotency, or `event_version` state protection.
 
-The v1.0.5 freeze artifact in this uncommitted amendment checkpoint is deliberately preliminary. The rejected West Europe request created no experimental service resources. After committing this checkpoint, regenerate the final freeze and checksum so they reference the clean amendment commit before E1 deployment.
+The v1.0.6 freeze artifact in this uncommitted amendment checkpoint is deliberately preliminary. Shared dependencies exist, but no key manifest, AKS cluster, workload or E1 measurement existed when the run-identity contradiction was amended. After committing this checkpoint, regenerate the final freeze and checksum before broker verification.

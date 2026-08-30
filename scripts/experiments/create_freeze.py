@@ -14,6 +14,7 @@ REQUIRED_TOP_LEVEL = {
     "billing",
     "regions",
     "resource_tags",
+    "run_identity",
     "skus",
     "event_hubs",
     "front_door",
@@ -47,13 +48,13 @@ def validate_settings(
     if missing:
         raise ValueError(f"missing freeze settings: {', '.join(missing)}")
     if int(settings["repeat_count"]) != 3:
-        raise ValueError("methodology v1.0.5 requires exactly three measured repeats")
+        raise ValueError("methodology v1.0.6 requires exactly three measured repeats")
     if int(settings["warm_up_runs_per_configuration"]) != 1:
-        raise ValueError("methodology v1.0.5 requires one discarded warm-up per configuration")
+        raise ValueError("methodology v1.0.6 requires one discarded warm-up per configuration")
     if settings["event_hubs"].get("partitions_per_entity") != 2:
-        raise ValueError("methodology v1.0.5 requires two partitions per Event Hub")
+        raise ValueError("methodology v1.0.6 requires two partitions per Event Hub")
     if settings["event_hubs"].get("assignment_strategy") != "RoundRobinPartitionAssignor":
-        raise ValueError("methodology v1.0.5 requires RoundRobinPartitionAssignor")
+        raise ValueError("methodology v1.0.6 requires RoundRobinPartitionAssignor")
     require_keys(
         settings["event_hubs"],
         "event_hubs",
@@ -93,7 +94,7 @@ def validate_settings(
         {"region_a", "region_b", "external_probe_location"},
     )
     if settings["regions"]["region_a"] != "italynorth" or settings["regions"]["region_b"] != "norwayeast":
-        raise ValueError("methodology v1.0.5 requires Italy North and Norway East")
+        raise ValueError("methodology v1.0.6 requires Italy North and Norway East")
     expected_resource_tags = {
         "shared": {"project": "masters-thesis", "phase": "azure-ha", "configuration": "shared", "run": "shared-series", "owner": "robyn"},
         "E1": {"project": "masters-thesis", "phase": "azure-ha", "configuration": "E1", "run": "e1-series", "regionRole": "region-a", "owner": "robyn"},
@@ -104,7 +105,22 @@ def validate_settings(
         "G2_front_door": {"project": "masters-thesis", "phase": "azure-ha", "configuration": "G2", "run": "g2-series", "owner": "robyn"},
     }
     if settings["resource_tags"] != expected_resource_tags:
-        raise ValueError("resource_tags must match methodology v1.0.5 cost-attribution tags")
+        raise ValueError("resource_tags must match methodology v1.0.6 cost-attribution tags")
+    configurations = ("E1", "E2-A", "E2-B", "F1", "G1", "G2")
+    expected_measured_run_ids = [
+        f"{configuration}-r{repeat:02d}"
+        for configuration in configurations
+        for repeat in range(1, 4)
+    ]
+    expected_warm_up_run_ids = [f"{configuration}-warmup" for configuration in configurations]
+    if settings["run_identity"] != {
+        "measured_format": "<configuration>-r<two-digit-repeat>",
+        "warm_up_format": "<configuration>-warmup",
+        "execution_utc_recorded_separately": True,
+        "measured_run_ids": expected_measured_run_ids,
+        "warm_up_run_ids": expected_warm_up_run_ids,
+    }:
+        raise ValueError("run_identity must match methodology v1.0.6 stable run IDs")
     skus = settings["skus"]
     require_keys(
         skus,
@@ -162,7 +178,7 @@ def validate_settings(
                 {"name", "mode", "vm_size", "zones", "desired", "min", "max", "autoscaling"},
             )
             if pool["vm_size"] != "Standard_D2as_v4":
-                raise ValueError("methodology v1.0.5 requires Standard_D2as_v4 application pools")
+                raise ValueError("methodology v1.0.6 requires Standard_D2as_v4 application pools")
     configurations = {cluster["configuration"] for cluster in skus["cluster_configurations"]}
     expected_configurations = {"E1", "E2-A/E2-B", "F1/G1/G2 Region A", "G1/G2 Region B"}
     if configurations != expected_configurations:
@@ -230,7 +246,7 @@ def validate_settings(
         "G2": "HttpsFrontDoorToHttpOrigin",
     }
     if settings["probe_transport"] != required_transports:
-        raise ValueError("probe_transport must match methodology v1.0.5")
+        raise ValueError("probe_transport must match methodology v1.0.6")
     require_keys(
         settings["fault_mechanisms"]["region_a_failure"],
         "fault_mechanisms.region_a_failure",
@@ -285,7 +301,7 @@ def validate_settings(
 
 
 def parse_args() -> argparse.Namespace:
-    parser = argparse.ArgumentParser(description="Create methodology v1.0.5 freeze evidence")
+    parser = argparse.ArgumentParser(description="Create methodology v1.0.6 freeze evidence")
     parser.add_argument("--settings", required=True)
     parser.add_argument("--protocol", required=True)
     parser.add_argument("--burn-estimate", required=True)
@@ -301,8 +317,8 @@ def main() -> None:
     validate_settings(settings, allow_live_placeholders=args.allow_dirty)
     protocol_path = Path(args.protocol)
     protocol_text = protocol_path.read_text()
-    if "**Methodology version:** 1.0.5" not in protocol_text or "**Status:** Frozen" not in protocol_text:
-        raise ValueError("protocol is not frozen as methodology version 1.0.5")
+    if "**Methodology version:** 1.0.6" not in protocol_text or "**Status:** Frozen" not in protocol_text:
+        raise ValueError("protocol is not frozen as methodology version 1.0.6")
     status = git_output(["status", "--porcelain"])
     if status and not args.allow_dirty:
         raise ValueError("Git worktree must be clean; commit the frozen protocol and tooling first")
@@ -321,7 +337,7 @@ def main() -> None:
     payload = {
         "schema_version": 2,
         "protocol": {
-            "version": "1.0.5",
+            "version": "1.0.6",
             "git_commit": git_output(["rev-parse", "HEAD"]),
             "file": str(protocol_path),
             "sha256": hashlib.sha256(protocol_text.encode("utf-8")).hexdigest(),
