@@ -4,14 +4,14 @@
     "credits_or_discounts_assumed": false,
     "currency": "EUR",
     "estimated_hourly_burn_by_configuration": {
-      "E1": 0.277574,
-      "E2-A": 0.378574,
-      "E2-B": 0.378574,
-      "F1": 0.378574,
-      "G1": 0.6482,
-      "G2": 0.6482
+      "E1": 0.274974,
+      "E2-A": 0.373374,
+      "E2-B": 0.373374,
+      "F1": 0.373374,
+      "G1": 0.7027,
+      "G2": 0.7027
     },
-    "estimated_total": 16.394321,
+    "estimated_total": 16.476046,
     "gross_spend_ceiling": 50.0,
     "live_price_confirmation_status": "confirmed",
     "price_query_date": "2026-08-30",
@@ -29,49 +29,49 @@
     "configurations": [
       {
         "configuration": "E1",
-        "estimated_cost_per_repeat": 0.069393,
-        "estimated_hourly_burn": 0.277574,
+        "estimated_cost_per_repeat": 0.068743,
+        "estimated_hourly_burn": 0.274974,
         "measured_hours_per_repeat": 0.25
       },
       {
         "configuration": "E2-A",
-        "estimated_cost_per_repeat": 0.094644,
-        "estimated_hourly_burn": 0.378574,
+        "estimated_cost_per_repeat": 0.093343,
+        "estimated_hourly_burn": 0.373374,
         "measured_hours_per_repeat": 0.25
       },
       {
         "configuration": "E2-B",
-        "estimated_cost_per_repeat": 0.094644,
-        "estimated_hourly_burn": 0.378574,
+        "estimated_cost_per_repeat": 0.093343,
+        "estimated_hourly_burn": 0.373374,
         "measured_hours_per_repeat": 0.25
       },
       {
         "configuration": "F1",
-        "estimated_cost_per_repeat": 0.094644,
-        "estimated_hourly_burn": 0.378574,
+        "estimated_cost_per_repeat": 0.093343,
+        "estimated_hourly_burn": 0.373374,
         "measured_hours_per_repeat": 0.25
       },
       {
         "configuration": "G1",
-        "estimated_cost_per_repeat": 0.216066,
-        "estimated_hourly_burn": 0.6482,
+        "estimated_cost_per_repeat": 0.234233,
+        "estimated_hourly_burn": 0.7027,
         "measured_hours_per_repeat": 0.333333
       },
       {
         "configuration": "G2",
-        "estimated_cost_per_repeat": 0.16205,
-        "estimated_hourly_burn": 0.6482,
+        "estimated_cost_per_repeat": 0.175675,
+        "estimated_hourly_burn": 0.7027,
         "measured_hours_per_repeat": 0.25
       }
     ],
     "currency": "EUR",
-    "estimated_total": 16.394321,
+    "estimated_total": 16.476046,
     "fixed_estimated_cost": 14.2,
-    "generated_timestamp_utc": "2026-08-30T09:14:29.507985+00:00",
-    "maximum_repeat_count_within_estimate": 48,
-    "one_repeat_all_configurations_cost": 0.73144,
+    "generated_timestamp_utc": "2026-08-30T09:36:23.130879+00:00",
+    "maximum_repeat_count_within_estimate": 47,
+    "one_repeat_all_configurations_cost": 0.758682,
     "price_sources": [
-      "Azure Retail Prices API queried 2026-08-29 in EUR; amended D2as_v4 meters queried 2026-08-30: https://prices.azure.com/api/retail/prices",
+      "Azure Retail Prices API queried 2026-08-29 in EUR; Italy North and Norway East amended meters queried 2026-08-30: https://prices.azure.com/api/retail/prices",
       "Microsoft Front Door billing guidance: https://learn.microsoft.com/azure/frontdoor/billing"
     ],
     "requested_repeat_count": 3,
@@ -210,16 +210,16 @@
   },
   "protocol": {
     "file": "evidence/azure-experimental-protocol.md",
-    "frozen_timestamp_utc": "2026-08-30T09:25:11.961485+00:00",
-    "git_commit": "a73c4cdb0ab57bfe4fef20dae69adc6e5147d2b9",
-    "sha256": "ba3eb869d7bfb88c576a18c658a0d16f480bf1432d40b0301c33e8234093f046",
-    "version": "1.0.4",
-    "worktree_clean": true
+    "frozen_timestamp_utc": "2026-08-30T09:36:47.845531+00:00",
+    "git_commit": "f2272efcba03bcdc46d9f75a4884827d08b1f423",
+    "sha256": "de59be160a246b476d209ae0051b2cc8e674150366c0553bbbf6bf090bc764f3",
+    "version": "1.0.5",
+    "worktree_clean": false
   },
   "regions": {
     "external_probe_location": "Vienna, Austria",
-    "region_a": "westeurope",
-    "region_b": "northeurope"
+    "region_a": "italynorth",
+    "region_b": "norwayeast"
   },
   "repeat_count": 3,
   "resource_tags": {
@@ -300,7 +300,7 @@
         "configuration": "E1",
         "node_autoprovisioning": false,
         "parameter_file": "infra/azure/parameters/region-a-e1.bicepparam",
-        "region": "westeurope",
+        "region": "italynorth",
         "system_pool": {
           "autoscaling": false,
           "desired": 1,
@@ -329,7 +329,7 @@
         "configuration": "E2-A/E2-B",
         "node_autoprovisioning": false,
         "parameter_file": "infra/azure/parameters/region-a-e2.bicepparam",
-        "region": "westeurope",
+        "region": "italynorth",
         "system_pool": {
           "autoscaling": false,
           "desired": 1,
@@ -372,7 +372,7 @@
         "configuration": "F1/G1/G2 Region A",
         "node_autoprovisioning": false,
         "parameter_file": "infra/azure/parameters/region-a-f1.bicepparam",
-        "region": "westeurope",
+        "region": "italynorth",
         "system_pool": {
           "autoscaling": false,
           "desired": 1,
@@ -417,7 +417,7 @@
         "configuration": "G1/G2 Region B",
         "node_autoprovisioning": false,
         "parameter_file": "infra/azure/parameters/region-b.bicepparam",
-        "region": "northeurope",
+        "region": "norwayeast",
         "system_pool": {
           "autoscaling": false,
           "desired": 1,

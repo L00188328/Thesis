@@ -1,21 +1,23 @@
 # Azure experiment infrastructure
 
-Methodology version 1.0.4 uses four staged Bicep deployments:
+Methodology version 1.0.5 uses four staged Bicep deployments:
 
 1. `shared.bicep` creates ACR, one Event Hubs namespace with two two-partition Event Hubs, and PostgreSQL Flexible Server.
 2. `aks-region.bicep` creates one AKS cluster, a system pool, and the declared application user pools.
 3. `acr-pull.bicep` grants each deployed cluster's kubelet identity `AcrPull` on the shared registry. This is separate because the AKS-created kubelet identity is queried after cluster creation.
-4. `front-door.bicep` creates the frozen Azure Front Door Standard endpoint, origin group, origins, and GraphQL route. Clients use HTTPS; the controlled Front Door-to-AKS origin connection uses HTTP port 80 as frozen in protocol version 1.0.4.
+4. `front-door.bicep` creates the frozen Azure Front Door Standard endpoint, origin group, origins, and GraphQL route. Clients use HTTPS; the controlled Front Door-to-AKS origin connection uses HTTP port 80 as frozen in protocol version 1.0.5.
 
 Parameter files under `parameters/` are reusable reviewed defaults. Secrets and deployment-specific origin hostnames are supplied at deployment time and must never be committed.
 
 No deployment command should be run until `evidence/azure-experiment-freeze.json` is complete and explicit approval has been given.
 
-The region parameter files pin AKS `1.35.7`, selected on 2026-08-29 as the latest patch offered to the experiment subscription in both `westeurope` and `northeurope`. Re-run `az aks get-versions` in both regions immediately before deployment; if availability has changed, stop and amend the freeze rather than silently selecting another version. This metadata query does not create resources.
+The region parameter files pin AKS `1.35.7`, reverified on 2026-08-30 in policy-permitted `italynorth` and `norwayeast`. Re-run `az aks get-versions` in both regions immediately before deployment; if availability has changed, stop and amend the freeze rather than silently selecting another version. This metadata query does not create resources.
 
 All application pools use `Standard_D2as_v4`. Protocol v1.0.3 amended the original DASv5 selection before E1 because the experiment subscription reported zero DASv5-family vCPU quota in both planned regions, while DASv4 had sufficient quota. The node counts and topology were not changed.
 
 Protocol v1.0.4 freezes `project`, `phase`, `configuration`, `run`, `owner` and applicable `regionRole` tags in every parameter set. Persistent resources use series-level `run` values because they span the discarded warm-up and all three measured repeats.
+
+Protocol v1.0.5 uses Italy North as Region A and Norway East as Region B because the experiment subscription's enforced allowed-region policy rejected West Europe/North Europe before service-resource creation. Both amended regions support the frozen services, quotas, VM sizes, AKS patch and zones 1/2/3 without subscription-specific restrictions.
 
 Region A reuses `aks-region.bicep` through three explicit parameter sets:
 

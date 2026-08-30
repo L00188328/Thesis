@@ -10,49 +10,49 @@
   "configurations": [
     {
       "configuration": "E1",
-      "estimated_cost_per_repeat": 0.069393,
-      "estimated_hourly_burn": 0.277574,
+      "estimated_cost_per_repeat": 0.068743,
+      "estimated_hourly_burn": 0.274974,
       "measured_hours_per_repeat": 0.25
     },
     {
       "configuration": "E2-A",
-      "estimated_cost_per_repeat": 0.094644,
-      "estimated_hourly_burn": 0.378574,
+      "estimated_cost_per_repeat": 0.093343,
+      "estimated_hourly_burn": 0.373374,
       "measured_hours_per_repeat": 0.25
     },
     {
       "configuration": "E2-B",
-      "estimated_cost_per_repeat": 0.094644,
-      "estimated_hourly_burn": 0.378574,
+      "estimated_cost_per_repeat": 0.093343,
+      "estimated_hourly_burn": 0.373374,
       "measured_hours_per_repeat": 0.25
     },
     {
       "configuration": "F1",
-      "estimated_cost_per_repeat": 0.094644,
-      "estimated_hourly_burn": 0.378574,
+      "estimated_cost_per_repeat": 0.093343,
+      "estimated_hourly_burn": 0.373374,
       "measured_hours_per_repeat": 0.25
     },
     {
       "configuration": "G1",
-      "estimated_cost_per_repeat": 0.216066,
-      "estimated_hourly_burn": 0.6482,
+      "estimated_cost_per_repeat": 0.234233,
+      "estimated_hourly_burn": 0.7027,
       "measured_hours_per_repeat": 0.333333
     },
     {
       "configuration": "G2",
-      "estimated_cost_per_repeat": 0.16205,
-      "estimated_hourly_burn": 0.6482,
+      "estimated_cost_per_repeat": 0.175675,
+      "estimated_hourly_burn": 0.7027,
       "measured_hours_per_repeat": 0.25
     }
   ],
   "currency": "EUR",
-  "estimated_total": 16.394321,
+  "estimated_total": 16.476046,
   "fixed_estimated_cost": 14.2,
-  "generated_timestamp_utc": "2026-08-30T09:14:29.507985+00:00",
-  "maximum_repeat_count_within_estimate": 48,
-  "one_repeat_all_configurations_cost": 0.73144,
+  "generated_timestamp_utc": "2026-08-30T09:36:23.130879+00:00",
+  "maximum_repeat_count_within_estimate": 47,
+  "one_repeat_all_configurations_cost": 0.758682,
   "price_sources": [
-    "Azure Retail Prices API queried 2026-08-29 in EUR; amended D2as_v4 meters queried 2026-08-30: https://prices.azure.com/api/retail/prices",
+    "Azure Retail Prices API queried 2026-08-29 in EUR; Italy North and Norway East amended meters queried 2026-08-30: https://prices.azure.com/api/retail/prices",
     "Microsoft Front Door billing guidance: https://learn.microsoft.com/azure/frontdoor/billing"
   ],
   "requested_repeat_count": 3,

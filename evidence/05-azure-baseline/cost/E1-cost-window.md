@@ -2,7 +2,8 @@
 
 - Currency: EUR
 - Gross experiment ceiling: EUR 50
-- Frozen estimated E1 hourly burn: EUR 0.277574
+- Frozen estimated E1 hourly burn: EUR 0.274974
+- Rejected West Europe shared deployment: 2026-08-30T09:27:36Z; Azure policy rejected all child services before creation
 - Shared-resource creation accepted UTC: Pending
 - Region A E1 creation accepted UTC: Pending
 - E1 warm-up start/end UTC: Pending

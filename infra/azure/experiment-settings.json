@@ -8,8 +8,8 @@
     "live_price_confirmation_status": "confirmed"
   },
   "regions": {
-    "region_a": "westeurope",
-    "region_b": "northeurope",
+    "region_a": "italynorth",
+    "region_b": "norwayeast",
     "external_probe_location": "Vienna, Austria"
   },
   "resource_tags": {
@@ -30,7 +30,7 @@
     "cluster_configurations": [
       {
         "configuration": "E1",
-        "region": "westeurope",
+        "region": "italynorth",
         "cluster_name": "thesis-aks-region-a",
         "parameter_file": "infra/azure/parameters/region-a-e1.bicepparam",
         "node_autoprovisioning": false,
@@ -41,7 +41,7 @@
       },
       {
         "configuration": "E2-A/E2-B",
-        "region": "westeurope",
+        "region": "italynorth",
         "cluster_name": "thesis-aks-region-a",
         "parameter_file": "infra/azure/parameters/region-a-e2.bicepparam",
         "node_autoprovisioning": false,
@@ -52,7 +52,7 @@
       },
       {
         "configuration": "F1/G1/G2 Region A",
-        "region": "westeurope",
+        "region": "italynorth",
         "cluster_name": "thesis-aks-region-a",
         "parameter_file": "infra/azure/parameters/region-a-f1.bicepparam",
         "node_autoprovisioning": false,
@@ -64,7 +64,7 @@
       },
       {
         "configuration": "G1/G2 Region B",
-        "region": "northeurope",
+        "region": "norwayeast",
         "cluster_name": "thesis-aks-region-b",
         "parameter_file": "infra/azure/parameters/region-b.bicepparam",
         "node_autoprovisioning": false,

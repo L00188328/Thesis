@@ -1,6 +1,6 @@
 using '../aks-region.bicep'
 
-param location = 'northeurope'
+param location = 'norwayeast'
 param clusterName = 'thesis-aks-region-b'
 param aksTier = 'Free'
 param kubernetesVersion = '1.35.7'

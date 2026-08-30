@@ -1,6 +1,6 @@
 using '../shared.bicep'
 
-param location = 'westeurope'
+param location = 'italynorth'
 param namePrefix = 'thesisha'
 param postgresAdminLogin = 'thesisadmin'
 param postgresAdminPassword = readEnvironmentVariable('AZURE_POSTGRES_ADMIN_PASSWORD')
