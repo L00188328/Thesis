@@ -1,0 +1,30 @@
+[
+  {
+    "duration": "PT4.2719482S",
+    "mode": "Incremental",
+    "name": "g1-region-b-acr-pull",
+    "state": "Succeeded",
+    "timestamp": "2026-08-30T14:45:03.891007+00:00"
+  },
+  {
+    "duration": "PT4.1133845S",
+    "mode": "Incremental",
+    "name": "f1-acr-pull-v108",
+    "state": "Succeeded",
+    "timestamp": "2026-08-30T12:11:14.653968+00:00"
+  },
+  {
+    "duration": "PT4.5520961S",
+    "mode": "Incremental",
+    "name": "e1-acrpull-v107-20260830",
+    "state": "Succeeded",
+    "timestamp": "2026-08-30T10:17:34.960075+00:00"
+  },
+  {
+    "duration": "PT5M12.5377348S",
+    "mode": "Incremental",
+    "name": "shared-v105-20260830",
+    "state": "Succeeded",
+    "timestamp": "2026-08-30T09:48:24.201289+00:00"
+  }
+]

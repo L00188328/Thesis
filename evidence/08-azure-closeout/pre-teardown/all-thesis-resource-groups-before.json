@@ -1,0 +1,91 @@
+[
+  {
+    "createdAt": null,
+    "id": "/subscriptions/[REDACTED]/resourceGroups/thesis-ha-shared-rg",
+    "location": "italynorth",
+    "name": "thesis-ha-shared-rg",
+    "provisioningState": "Succeeded",
+    "tags": {
+      "configuration": "shared",
+      "owner": "robyn",
+      "phase": "azure-ha",
+      "project": "masters-thesis",
+      "run": "shared-series"
+    }
+  },
+  {
+    "createdAt": null,
+    "id": "/subscriptions/[REDACTED]/resourceGroups/thesis-ha-region-a-rg",
+    "location": "italynorth",
+    "name": "thesis-ha-region-a-rg",
+    "provisioningState": "Succeeded",
+    "tags": {
+      "configuration": "E1",
+      "owner": "robyn",
+      "phase": "azure-ha",
+      "project": "masters-thesis",
+      "regionRole": "region-a",
+      "run": "e1-series"
+    }
+  },
+  {
+    "createdAt": null,
+    "id": "/subscriptions/[REDACTED]/resourceGroups/MC_thesis-ha-region-a-rg_thesis-aks-region-a_italynorth",
+    "location": "italynorth",
+    "name": "MC_thesis-ha-region-a-rg_thesis-aks-region-a_italynorth",
+    "provisioningState": "Succeeded",
+    "tags": {
+      "aks-managed-cluster-name": "thesis-aks-region-a",
+      "aks-managed-cluster-rg": "thesis-ha-region-a-rg",
+      "configuration": "F1",
+      "owner": "robyn",
+      "phase": "azure-ha",
+      "project": "masters-thesis",
+      "regionRole": "region-a",
+      "run": "f1-series"
+    }
+  },
+  {
+    "createdAt": null,
+    "id": "/subscriptions/[REDACTED]/resourceGroups/thesis-ha-frontdoor-rg",
+    "location": "italynorth",
+    "name": "thesis-ha-frontdoor-rg",
+    "provisioningState": "Succeeded",
+    "tags": {
+      "configuration": "G1",
+      "owner": "robyn",
+      "phase": "azure-ha",
+      "project": "masters-thesis"
+    }
+  },
+  {
+    "createdAt": null,
+    "id": "/subscriptions/[REDACTED]/resourceGroups/thesis-ha-region-b-rg",
+    "location": "norwayeast",
+    "name": "thesis-ha-region-b-rg",
+    "provisioningState": "Succeeded",
+    "tags": {
+      "configuration": "G1-G2",
+      "owner": "robyn",
+      "phase": "azure-ha",
+      "project": "masters-thesis"
+    }
+  },
+  {
+    "createdAt": null,
+    "id": "/subscriptions/[REDACTED]/resourceGroups/MC_thesis-ha-region-b-rg_thesis-aks-region-b_norwayeast",
+    "location": "norwayeast",
+    "name": "MC_thesis-ha-region-b-rg_thesis-aks-region-b_norwayeast",
+    "provisioningState": "Succeeded",
+    "tags": {
+      "aks-managed-cluster-name": "thesis-aks-region-b",
+      "aks-managed-cluster-rg": "thesis-ha-region-b-rg",
+      "configuration": "G1-G2",
+      "owner": "robyn",
+      "phase": "azure-ha",
+      "project": "masters-thesis",
+      "regionRole": "region-b",
+      "run": "multi-region-series"
+    }
+  }
+]

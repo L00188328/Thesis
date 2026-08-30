@@ -1,10 +1,10 @@
-# G1/G2 Amended Run Plan
+# G1/G2 Final Status
 
-Protocol v1.0.8 retains one discarded warm-up and two measured runs for each regional configuration:
+Protocol v1.0.9 closes the Azure experimental programme:
 
-- `G1-warmup`, `G1-r01`, `G1-r02`;
-- `G2-warmup`, `G2-r01`, `G2-r02`.
+- G1 is **blocked before workload execution — Azure subscription constraint**. Region B infrastructure was prepared, but Azure for Students rejected the frozen Azure Front Door resource. `G1-warmup`, `G1-r01`, and `G1-r02` did not begin.
+- G2 is **not executed**. The same constraint made the frozen Front Door routing architecture unavailable, and G2 infrastructure/workloads were never started.
 
-`G1-r03` and `G2-r03` remain in the unchanged historical broker key manifest with status **planned but not executed after protocol amendment**. Their keys must not be reused. The G1/G2 Region A failure mechanism, G1 activation action, Front Door settings, 600-second window, probe/progress cadences, 600-event workload and integrity criteria remain unchanged.
+All G1/G2 reserved IDs and keys remain unused and must not be reused. `G1-r03` and `G2-r03` also retain their earlier **planned but not executed after protocol amendment** classification. The unchanged broker manifest remains historical evidence.
 
-Planned primary evidence directories are `raw/G1-active-passive/{warm-up,run-01,run-02}/` and `raw/G2-active-active/{warm-up,run-01,run-02}/`.
+No G1/G2 warm-up, T1, controlled workload, or measured run evidence exists. No availability, recovery, latency, lag, integrity, assignment, or cost-performance result may be inferred. No alternative routing service or subscription was used because that would change the frozen architecture. G1/G2 remain design strategies only.

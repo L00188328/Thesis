@@ -1,0 +1,92 @@
+{
+  "schema_version": 2,
+  "protocol_version": "1.0.9",
+  "amended_timestamp_utc": "2026-08-30T15:25:05Z",
+  "programme_state": "closed_no_further_azure_experiments",
+  "evaluation_chain": [
+    "Application correctness",
+    "Local Kubernetes Pod resilience",
+    "E1 Azure baseline",
+    "F1 simulated zonal resilience"
+  ],
+  "configuration_status": {
+    "E1": {
+      "status": "COMPLETED",
+      "discarded_warm_up_runs": 1,
+      "measured_runs": 3,
+      "evidence": "evidence/05-azure-baseline/"
+    },
+    "F1": {
+      "status": "COMPLETED",
+      "discarded_warm_up_runs": 1,
+      "measured_runs": 2,
+      "evidence": "evidence/06-azure-az/"
+    },
+    "G1": {
+      "status": "BLOCKED_BEFORE_WORKLOAD_EXECUTION_AZURE_SUBSCRIPTION_CONSTRAINT",
+      "discarded_warm_up_runs": 0,
+      "measured_runs": 0,
+      "evidence": "evidence/07-azure-region/g1-blocked-2026-08-30/",
+      "experimental_fail": false
+    },
+    "G2": {
+      "status": "NOT_EXECUTED_FRONT_DOOR_SUBSCRIPTION_CONSTRAINT",
+      "discarded_warm_up_runs": 0,
+      "measured_runs": 0,
+      "evidence": "design_and_iac_only",
+      "experimental_fail": false
+    },
+    "E2-A": {
+      "status": "REMOVED_USE_LOCAL_KUBERNETES_POD_EVIDENCE",
+      "discarded_warm_up_runs": 0,
+      "measured_runs": 0
+    },
+    "E2-B": {
+      "status": "REMOVED_USE_LOCAL_KUBERNETES_POD_EVIDENCE",
+      "discarded_warm_up_runs": 0,
+      "measured_runs": 0
+    }
+  },
+  "run_ids": {
+    "completed_discarded_warm_up": ["E1-warmup", "F1-warmup"],
+    "completed_measured": ["E1-r01", "E1-r02", "E1-r03", "F1-r01", "F1-r02"],
+    "blocked_before_workload_execution_unused": ["G1-warmup", "G1-r01", "G1-r02"],
+    "not_executed_unused": ["G2-warmup", "G2-r01", "G2-r02"],
+    "planned_but_not_executed_after_prior_amendment": [
+      "E2-A-warmup", "E2-A-r01", "E2-A-r02", "E2-A-r03",
+      "E2-B-warmup", "E2-B-r01", "E2-B-r02", "E2-B-r03",
+      "F1-r03", "G1-r03", "G2-r03"
+    ]
+  },
+  "key_usage_rule": "Preserve the historical broker-verified manifest unchanged. G1/G2 reserved keys remain unused; cancelled and unexecuted keys must not be reused.",
+  "g1_blocker": {
+    "region_b_deployment_succeeded_utc": "2026-08-30T14:43:52.128098Z",
+    "front_door_operation_timestamp_utc": "2026-08-30T14:53:05.093622Z",
+    "front_door_deployment_failed_utc": "2026-08-30T14:54:16.1721727Z",
+    "azure_error": "Free Trial and Student account is forbidden for Azure Frontdoor resources.",
+    "front_door_resources_created": 0,
+    "warm_up_started": false,
+    "t1_occurred": false,
+    "controlled_workload_started": false,
+    "measurement_started": false,
+    "alternative_router_or_subscription_used": false
+  },
+  "metric_boundary": "No G1/G2 availability, recovery, latency, lag, integrity, assignment, or cost-performance measurements exist or may be inferred.",
+  "historical_artifacts": {
+    "broker_key_manifest": {
+      "path": "evidence/partition-key-map.json",
+      "sha256": "8185ea085a406bcd4faedd72231721920126753078c403c84d3d517770b28cfc",
+      "mutation": "none"
+    },
+    "pre_e1_freeze": {
+      "path": "evidence/azure-experiment-freeze.json",
+      "sha256": "039eaed91938d1783409278a341051df15ace5be65a81e16f98a5a6bb274332d",
+      "mutation": "none"
+    },
+    "v1_0_8_freeze": {
+      "path": "evidence/azure-experiment-freeze-v1.0.8.json",
+      "sha256": "7b8ddd3b0d49d3ecd996e27356f267f3a82e82901ea468e9f622b0b03cd8daf8",
+      "mutation": "none"
+    }
+  }
+}

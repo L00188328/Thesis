@@ -1,0 +1,61 @@
+{
+  "agentPoolProfiles": [
+    {
+      "count": 1,
+      "mode": "System",
+      "name": "system",
+      "nodeImageVersion": "AKSUbuntu-2404gen2containerd-202608.14.0",
+      "powerState": "Stopped",
+      "provisioningState": "Succeeded",
+      "vmSize": "Standard_B2s",
+      "zones": [
+        "1"
+      ]
+    },
+    {
+      "count": 0,
+      "mode": "User",
+      "name": "appzone2",
+      "nodeImageVersion": "AKSUbuntu-2404gen2containerd-202608.14.0",
+      "powerState": "Stopped",
+      "provisioningState": "Succeeded",
+      "vmSize": "Standard_D2as_v4",
+      "zones": [
+        "2"
+      ]
+    },
+    {
+      "count": 0,
+      "mode": "User",
+      "name": "appzone1",
+      "nodeImageVersion": "AKSUbuntu-2404gen2containerd-202608.14.0",
+      "powerState": "Stopped",
+      "provisioningState": "Succeeded",
+      "vmSize": "Standard_D2as_v4",
+      "zones": [
+        "1"
+      ]
+    }
+  ],
+  "createdAt": null,
+  "id": "/subscriptions/[REDACTED]/resourcegroups/thesis-ha-region-b-rg/providers/Microsoft.ContainerService/managedClusters/thesis-aks-region-b",
+  "kubernetesVersion": "1.35.7",
+  "lastModifiedAt": null,
+  "location": "norwayeast",
+  "name": "thesis-aks-region-b",
+  "nodeResourceGroup": "MC_thesis-ha-region-b-rg_thesis-aks-region-b_norwayeast",
+  "powerState": "Stopped",
+  "provisioningState": "Succeeded",
+  "sku": {
+    "name": "Base",
+    "tier": "Free"
+  },
+  "tags": {
+    "configuration": "G1-G2",
+    "owner": "robyn",
+    "phase": "azure-ha",
+    "project": "masters-thesis",
+    "regionRole": "region-b",
+    "run": "multi-region-series"
+  }
+}

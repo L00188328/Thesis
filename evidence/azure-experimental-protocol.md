@@ -1,8 +1,8 @@
 # Azure High-Availability Experimental Protocol
 
-**Methodology version:** 1.0.8
-**Status:** Frozen
-**Frozen at:** 2026-08-30T11:37:18Z
+**Methodology version:** 1.0.9
+**Status:** Final experimental amendment — programme closed
+**Frozen at:** 2026-08-30T15:25:05Z
 
 Methodological changes after this point are prohibited unless pre-E1 validation discovers a genuine technical incompatibility. Any such change requires a versioned amendment and the reruns defined by this protocol.
 
@@ -22,17 +22,19 @@ Methodological changes after this point are prohibited unless pre-E1 validation 
 
 **Version 1.0.8 post-E1 scope and repeat-count amendment:** E1 completed under v1.0.7 with its discarded warm-up and all three measured repeats; `E1-r01`, `E1-r02`, and `E1-r03` remain valid, unchanged results. The observed operator duration and resource overhead of executing the frozen protocol was substantially higher than planned. This operational observation—not the numerical E1 outcome—motivates focusing the remaining Azure budget/time on capabilities unavailable in the local single-node Kubernetes environment. E2-A and E2-B are cancelled from future Azure execution because Phase D already experimentally demonstrated the same principal Kubernetes Pod-failure mechanisms: Aggregator deletion/recovery with consumer reassignment and GraphQL API Pod deletion/replacement. The retained Azure chain is F1 simulated zonal failure, G1 active-passive regional resilience, and G2 active-active regional resilience, with one discarded warm-up and two measured repeats for each. Metric definitions, 600-second windows, probe/progress cadences, 600-event workload, Event Hubs partitioning/assignment, integrity criteria, F1/G1/G2 faults, Front Door settings, and application semantics are unchanged. The original pre-E1 key manifest and checksum remain historical evidence; E2 keys and the third-repeat F1/G1/G2 keys are marked planned but not executed in the separate v1.0.8 run plan.
 
+**Version 1.0.9 final experimental amendment:** E1 is completed with one discarded warm-up and three measured runs. F1 is completed with one discarded warm-up and two measured runs. G1 infrastructure preparation reached a running Region B AKS deployment, but the Azure Front Door profile was rejected before the readiness gate or any workload execution with `Free Trial and Student account is forbidden for Azure Frontdoor resources.` G1 is therefore **blocked before workload execution by an Azure subscription constraint**, not an experimental FAIL result. No G1 warm-up, T1, controlled workload, or measured run began, and every G1 reserved ID/key remains unused. G2 was never started and is **not executed** because the same constraint makes the frozen Front Door-based multi-region routing design unavailable. No alternate routing service or subscription is substituted: Azure Front Door is a frozen component of the G1/G2 architecture, and substitution would change the evaluated design. There are no G1/G2 availability, recovery, latency, lag, integrity, or cost-performance measurements, and none may be inferred or estimated. The Azure experimental programme is closed; G1/G2 remain designed strategies for architecture discussion and Limitations/Future Work only. All thesis Azure resources were permanently torn down after sanitized inventory and blocker evidence export. Historical freezes, completed E1/F1 evidence, blocked-G1 raw evidence, and the broker key manifest remain unchanged.
+
 ## 1. Scope and Freeze Rule
 
 This protocol governs the comparison:
 
-**Local Kubernetes Pod resilience → E1 Azure baseline → F1 zonal resilience → G1 active-passive regional resilience → G2 active-active regional resilience**
+**Application correctness → local Kubernetes Pod resilience → E1 Azure baseline → F1 simulated zonal resilience**
 
 The comparative scope is application-layer availability and recovery of the Event Aggregation Service and GraphQL API. Azure Event Hubs and PostgreSQL are required supporting dependencies, but their own high-availability behaviour is outside the comparison. Conclusions are conditional on those dependencies remaining available.
 
 The Event Aggregation Service is described as providing **at-least-once processing with an idempotent consumer**. It must never be described as exactly-once processing.
 
-The original pre-E1 freeze remains `evidence/azure-experiment-freeze.json`. After E1, v1.0.8 creates a separate amended freeze and checksum containing the revised run matrix, remaining burn estimate, selected regions, service SKUs, node-pool sizes/counts, unchanged Event Hubs/Front Door settings, external measurement-host configuration, and retained fault mechanisms. Metric definitions must not change between configurations. Any further necessary amendment must be versioned; completed E1 evidence is never rewritten.
+The original pre-E1 freeze and v1.0.8 amended freeze remain unchanged historical artifacts. Version 1.0.9 creates a separate final run-plan overlay, final freeze, checksums, experiment matrix, and Azure closeout evidence. Completed E1/F1 evidence and blocked-G1 evidence are never rewritten. The frozen G1/G2 architecture remains documented, but it is not part of the empirical performance comparison.
 
 This is a descriptive prototype evaluation. Its repeat counts support transparent repeated observations and do not establish production SLA statistics.
 
@@ -108,7 +110,7 @@ Timeouts, DNS/TLS/connection errors, non-200 responses, malformed JSON, GraphQL 
 
 **Measurement window**
 
-- E1 retains its completed discarded warm-up and three measured runs. Each remaining F1, G1, and G2 configuration uses one discarded warm-up followed by two measured runs, as recorded in `evidence/azure-experiment-freeze-v1.0.8.json`.
+- E1 retains its completed discarded warm-up and three measured runs. F1 retains its completed discarded warm-up and two measured runs. G1/G2 have no workload windows or measurements.
 - The post-E1 reduction applies only to future runs and responds to observed operational duration/resource overhead, not to the numerical outcome of E1.
 - If the budget later requires a different repeat count, stop measured execution and issue a documented, versioned protocol amendment. Do not change counts ad hoc; identify and rerun any configurations required to restore a comparable dataset.
 - Each measured window is fixed at 10 minutes for comparability.
@@ -219,22 +221,23 @@ From successful availability probes report p50, p95, p99, and maximum response l
 
 Always label latency results with the routing path. E1/F1 measure the direct external-host-to-Region-A HTTP path, while G1/G2 include external HTTPS termination and routing at Azure Front Door plus the HTTP origin hop. Preserve the same latency calculation, probe cadence, and timeout definitions, but do not interpret differences between these paths as application-topology effects alone.
 
-## 4. Azure Test Matrix
+## 4. Final Experiment Matrix
 
 Supporting Event Hubs and PostgreSQL remain as constant as practical and outside the comparative HA scope.
 
-| ID | Configuration | Application topology | Controlled change/fault | Goal |
+| Configuration | Status | Runs executed | Empirical evidence | Reason if not executed |
 |---|---|---|---|---|
-| E1 | Azure baseline | One Region; one AKS cluster; one Aggregator Pod; one API Pod; no deliberate AZ distribution; Event Hubs Kafka interface; PostgreSQL dependency. | No failure during the measured baseline window. | Prove cloud end-to-end operation before HA features. |
-| F1 | Availability Zone resilience | Region A; two zone-aligned application user node pools; two Aggregator and two API replicas distributed across zones. | Stop one zone-aligned application user node pool with `az aks nodepool stop`. | Measure a **simulated zonal failure**. Do not claim an Azure Availability Zone failed. |
-| G1 | Multi-region active-passive | Region A/Cluster A active with two Aggregator and two API replicas; Region B/Cluster B running with stopped application capacity; Front Door priority routing. | Stop all Region A application user-node-pool capacity, then start Region B's application user node pool. | Measure a **simulated regional/application failure**, including the explicit manual activation action and routing recovery. |
-| G2 | Multi-region active-active | Both regions operational with two Aggregator and two API replicas per cluster; GraphQL origins healthy in Front Door; all Aggregators use the same Event Hubs consumer group. | Stop the same Region A application user-node-pool capacity while Region B remains active. | Compare active-active continuity and consumer reassignment with G1. Record actual assignments. |
+| Local Kubernetes Pod HA | COMPLETED | D4 Aggregator Pod failure; D5 API Pod failure | `evidence/04-kubernetes-pod-failover/` | Not applicable |
+| E1 Azure baseline | COMPLETED | 1 discarded warm-up + 3 measured | `evidence/05-azure-baseline/` | Not applicable |
+| F1 simulated zonal resilience | COMPLETED | 1 discarded warm-up + 2 measured | `evidence/06-azure-az/` | Not applicable |
+| G1 active-passive | BLOCKED BEFORE WORKLOAD EXECUTION — Azure subscription constraint | 0 | Blocker/infrastructure evidence only: `evidence/07-azure-region/g1-blocked-2026-08-30/` | Azure for Students rejected the frozen Front Door resource |
+| G2 active-active | NOT EXECUTED | 0 | Design/IaC only; no empirical results | The same Front Door subscription constraint made the frozen routing design unavailable |
 
-E2-A and E2-B are not future Azure tests under v1.0.8. Their principal Kubernetes mechanisms are represented by the completed Phase D evidence in `evidence/04-kubernetes-pod-failover/`: Aggregator Pod deletion/recovery, replacement, consumer reassignment, zero final lag and database integrity; and GraphQL API Pod deletion/replacement with continued Service routing. Azure execution is reserved for zonal and regional capabilities that the local single-node cluster cannot meaningfully provide.
+E2-A and E2-B were removed from Azure execution under v1.0.8. Their principal Kubernetes mechanisms are represented by the completed Phase D evidence in `evidence/04-kubernetes-pod-failover/`: Aggregator Pod deletion/recovery, replacement, consumer reassignment, zero final lag and database integrity; and GraphQL API Pod deletion/replacement with continued Service routing.
 
-G1/G2 stop Region A application capacity so its still-enabled Front Door origin becomes unhealthy; they do not disable the origin and do not represent an actual Azure regional outage.
+The G1/G2 sections below preserve the frozen designs only. They were not empirically executed and must not be used to claim availability, recovery, latency, lag, integrity, assignment, regional continuity, or cost-performance results.
 
-### 4.1 G1 Standby State — Proposed Freeze Decision
+### 4.1 G1 Standby State — Frozen Design, Not Executed
 
 The proposed G1 freeze is a **running cluster with stopped application-capacity standby** in Region B:
 
@@ -248,7 +251,7 @@ After the Region A fault at T2, the single planned manual activation action is `
 
 Implications:
 
-- **Recovery:** includes node-pool allocation/start, node Ready, image pull, Pod scheduling/readiness, Front Door health detection, and five-probe sustained service recovery. It is expected to be slower than G2.
+- **Designed recovery path:** includes node-pool allocation/start, node Ready, image pull, Pod scheduling/readiness, Front Door health detection, and five-probe sustained service recovery. No duration was measured or estimated.
 - **Cost:** saves Region B application-node compute while retaining system-pool, control-plane tier, disks, load-balancer/public-IP, monitoring, and Front Door-origin costs. Record stopped-pool storage/network charges and running system-pool cost.
 - **Manual complexity:** one planned activation action plus observation. Front Door routing is automatic after the origin becomes healthy; manual routing is not part of the nominal G1 path.
 
@@ -312,12 +315,12 @@ Trade-off:
 - Create exactly one Event Hubs namespace containing two Event Hub entities, one for each existing domain/topic. Do not create one namespace per domain.
 - Create each Event Hub with exactly **two partitions**, giving four partitions across the subscribed topics.
 - Use Event Hubs Standard and set the partition count when the Event Hubs are created; Standard partition count is immutable.
-- Keep the same topic names, partition count, group ID, key strategy, and assignment strategy across the completed E1 and retained F1, G1, and G2 configurations.
+- Keep the same topic names, partition count, group ID, key strategy, and assignment strategy across the completed E1 and F1 configurations. The same values remain part of the unexecuted G1/G2 design.
 - Preserve shipment ID as the Kafka key so events for one shipment remain on one partition within each Event Hub.
 - Preselect two unique controlled shipment IDs/keys for every planned measured run before the first E1 T0. For each run, one key must map to Partition 0 and the other to Partition 1 in both Event Hubs, and both keys must publish events to both Event Hubs.
-- Preserve the complete broker-verified pre-E1 key manifest in `evidence/partition-key-map.json` unchanged. `evidence/azure-run-plan-v1.0.8.json` classifies every historical ID as completed, remaining, or planned but not executed after amendment. Cancelled E2 keys and cancelled F1/G1/G2 third-repeat keys are retained for auditability and are not reused.
+- Preserve the complete broker-verified pre-E1 key manifest in `evidence/partition-key-map.json` unchanged. `evidence/azure-run-plan-v1.0.9.json` is the final status overlay. G1/G2 keys, cancelled E2 keys, and cancelled third-repeat keys are retained for auditability, remain unused where stated, and are never reused.
 
-Change the current implicit range strategy to an explicit `RoundRobinPartitionAssignor` **before E1**, then keep it unchanged through G2. This pre-experiment configuration change is recommended because all Aggregators subscribe to the same two topics: with four total partitions and four G2 consumers, round-robin assignment with identical subscriptions should allocate one partition to each consumer. The existing range strategy operates per topic and could leave two of the four G2 consumers idle even when all four partitions carry traffic. This changes assignment distribution only; it must not alter manual offset commits, database transaction ordering, fail-on-processing-error behaviour, idempotency, or stale-state protection.
+The implicit range strategy was changed to an explicit `RoundRobinPartitionAssignor` before E1 and remained unchanged through completed F1. Its proposed G2 distribution remains a design statement only because G2 was not executed. This instrumentation/configuration change did not alter manual offset commits, database transaction ordering, fail-on-processing-error behaviour, idempotency, or stale-state protection.
 
 The fixed `kafka-python-ng` configuration is:
 
@@ -339,7 +342,7 @@ Expected assignment characteristics:
 
 Round-robin assignment is not region-aware and does not promise equal event counts per region. Every run must record actual assignment and per-instance processing from structured logs and the external collector. Do not claim both regions processed simultaneously unless that evidence confirms it.
 
-### 4.5 G1/G2 Region A Failure Mechanism — Proposed Freeze Decision
+### 4.5 G1/G2 Region A Failure Mechanism — Frozen Design, Not Executed
 
 Use one identical Region A application-capacity fault for G1 and G2. Region A's Aggregator and API Pods must have required scheduling rules that permit only the frozen Region A application user node pools and exclude the system pool.
 
@@ -352,7 +355,7 @@ Do not disable, remove, reprioritise, or reconfigure the Region A Front Door ori
 
 Restore Region A by starting the same application pools only after the measured window, unless safety requires earlier recovery; record any deviation and invalidate the run if it changes the measured fault.
 
-### 4.6 Azure Front Door Parameters — Frozen Decision
+### 4.6 Azure Front Door Parameters — Frozen Design, Not Executed
 
 Use Azure Front Door Standard with one origin group and freeze these settings for G1 and G2:
 
@@ -385,7 +388,7 @@ Keep both origins enabled throughout G1 and G2. Freeze the Front Door profile ti
 
 ## 5. Common Controlled Workload
 
-Use the same workload implementation and rates across the completed E1 and retained F1, G1, and G2 configurations unless a documented technical constraint requires a protocol amendment.
+The same workload implementation and rates were used across completed E1 and F1. They remain documented for the unexecuted G1/G2 design but produced no G1/G2 workload evidence.
 
 ### 5.1 IDs and Event Design
 
@@ -468,31 +471,31 @@ Prefer actual expenditure. If configurations run for different durations, report
 
 AKS Free tier may be used to avoid control-plane charges where appropriate, but no financially backed AKS SLA may be claimed for the Free tier.
 
-Under v1.0.8, `evidence/azure-burn-estimate-v1.0.8.json` is the remaining-plan estimate. It excludes completed E1 consumption, removes E2-A/E2-B, and prices two measured repeats for each F1/G1/G2 configuration; the conservative fixed allocation separately covers remaining transitions/provisioning, one warm-up per retained configuration, teardown and ancillary-meter variance. Actual accrued E1 cost remains in `evidence/05-azure-baseline/cost/` and must not be folded into or replaced by the remaining estimate.
+`evidence/azure-burn-estimate-v1.0.8.json` remains a historical planning estimate, not an actual-cost result. Actual Cost Management data for E1, F1, and G1 preparation remained unavailable at final closeout: the final query returned HTTP 429. No missing amount is fabricated. `evidence/08-azure-closeout/pre-teardown/` preserves sanitized resource paths, SKUs, regions, tags, and operation timestamps for later billing attribution; `post-teardown/` preserves the final zero-resource verification. No G1/G2 cost-performance result exists.
 
 ## 8. Evidence Layout
 
 Do not store credentials, connection strings, access tokens, or unredacted subscription identifiers in evidence.
 
-The historical pre-E1 artifact `evidence/azure-experiment-freeze.json` and its checksum remain unchanged. The post-E1 amendment creates `evidence/azure-experiment-freeze-v1.0.8.json` and its own checksum. The amended freeze must contain:
+The historical pre-E1 artifact `evidence/azure-experiment-freeze.json` and the post-E1 `evidence/azure-experiment-freeze-v1.0.8.json`, with their checksums, remain unchanged. The final amendment creates `evidence/azure-experiment-freeze-v1.0.9.json`, `evidence/azure-run-plan-v1.0.9.json`, and their own checksums. The final freeze records:
 
-- `protocol`: version `1.0.8`, the Git commit containing the amended protocol, and UTC amendment-freeze timestamp;
+- `protocol`: version `1.0.9`, the Git commit containing the final amended protocol, its SHA-256, and UTC amendment-freeze timestamp;
 - `amendment`: references to the unchanged historical freeze, checksum, key manifest, and versioned amended run plan;
-- `billing`: sanitised subscription reference, billing currency, E1 actual-cost evidence/status kept separately, estimated hourly burn for retained configurations, estimated remaining burn, and budget ceiling;
+- `billing`: sanitised subscription reference, billing currency, separate E1/F1/G1-preparation cost references, pending actual-cost status, the last HTTP 429 query result, and retained budget guard;
 - `regions`: Region A and Region B, plus the sanitised physical location of the external laptop;
 - `resource_tags`: the frozen project, phase, configuration-series, run-series, owner and applicable region-role tags used for cost attribution;
-- `run_identity`: completed E1 IDs, remaining F1/G1/G2 IDs, cancelled historical IDs marked planned but not executed, and references to the unchanged broker manifest and amended run plan;
+- `run_identity`: completed E1/F1 IDs; G1 IDs blocked before workload execution and unused; G2 IDs not executed and unused; cancelled historical IDs; and references to the unchanged broker manifest and final run plan;
 - `skus`: Front Door/Event Hubs/AKS/PostgreSQL tiers and every cluster, node-pool, VM size, mode, zone, and desired/min/max node count;
 - `event_hubs`: namespace tier, entity names, two partitions per entity, retention, consumer group, producer/client version, producer partitioner, and `RoundRobinPartitionAssignor`;
 - `front_door`: profile tier, endpoint/route, origin names/host headers/ports, priorities, weights, HTTP GET `/ready` to origin, HTTPS client endpoint, 10-second interval, sample size 4, successful samples 3, 1000-millisecond additional latency, disabled session affinity, non-applicable HTTP-origin certificate-name validation, and disabled GraphQL caching;
 - `probe_transport`: direct Region A HTTP for E1/F1 and external HTTPS to Front Door with an HTTP AKS origin hop for G1/G2;
-- `measured_repeat_counts`: completed E1 count 3 and future F1/G1/G2 count 2;
+- `measured_repeat_counts`: completed E1 count 3, completed F1 count 2, and executed G1/G2 count 0;
 - `fault_mechanisms`: F1's single zone-aligned user-pool stop and the ordered Region A application-pool list/script used identically by G1 and G2, plus G1's separate Region B activation action;
 - `external_host`: stable laptop ID, sanitised physical location, OS/kernel, tool/container versions, mains-power/sleep state, wired/Wi-Fi connection state, ISP/public-egress arrangement, DNS configuration, time synchronisation, and VPN/proxy state.
 
-Validate the amended JSON against the retained rendered IaC parameters and save its SHA-256 checksum before any further deployment. Any later value change requires another versioned amendment; do not edit either historical artifact silently.
+Validate and checksum the final JSON. No further Azure deployment is permitted by this final amendment; historical artifacts must not be edited silently.
 
-The canonical, complete pre-E1 key manifest is `evidence/partition-key-map.json`; its original bytes and broker-verification evidence remain unchanged. `evidence/azure-run-plan-v1.0.8.json` is the authoritative execution-status overlay. Each executed run retains an identical copy or checksum-addressed reference so its two assigned keys and observed partitions are directly auditable.
+The canonical, complete pre-E1 key manifest is `evidence/partition-key-map.json`; its original bytes and broker-verification evidence remain unchanged. `evidence/azure-run-plan-v1.0.9.json` is the authoritative final execution-status overlay. Each executed run retains a checksum-addressed reference. G1/G2 reserved keys remain unused.
 
 ### `evidence/05-azure-baseline/`
 
@@ -560,64 +563,30 @@ Screenshots/
 ### `evidence/07-azure-region/`
 
 ```text
-commands.md
-results.md
-config/
-  region-a-inventory-sanitised.json
-  region-b-inventory-sanitised.json
-  front-door-config-sanitised.json
-raw/G1-active-passive/
-  warm-up/
-  run-01/
-  run-02/
-Each run directory contains:
-  timeline.csv
-  probes.csv
-  workload-progress.csv
-  consumer-progress.csv
-  consumer-assignments.jsonl
-  partition-key-map.json
-  expected-events.jsonl
-  published-events.csv
-  database-integrity.csv
-  front-door-health.csv
-  region-a-nodepool-power-state.csv
-  region-a-node-availability.csv
-  pod-placement.csv
-  standby-activation.csv
-  kubernetes-events.txt
-  application-logs.jsonl
-raw/G2-active-active/
-  warm-up/
-  run-01/
-  run-02/
-Each run directory contains:
-  timeline.csv
-  probes.csv
-  workload-progress.csv
-  consumer-progress.csv
-  consumer-assignments.jsonl
-  partition-key-map.json
-  expected-events.jsonl
-  published-events.csv
-  database-integrity.csv
-  front-door-health.csv
-  region-a-nodepool-power-state.csv
-  region-a-node-availability.csv
-  pod-placement.csv
-  kubernetes-events.txt
-  application-logs.jsonl
-cost/
-  G1-cost-window.md
-  G1-resource-inventory.csv
-  G1-actual-cost.csv
-  G2-cost-window.md
-  G2-resource-inventory.csv
-  G2-actual-cost.csv
-Screenshots/
+run-plan.md
+g1-blocked-2026-08-30/
+  README.md
+  azure/front-door-failure.json
+  azure/front-door-resource-inventory.json
+  azure/region-b-provisioned-topology.json
+  preflight/preflight-summary.json
+  post-experiment/resource-state.json
+  export-manifest.json
 ```
 
-E1 retains `run-01` through `run-03`. F1, G1, and G2 create only `run-01` and `run-02`, plus one discarded `warm-up` directory each. Keep raw CSV/JSONL as primary evidence and capture only selected screenshots showing topology, fault timing, replacement/routing, peak lag, final integrity, and actual cost. Do not screenshot every command. Do not create E2 Azure evidence directories; cite the completed Phase D local Pod-failure evidence instead.
+No G1/G2 raw run directory exists because no workload window began. The blocked-G1 evidence is infrastructure/blocker evidence only and must not be interpreted as an experimental run.
+
+### `evidence/08-azure-closeout/`
+
+```text
+README.md
+final-experiment-matrix.md
+cost/final-cost-status.md
+pre-teardown/
+  sanitized inventories, deployment/activity timestamps and cost-query status
+post-teardown/
+  deletion activity and zero-resource service inventories
+```
 
 Each `results.md` must include the common table:
 
@@ -625,72 +594,51 @@ Each `results.md` must include the common table:
 
 Results are written only after observation.
 
-## 9. Cost-Controlled Deployment and Teardown
+## 9. Final Cost and Teardown State
 
-1. Rehearse scripts, manifest rendering, workload generation, parsing, and evidence paths locally.
-2. Use one reusable IaC approach and parameter sets; do not create resources manually unless the action is itself measured.
-3. Create only the configuration currently under test. Use small suitable node sizes and avoid Premium tiers unless a measured requirement proves they are necessary.
-4. Prefer Event Hubs Standard, Azure Front Door Standard, economical PostgreSQL compute, and AKS Free management tier if they satisfy the prototype requirements.
-5. Reuse the completed E1 Region A resources, ACR, Event Hubs, PostgreSQL, and monitoring for F1 where technically valid. Skip the cancelled E2 topology and add/remove only the node pools and scheduling configuration needed for F1.
-6. Add Region B only after F1 evidence is complete. Reuse the two-region deployment when moving from G1 to G2.
-7. Retain the Azure Budget and alerts. Keep completed E1 accrued costs separate, estimate the remaining F1/G1/G2 burn with two measured repeats each, and record the amended plan in `evidence/azure-experiment-freeze-v1.0.8.json` before further deployment.
-8. Keep Log Analytics retention and diagnostic categories minimal but sufficient for the defined metrics.
-9. After each configuration, export raw evidence, sanitised configuration, resource inventory, timestamps, and preliminary cost data to the local repository before mutation/teardown.
-10. Delete/deallocate expensive resources immediately after evidence is safely local. Do not wait for delayed Cost Management data; preserve resource IDs/tags so costs can be attributed later.
-11. Delete Region B first after G2, then Region A application resources, then shared dependencies and ACR after confirming no further runs are required.
-12. Verify resource groups are empty/deleted and record teardown completion. Cost evidence remains available through Azure billing after resource deletion.
+All required E1/F1/G1-blocker evidence and checksums were verified before deletion. Sanitized pre-teardown inventories preserve resource paths, names, SKUs, regions, tags, deployment timestamps, and activity timestamps for delayed billing attribution. Region A AKS, Region B AKS, both AKS managed resource groups, PostgreSQL, Event Hubs, ACR, and the empty failed-Front-Door resource group were permanently deleted. Subscription-wide post-teardown inventories report zero thesis resource groups and zero thesis AKS, PostgreSQL, Event Hubs, ACR, Front Door, or other thesis resources. The non-billable EUR 50 budget guard is intentionally retained.
 
-AKS, Front Door, Event Hubs, PostgreSQL, and registry creation/deletion times must be recorded. Evidence must never exist only inside a resource group scheduled for deletion.
+Cost Management was still delayed/rate-limited at final closeout and returned HTTP 429. Actual E1, F1, and G1-preparation costs remain pending. No G1/G2 cost-performance result exists and no missing cost is fabricated. Delayed charges may be retrieved from Azure billing later without recreating resources.
 
-## 10. Proposed Azure Implementation Sequence
+## 10. Final Azure Implementation Record
 
-The proposed order is:
-
-1. Preserve the completed v1.0.7 E1 evidence and historical pre-E1 freeze/key manifest unchanged; issue and checksum the v1.0.8 amended run plan, remaining burn estimate and amended freeze before further deployment.
-2. Retain reusable IaC and parameter files, but plan future deployment only for F1, G1, and G2; the E2 parameter set remains historical/reusable code and is not an execution target.
-3. Prepare and locally verify probe, workload, consumer-progress, integrity, timeline, sanitisation, and evidence-export scripts. Validate the consumer-progress collector against local Redpanda and then an Event Hubs smoke workload; preselect and broker-verify every measured run's unique key pair, save the complete `evidence/partition-key-map.json`, and remove the temporary verification Event Hub before any measured E1 run.
-4. Configure only `RoundRobinPartitionAssignor`, add the fixed assignment/revocation structured logs, and verify locally that assignment changes do not alter event-processing semantics. Freeze this configuration before E1.
-5. Build application images locally, scan/smoke-test them, create ACR, push immutable commit-tagged images, and record digests.
-6. E1 is complete: its warm-up and `E1-r01` through `E1-r03` remain unchanged and valid.
-7. Cite completed Phase D local Aggregator/API Pod-failure evidence instead of executing E2-A/E2-B in Azure.
-8. Add zone-aligned application user pools and the unchanged topology rules for F1; run one discarded warm-up and `F1-r01`/`F1-r02`, verifying one application replica per zone before each simulated zonal-failure run.
-9. Save F1 evidence and cost inventory; remove unnecessary zone capacity only after export.
-10. Add Region B and Front Door; apply and verify the unchanged G1 stopped-application-capacity standby and frozen Front Door settings.
-11. Run one G1 warm-up and `G1-r01`/`G1-r02` with the frozen Region A application-pool stop script, recording Region B activation separately.
-12. Reconfigure the same two regions for G2 active-active without changing Front Door health/load-balancing parameters or the Region A fault script; verify actual assignments.
-13. Run one G2 warm-up and `G2-r01`/`G2-r02`.
-14. Export/sanitise all evidence, available actual costs, resource inventories, and final configuration.
-15. Tear down in the defined order and record deletion completion.
-16. Retrieve delayed actual Cost Management data later without recreating resources, including E1 accrued cost separately from the v1.0.8 remaining estimate.
+1. E1 completed with its discarded warm-up and `E1-r01` through `E1-r03`.
+2. E2-A/E2-B were removed; completed Phase D local Pod-failure evidence is used instead.
+3. F1 completed with its discarded warm-up and `F1-r01`/`F1-r02`.
+4. G1 preparation restarted Region A and PostgreSQL, created Region B, applied the frozen workload, and attempted the frozen Front Door deployment.
+5. Azure rejected Front Door before the readiness gate or workload execution. G1 stopped as blocked; G2 never started. No substitute was used.
+6. Sanitized inventories, blocker records, activity timestamps, tags, SKUs, resource paths, and cost-query status were exported locally and checksummed.
+7. All thesis Azure resource groups and billable services were permanently deleted and zero-resource verification was exported.
+8. Delayed actual costs may be retrieved later from Azure billing without recreating resources. No further Azure experiment or deployment is permitted by this protocol.
 
 Azure DevOps and self-hosted agents are excluded. The repository remains in GitHub. GitHub Actions is optional later and is not required for this experimental sequence.
 
 ## 11. Risks and Dissertation Assumptions
 
-- Failures are controlled simulations. F1 is not an actual Availability Zone outage; G1/G2 are not actual Azure regional outages.
+- F1 is a controlled simulated zonal failure, not an actual Availability Zone outage. G1/G2 produced no failure experiment or empirical result.
 - Docker Desktop results and Azure results use the same application semantics but different infrastructure and networking paths.
 - PostgreSQL and Event Hubs availability are assumed during application HA tests; failures in those services invalidate the run rather than measure the tested topology.
 - Shared cross-region dependencies may add latency or become a common dependency; this must be stated when interpreting regional results.
 - Event Hubs partition count limits active consumers. Replica count does not prove simultaneous consumption; actual assignment is evidence.
-- Front Door health-probe timing, sample window, origin settings, latency sensitivity, connection behaviour, and client location influence measured recovery. Use only the frozen settings and retain effective configuration evidence.
+- Front Door health-probe and routing settings remain part of the unexecuted G1/G2 design only; they produced no measured recovery evidence.
 - `az aks nodepool stop` is a supported managed operation, but its shutdown sequence may differ from an abrupt physical zone outage; F1 remains a simulated zonal failure.
 - Standard-tier Event Hubs partition counts cannot be changed after creation. Incorrect provisioning requires replacement before E1, not an in-series change.
-- Round-robin assignment should give each of four G2 consumers one partition only while all consumers have identical subscriptions and all four partitions exist. Treat a different assignment as a pre-E1 compatibility defect or an invalid measured run, not as evidence of balanced active-active processing.
+- The proposed four-consumer G2 assignment was never observed; do not infer balanced active-active processing from the design.
 - Keyed events preserve order only within their Event Hub partition. The protocol does not assume total ordering across the two Event Hubs; `event_version` protects the materialised state from cross-topic reordering.
 - Event Hubs may not expose complete consumer-group member assignments through the Kafka admin API. Structured Aggregator rebalance logs are the assignment authority when collector assignment data is unavailable.
-- AKS control-plane and image-pull times may vary between runs; retain raw timestamps and report all measured repeats rather than only the best result.
+- AKS control-plane and image-pull times may vary between runs; retain raw timestamps and report all completed E1/F1 repeats rather than only the best result.
 - Azure quotas, regional SKU availability, and zone support may require parameter changes before E1. Freeze changes before measured comparisons.
 - Cost Management data is delayed and may include taxes, credits, or rounding. Report the billing view and currency used.
 - Short-lived actual cost must not be presented as a fabricated annual estimate.
 - AKS Free tier has no financially backed control-plane SLA claim in this evaluation.
 - Measurement-host or network failure can resemble service failure. Use the frozen external laptop/network arrangement, record its own health, and retain raw errors; invalidate runs affected by laptop, power, or local-network failure.
 - UTC clock drift can corrupt recovery measurements. Check clocks before every run.
-- This is a descriptive/prototype evaluation. E1's three completed repeats and the two future repeats for F1/G1/G2 support transparent repeated observations but do not establish production SLA statistics.
+- This is a descriptive/prototype evaluation. E1's three and F1's two completed measured repeats support transparent repeated observations but do not establish production SLA statistics. G1/G2 are excluded from empirical performance conclusions.
 - Evidence must be sanitised; no Azure credentials, secrets, or unredacted sensitive identifiers enter Git.
 
-## 12. Review Gate
+## 12. Programme Closure
 
-Implementation begins only after this protocol is reviewed and frozen. The next stage may prepare reusable IaC and measurement scripts, but Azure resources must not be created until an explicit approval step.
+The Azure experimental programme is closed. Do not attempt G1 or G2 again, substitute another routing service or subscription, or recreate thesis Azure resources under this protocol. G1/G2 may be discussed only as designed strategies and limitations/future work. Dissertation prose drafting is outside this amendment.
 
 ## 13. Authoritative Azure References
 

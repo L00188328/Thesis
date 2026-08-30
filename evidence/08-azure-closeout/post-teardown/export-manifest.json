@@ -1,0 +1,57 @@
+{
+  "binary_policy": "Binary and image files are rejected because text redaction cannot prove that they contain no secrets.",
+  "exported_files": [
+    {
+      "path": "actual-cost-final-query-status.txt",
+      "sha256": "0cbbe2ab61075f27022275a75963b2fc4ebf8f56465c4209a7913b5bc58da2cf"
+    },
+    {
+      "path": "actual-cost-final-query.json",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "retained-budgets-status.txt",
+      "sha256": "81495259dd653bcfb8027c006140e171e12bcab1e8efa0fbd7aaf8088d55d2cb"
+    },
+    {
+      "path": "retained-budgets.json",
+      "sha256": "e8a4bf9af5582cd660eee8f2b31b011a99046fa2f4782aad5c9a468cda18bf7f"
+    },
+    {
+      "path": "teardown-activity-log.json",
+      "sha256": "02fe83f911f846cd1cd080319c19479cc40e771a7fea1e15f7e195ea59733bc9"
+    },
+    {
+      "path": "thesis-acr-after.json",
+      "sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+    },
+    {
+      "path": "thesis-aks-after.json",
+      "sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+    },
+    {
+      "path": "thesis-event-hubs-after.json",
+      "sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+    },
+    {
+      "path": "thesis-front-door-after.json",
+      "sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+    },
+    {
+      "path": "thesis-postgresql-after.json",
+      "sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+    },
+    {
+      "path": "thesis-resource-groups-after.json",
+      "sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+    },
+    {
+      "path": "thesis-resources-after.json",
+      "sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+    }
+  ],
+  "generated_timestamp_utc": "2026-08-30T15:24:29.864298+00:00",
+  "rejected_files": [],
+  "schema_version": 1,
+  "source_label": "final-closeout-post-raw"
+}

@@ -1,0 +1,18 @@
+{
+  "creationDate": "2026-08-30T09:43:15.096700+00:00",
+  "id": "/subscriptions/[REDACTED]/resourceGroups/thesis-ha-shared-rg/providers/Microsoft.ContainerRegistry/registries/thesishaacr",
+  "location": "italynorth",
+  "name": "thesishaacr",
+  "provisioningState": "Succeeded",
+  "sku": {
+    "name": "Basic",
+    "tier": "Basic"
+  },
+  "tags": {
+    "configuration": "shared",
+    "owner": "robyn",
+    "phase": "azure-ha",
+    "project": "masters-thesis",
+    "run": "shared-series"
+  }
+}

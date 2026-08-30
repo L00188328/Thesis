@@ -1,0 +1,27 @@
+{
+  "createdAt": "2026-08-30T09:43:26.056450+00:00",
+  "id": "/subscriptions/[REDACTED]/resourceGroups/thesis-ha-shared-rg/providers/Microsoft.DBforPostgreSQL/flexibleServers/thesisha-postgres",
+  "location": "Italy North",
+  "name": "thesisha-postgres",
+  "sku": {
+    "name": "Standard_B1ms",
+    "tier": "Burstable"
+  },
+  "state": "Stopped",
+  "storage": {
+    "autoGrow": "Enabled",
+    "iops": 120,
+    "storageSizeGb": 32,
+    "throughput": null,
+    "tier": "P4",
+    "type": "Premium_LRS"
+  },
+  "tags": {
+    "configuration": "shared",
+    "owner": "robyn",
+    "phase": "azure-ha",
+    "project": "masters-thesis",
+    "run": "shared-series"
+  },
+  "version": "16"
+}

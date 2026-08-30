@@ -1,0 +1,57 @@
+[
+  {
+    "createdAt": null,
+    "id": "/subscriptions/[REDACTED]/resourceGroups/thesis-ha-shared-rg",
+    "location": "italynorth",
+    "name": "thesis-ha-shared-rg",
+    "provisioningState": "Succeeded",
+    "tags": {
+      "configuration": "shared",
+      "owner": "robyn",
+      "phase": "azure-ha",
+      "project": "masters-thesis",
+      "run": "shared-series"
+    }
+  },
+  {
+    "createdAt": null,
+    "id": "/subscriptions/[REDACTED]/resourceGroups/thesis-ha-region-a-rg",
+    "location": "italynorth",
+    "name": "thesis-ha-region-a-rg",
+    "provisioningState": "Succeeded",
+    "tags": {
+      "configuration": "E1",
+      "owner": "robyn",
+      "phase": "azure-ha",
+      "project": "masters-thesis",
+      "regionRole": "region-a",
+      "run": "e1-series"
+    }
+  },
+  {
+    "createdAt": null,
+    "id": "/subscriptions/[REDACTED]/resourceGroups/thesis-ha-frontdoor-rg",
+    "location": "italynorth",
+    "name": "thesis-ha-frontdoor-rg",
+    "provisioningState": "Succeeded",
+    "tags": {
+      "configuration": "G1",
+      "owner": "robyn",
+      "phase": "azure-ha",
+      "project": "masters-thesis"
+    }
+  },
+  {
+    "createdAt": null,
+    "id": "/subscriptions/[REDACTED]/resourceGroups/thesis-ha-region-b-rg",
+    "location": "norwayeast",
+    "name": "thesis-ha-region-b-rg",
+    "provisioningState": "Succeeded",
+    "tags": {
+      "configuration": "G1-G2",
+      "owner": "robyn",
+      "phase": "azure-ha",
+      "project": "masters-thesis"
+    }
+  }
+]

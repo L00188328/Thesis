@@ -1,0 +1,19 @@
+{
+  "createdAt": "2026-08-30T09:43:16.7960108Z",
+  "id": "/subscriptions/[REDACTED]/resourceGroups/thesis-ha-shared-rg/providers/Microsoft.EventHub/namespaces/thesisha-events",
+  "location": "italynorth",
+  "name": "thesisha-events",
+  "provisioningState": "Succeeded",
+  "sku": {
+    "capacity": 1,
+    "name": "Standard",
+    "tier": "Standard"
+  },
+  "tags": {
+    "configuration": "shared",
+    "owner": "robyn",
+    "phase": "azure-ha",
+    "project": "masters-thesis",
+    "run": "shared-series"
+  }
+}

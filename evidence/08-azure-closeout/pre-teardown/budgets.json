@@ -1,0 +1,9 @@
+[
+  {
+    "amount": "50.0",
+    "endDate": "2031-09-01T00:00:00Z",
+    "name": "thesis-experiments",
+    "startDate": "2026-08-01T00:00:00Z",
+    "timeGrain": "Monthly"
+  }
+]

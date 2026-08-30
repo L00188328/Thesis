@@ -1,0 +1,605 @@
+[
+  {
+    "changedAt": null,
+    "createdAt": "2026-08-30T09:43:26.05645Z",
+    "id": "/subscriptions/[REDACTED]/resourceGroups/thesis-ha-shared-rg/providers/Microsoft.DBforPostgreSQL/flexibleServers/thesisha-postgres",
+    "location": "italynorth",
+    "name": "thesisha-postgres",
+    "resourceGroup": "thesis-ha-shared-rg",
+    "sku": {
+      "capacity": null,
+      "family": null,
+      "model": null,
+      "name": "Standard_B1ms",
+      "size": null,
+      "tier": "Burstable"
+    },
+    "tags": {
+      "configuration": "shared",
+      "owner": "robyn",
+      "phase": "azure-ha",
+      "project": "masters-thesis",
+      "run": "shared-series"
+    },
+    "type": "Microsoft.DBforPostgreSQL/flexibleServers"
+  },
+  {
+    "changedAt": "2026-08-30T09:43:15.0967002Z",
+    "createdAt": "2026-08-30T09:43:15.0967002Z",
+    "id": "/subscriptions/[REDACTED]/resourceGroups/thesis-ha-shared-rg/providers/Microsoft.ContainerRegistry/registries/thesishaacr",
+    "location": "italynorth",
+    "name": "thesishaacr",
+    "resourceGroup": "thesis-ha-shared-rg",
+    "sku": {
+      "capacity": null,
+      "family": null,
+      "model": null,
+      "name": "Basic",
+      "size": null,
+      "tier": "Basic"
+    },
+    "tags": {
+      "configuration": "shared",
+      "owner": "robyn",
+      "phase": "azure-ha",
+      "project": "masters-thesis",
+      "run": "shared-series"
+    },
+    "type": "Microsoft.ContainerRegistry/registries"
+  },
+  {
+    "changedAt": null,
+    "createdAt": null,
+    "id": "/subscriptions/[REDACTED]/resourceGroups/thesis-ha-shared-rg/providers/Microsoft.EventHub/namespaces/thesisha-events",
+    "location": "italynorth",
+    "name": "thesisha-events",
+    "resourceGroup": "thesis-ha-shared-rg",
+    "sku": {
+      "capacity": 1,
+      "family": null,
+      "model": null,
+      "name": "Standard",
+      "size": null,
+      "tier": "Standard"
+    },
+    "tags": {
+      "configuration": "shared",
+      "owner": "robyn",
+      "phase": "azure-ha",
+      "project": "masters-thesis",
+      "run": "shared-series"
+    },
+    "type": "Microsoft.EventHub/namespaces"
+  },
+  {
+    "changedAt": null,
+    "createdAt": null,
+    "id": "/subscriptions/[REDACTED]/resourceGroups/thesis-ha-region-a-rg/providers/Microsoft.ContainerService/managedClusters/thesis-aks-region-a",
+    "location": "italynorth",
+    "name": "thesis-aks-region-a",
+    "resourceGroup": "thesis-ha-region-a-rg",
+    "sku": {
+      "capacity": null,
+      "family": null,
+      "model": null,
+      "name": "Base",
+      "size": null,
+      "tier": "Free"
+    },
+    "tags": {
+      "configuration": "F1",
+      "owner": "robyn",
+      "phase": "azure-ha",
+      "project": "masters-thesis",
+      "regionRole": "region-a",
+      "run": "f1-series"
+    },
+    "type": "Microsoft.ContainerService/managedClusters"
+  },
+  {
+    "changedAt": null,
+    "createdAt": null,
+    "id": "/subscriptions/[REDACTED]/resourceGroups/MC_thesis-ha-region-a-rg_thesis-aks-region-a_italynorth/providers/Microsoft.Network/loadBalancers/kubernetes",
+    "location": "italynorth",
+    "name": "kubernetes",
+    "resourceGroup": "MC_thesis-ha-region-a-rg_thesis-aks-region-a_italynorth",
+    "sku": {
+      "capacity": null,
+      "family": null,
+      "model": null,
+      "name": "Standard",
+      "size": null,
+      "tier": null
+    },
+    "tags": {
+      "aks-managed-cluster-name": "thesis-aks-region-a",
+      "aks-managed-cluster-rg": "thesis-ha-region-a-rg",
+      "configuration": "F1",
+      "owner": "robyn",
+      "phase": "azure-ha",
+      "project": "masters-thesis",
+      "regionRole": "region-a",
+      "run": "f1-series"
+    },
+    "type": "Microsoft.Network/loadBalancers"
+  },
+  {
+    "changedAt": null,
+    "createdAt": null,
+    "id": "/subscriptions/[REDACTED]/resourceGroups/MC_thesis-ha-region-a-rg_thesis-aks-region-a_italynorth/providers/Microsoft.ManagedIdentity/userAssignedIdentities/thesis-aks-region-a-agentpool",
+    "location": "italynorth",
+    "name": "thesis-aks-region-a-agentpool",
+    "resourceGroup": "MC_thesis-ha-region-a-rg_thesis-aks-region-a_italynorth",
+    "sku": null,
+    "tags": {
+      "configuration": "F1",
+      "owner": "robyn",
+      "phase": "azure-ha",
+      "project": "masters-thesis",
+      "regionRole": "region-a",
+      "run": "f1-series"
+    },
+    "type": "Microsoft.ManagedIdentity/userAssignedIdentities"
+  },
+  {
+    "changedAt": null,
+    "createdAt": null,
+    "id": "/subscriptions/[REDACTED]/resourceGroups/mc_thesis-ha-region-a-rg_thesis-aks-region-a_italynorth/providers/Microsoft.Network/networkSecurityGroups/aks-agentpool-37154590-nsg",
+    "location": "italynorth",
+    "name": "aks-agentpool-37154590-nsg",
+    "resourceGroup": "mc_thesis-ha-region-a-rg_thesis-aks-region-a_italynorth",
+    "sku": null,
+    "tags": {
+      "aks-managed-cluster-name": "thesis-aks-region-a",
+      "aks-managed-cluster-rg": "thesis-ha-region-a-rg",
+      "configuration": "F1",
+      "owner": "robyn",
+      "phase": "azure-ha",
+      "project": "masters-thesis",
+      "regionRole": "region-a",
+      "run": "f1-series"
+    },
+    "type": "Microsoft.Network/networkSecurityGroups"
+  },
+  {
+    "changedAt": null,
+    "createdAt": null,
+    "id": "/subscriptions/[REDACTED]/resourceGroups/MC_thesis-ha-region-a-rg_thesis-aks-region-a_italynorth/providers/Microsoft.Network/virtualNetworks/aks-vnet-37154590",
+    "location": "italynorth",
+    "name": "aks-vnet-37154590",
+    "resourceGroup": "MC_thesis-ha-region-a-rg_thesis-aks-region-a_italynorth",
+    "sku": null,
+    "tags": {
+      "configuration": "F1",
+      "owner": "robyn",
+      "phase": "azure-ha",
+      "project": "masters-thesis",
+      "regionRole": "region-a",
+      "run": "f1-series"
+    },
+    "type": "Microsoft.Network/virtualNetworks"
+  },
+  {
+    "changedAt": null,
+    "createdAt": null,
+    "id": "/subscriptions/[REDACTED]/resourceGroups/MC_thesis-ha-region-a-rg_thesis-aks-region-a_italynorth/providers/Microsoft.Network/publicIPAddresses/76be8024-217f-4828-b62d-bc9af1f91e65",
+    "location": "italynorth",
+    "name": "76be8024-217f-4828-b62d-bc9af1f91e65",
+    "resourceGroup": "MC_thesis-ha-region-a-rg_thesis-aks-region-a_italynorth",
+    "sku": {
+      "capacity": null,
+      "family": null,
+      "model": null,
+      "name": "Standard",
+      "size": null,
+      "tier": null
+    },
+    "tags": {
+      "aks-managed-cluster-name": "thesis-aks-region-a",
+      "aks-managed-cluster-rg": "thesis-ha-region-a-rg",
+      "aks-managed-type": "aks-slb-managed-outbound-ip",
+      "configuration": "F1",
+      "owner": "robyn",
+      "phase": "azure-ha",
+      "project": "masters-thesis",
+      "regionRole": "region-a",
+      "run": "f1-series"
+    },
+    "type": "Microsoft.Network/publicIPAddresses"
+  },
+  {
+    "changedAt": null,
+    "createdAt": null,
+    "id": "/subscriptions/[REDACTED]/resourceGroups/MC_thesis-ha-region-a-rg_thesis-aks-region-a_italynorth/providers/Microsoft.Compute/virtualMachineScaleSets/aks-system-40111161-vmss",
+    "location": "italynorth",
+    "name": "aks-system-40111161-vmss",
+    "resourceGroup": "MC_thesis-ha-region-a-rg_thesis-aks-region-a_italynorth",
+    "sku": {
+      "capacity": 1,
+      "family": null,
+      "model": null,
+      "name": "Standard_B2s",
+      "size": null,
+      "tier": "Standard"
+    },
+    "tags": {
+      "aks-managed-azure-cni-overlay": "true",
+      "aks-managed-bootstrap-profile-acr-name": "",
+      "aks-managed-consolidated-additional-properties": "f5f5447e-a46a-11f1-97d8-868729e82a31",
+      "aks-managed-createOperationID": "6cd7c03b-51e5-4cd2-bce1-7747cf23ff21",
+      "aks-managed-creationSource": "vmssclient-aks-system-40111161-vmss",
+      "aks-managed-enable-imds-restriction": "false",
+      "aks-managed-kubeletIdentityClientID": "f5d13534-66a1-4929-9476-7493b0ba9257",
+      "aks-managed-networkisolated-outbound-type": "",
+      "aks-managed-orchestrator": "Kubernetes:1.35.7",
+      "aks-managed-poolName": "system",
+      "aks-managed-resourceNameSuffix": "37154590",
+      "aks-managed-saip-default-client-id": "",
+      "aks-managed-ssh-access": "LocalUser",
+      "compute.aks.billing": "linux"
+    },
+    "type": "Microsoft.Compute/virtualMachineScaleSets"
+  },
+  {
+    "changedAt": null,
+    "createdAt": null,
+    "id": "/subscriptions/[REDACTED]/resourceGroups/MC_thesis-ha-region-a-rg_thesis-aks-region-a_italynorth/providers/Microsoft.Compute/virtualMachineScaleSets/aks-appzone1-30860596-vmss",
+    "location": "italynorth",
+    "name": "aks-appzone1-30860596-vmss",
+    "resourceGroup": "MC_thesis-ha-region-a-rg_thesis-aks-region-a_italynorth",
+    "sku": {
+      "capacity": 1,
+      "family": null,
+      "model": null,
+      "name": "Standard_D2as_v4",
+      "size": null,
+      "tier": "Standard"
+    },
+    "tags": {
+      "aks-managed-azure-cni-overlay": "true",
+      "aks-managed-bootstrap-profile-acr-name": "",
+      "aks-managed-consolidated-additional-properties": "8b712056-a46b-11f1-929e-86fae1848f02",
+      "aks-managed-createOperationID": "0bc07db9-720b-46b9-b45c-c3397a0a9ce7",
+      "aks-managed-creationSource": "vmssclient-aks-appzone1-30860596-vmss",
+      "aks-managed-enable-imds-restriction": "false",
+      "aks-managed-kubeletIdentityClientID": "f5d13534-66a1-4929-9476-7493b0ba9257",
+      "aks-managed-networkisolated-outbound-type": "",
+      "aks-managed-orchestrator": "Kubernetes:1.35.7",
+      "aks-managed-poolName": "appzone1",
+      "aks-managed-resourceNameSuffix": "37154590",
+      "aks-managed-saip-default-client-id": "",
+      "aks-managed-ssh-access": "LocalUser",
+      "compute.aks.billing": "linux"
+    },
+    "type": "Microsoft.Compute/virtualMachineScaleSets"
+  },
+  {
+    "changedAt": null,
+    "createdAt": null,
+    "id": "/subscriptions/[REDACTED]/resourceGroups/MC_thesis-ha-region-a-rg_thesis-aks-region-a_italynorth/providers/Microsoft.Compute/virtualMachineScaleSets/aks-appzone2-18875896-vmss",
+    "location": "italynorth",
+    "name": "aks-appzone2-18875896-vmss",
+    "resourceGroup": "MC_thesis-ha-region-a-rg_thesis-aks-region-a_italynorth",
+    "sku": {
+      "capacity": 1,
+      "family": null,
+      "model": null,
+      "name": "Standard_D2as_v4",
+      "size": null,
+      "tier": "Standard"
+    },
+    "tags": {
+      "aks-managed-azure-cni-overlay": "true",
+      "aks-managed-bootstrap-profile-acr-name": "",
+      "aks-managed-consolidated-additional-properties": "8bf60299-a46b-11f1-88f0-b6567ad0e900",
+      "aks-managed-createOperationID": "6d5942ca-ee27-47f8-8571-4dbf916dfcbf",
+      "aks-managed-creationSource": "vmssclient-aks-appzone2-18875896-vmss",
+      "aks-managed-enable-imds-restriction": "false",
+      "aks-managed-kubeletIdentityClientID": "f5d13534-66a1-4929-9476-7493b0ba9257",
+      "aks-managed-networkisolated-outbound-type": "",
+      "aks-managed-orchestrator": "Kubernetes:1.35.7",
+      "aks-managed-poolName": "appzone2",
+      "aks-managed-resourceNameSuffix": "37154590",
+      "aks-managed-saip-default-client-id": "",
+      "aks-managed-ssh-access": "LocalUser",
+      "compute.aks.billing": "linux"
+    },
+    "type": "Microsoft.Compute/virtualMachineScaleSets"
+  },
+  {
+    "changedAt": null,
+    "createdAt": null,
+    "id": "/subscriptions/[REDACTED]/resourceGroups/mc_thesis-ha-region-a-rg_thesis-aks-region-a_italynorth/providers/Microsoft.Network/publicIPAddresses/kubernetes-a1848af69df8d48219682c47646d68c2",
+    "location": "italynorth",
+    "name": "kubernetes-a1848af69df8d48219682c47646d68c2",
+    "resourceGroup": "mc_thesis-ha-region-a-rg_thesis-aks-region-a_italynorth",
+    "sku": {
+      "capacity": null,
+      "family": null,
+      "model": null,
+      "name": "Standard",
+      "size": null,
+      "tier": null
+    },
+    "tags": {
+      "aks-managed-cluster-name": "thesis-aks-region-a",
+      "aks-managed-cluster-rg": "thesis-ha-region-a-rg",
+      "configuration": "F1",
+      "k8s-azure-cluster-name": "kubernetes",
+      "k8s-azure-service": "thesis-ha/api",
+      "owner": "robyn",
+      "phase": "azure-ha",
+      "project": "masters-thesis",
+      "regionRole": "region-a",
+      "run": "f1-series"
+    },
+    "type": "Microsoft.Network/publicIPAddresses"
+  },
+  {
+    "changedAt": null,
+    "createdAt": null,
+    "id": "/subscriptions/[REDACTED]/resourceGroups/thesis-ha-region-b-rg/providers/Microsoft.ContainerService/managedClusters/thesis-aks-region-b",
+    "location": "norwayeast",
+    "name": "thesis-aks-region-b",
+    "resourceGroup": "thesis-ha-region-b-rg",
+    "sku": {
+      "capacity": null,
+      "family": null,
+      "model": null,
+      "name": "Base",
+      "size": null,
+      "tier": "Free"
+    },
+    "tags": {
+      "configuration": "G1-G2",
+      "owner": "robyn",
+      "phase": "azure-ha",
+      "project": "masters-thesis",
+      "regionRole": "region-b",
+      "run": "multi-region-series"
+    },
+    "type": "Microsoft.ContainerService/managedClusters"
+  },
+  {
+    "changedAt": null,
+    "createdAt": null,
+    "id": "/subscriptions/[REDACTED]/resourceGroups/MC_thesis-ha-region-b-rg_thesis-aks-region-b_norwayeast/providers/Microsoft.Network/publicIPAddresses/b650fb48-8420-4433-8f2f-cd888bfa17ca",
+    "location": "norwayeast",
+    "name": "b650fb48-8420-4433-8f2f-cd888bfa17ca",
+    "resourceGroup": "MC_thesis-ha-region-b-rg_thesis-aks-region-b_norwayeast",
+    "sku": {
+      "capacity": null,
+      "family": null,
+      "model": null,
+      "name": "Standard",
+      "size": null,
+      "tier": null
+    },
+    "tags": {
+      "aks-managed-cluster-name": "thesis-aks-region-b",
+      "aks-managed-cluster-rg": "thesis-ha-region-b-rg",
+      "aks-managed-type": "aks-slb-managed-outbound-ip",
+      "configuration": "G1-G2",
+      "owner": "robyn",
+      "phase": "azure-ha",
+      "project": "masters-thesis",
+      "regionRole": "region-b",
+      "run": "multi-region-series"
+    },
+    "type": "Microsoft.Network/publicIPAddresses"
+  },
+  {
+    "changedAt": null,
+    "createdAt": null,
+    "id": "/subscriptions/[REDACTED]/resourceGroups/MC_thesis-ha-region-b-rg_thesis-aks-region-b_norwayeast/providers/Microsoft.Network/loadBalancers/kubernetes",
+    "location": "norwayeast",
+    "name": "kubernetes",
+    "resourceGroup": "MC_thesis-ha-region-b-rg_thesis-aks-region-b_norwayeast",
+    "sku": {
+      "capacity": null,
+      "family": null,
+      "model": null,
+      "name": "Standard",
+      "size": null,
+      "tier": null
+    },
+    "tags": {
+      "aks-managed-cluster-name": "thesis-aks-region-b",
+      "aks-managed-cluster-rg": "thesis-ha-region-b-rg",
+      "configuration": "G1-G2",
+      "owner": "robyn",
+      "phase": "azure-ha",
+      "project": "masters-thesis",
+      "regionRole": "region-b",
+      "run": "multi-region-series"
+    },
+    "type": "Microsoft.Network/loadBalancers"
+  },
+  {
+    "changedAt": null,
+    "createdAt": null,
+    "id": "/subscriptions/[REDACTED]/resourceGroups/MC_thesis-ha-region-b-rg_thesis-aks-region-b_norwayeast/providers/Microsoft.ManagedIdentity/userAssignedIdentities/thesis-aks-region-b-agentpool",
+    "location": "norwayeast",
+    "name": "thesis-aks-region-b-agentpool",
+    "resourceGroup": "MC_thesis-ha-region-b-rg_thesis-aks-region-b_norwayeast",
+    "sku": null,
+    "tags": {
+      "configuration": "G1-G2",
+      "owner": "robyn",
+      "phase": "azure-ha",
+      "project": "masters-thesis",
+      "regionRole": "region-b",
+      "run": "multi-region-series"
+    },
+    "type": "Microsoft.ManagedIdentity/userAssignedIdentities"
+  },
+  {
+    "changedAt": null,
+    "createdAt": null,
+    "id": "/subscriptions/[REDACTED]/resourceGroups/mc_thesis-ha-region-b-rg_thesis-aks-region-b_norwayeast/providers/Microsoft.Network/networkSecurityGroups/aks-agentpool-30121435-nsg",
+    "location": "norwayeast",
+    "name": "aks-agentpool-30121435-nsg",
+    "resourceGroup": "mc_thesis-ha-region-b-rg_thesis-aks-region-b_norwayeast",
+    "sku": null,
+    "tags": {
+      "aks-managed-cluster-name": "thesis-aks-region-b",
+      "aks-managed-cluster-rg": "thesis-ha-region-b-rg",
+      "configuration": "G1-G2",
+      "owner": "robyn",
+      "phase": "azure-ha",
+      "project": "masters-thesis",
+      "regionRole": "region-b",
+      "run": "multi-region-series"
+    },
+    "type": "Microsoft.Network/networkSecurityGroups"
+  },
+  {
+    "changedAt": null,
+    "createdAt": null,
+    "id": "/subscriptions/[REDACTED]/resourceGroups/MC_thesis-ha-region-b-rg_thesis-aks-region-b_norwayeast/providers/Microsoft.Network/virtualNetworks/aks-vnet-30121435",
+    "location": "norwayeast",
+    "name": "aks-vnet-30121435",
+    "resourceGroup": "MC_thesis-ha-region-b-rg_thesis-aks-region-b_norwayeast",
+    "sku": null,
+    "tags": {
+      "configuration": "G1-G2",
+      "owner": "robyn",
+      "phase": "azure-ha",
+      "project": "masters-thesis",
+      "regionRole": "region-b",
+      "run": "multi-region-series"
+    },
+    "type": "Microsoft.Network/virtualNetworks"
+  },
+  {
+    "changedAt": null,
+    "createdAt": null,
+    "id": "/subscriptions/[REDACTED]/resourceGroups/MC_thesis-ha-region-b-rg_thesis-aks-region-b_norwayeast/providers/Microsoft.Compute/virtualMachineScaleSets/aks-system-63267828-vmss",
+    "location": "norwayeast",
+    "name": "aks-system-63267828-vmss",
+    "resourceGroup": "MC_thesis-ha-region-b-rg_thesis-aks-region-b_norwayeast",
+    "sku": {
+      "capacity": 1,
+      "family": null,
+      "model": null,
+      "name": "Standard_B2s",
+      "size": null,
+      "tier": "Standard"
+    },
+    "tags": {
+      "aks-managed-azure-cni-overlay": "true",
+      "aks-managed-bootstrap-profile-acr-name": "",
+      "aks-managed-consolidated-additional-properties": "59a39d9a-a480-11f1-9058-b6f5f60ba55a",
+      "aks-managed-coordination": "true",
+      "aks-managed-createOperationID": "48ad2fd5-12cd-49f8-9258-c625caad15be",
+      "aks-managed-creationSource": "vmssclient-aks-system-63267828-vmss",
+      "aks-managed-enable-imds-restriction": "false",
+      "aks-managed-kubeletIdentityClientID": "67f99a43-bafc-41f4-8239-1a3bb699b8a5",
+      "aks-managed-networkisolated-outbound-type": "",
+      "aks-managed-orchestrator": "Kubernetes:1.35.7",
+      "aks-managed-poolName": "system",
+      "aks-managed-resourceNameSuffix": "30121435",
+      "aks-managed-saip-default-client-id": "",
+      "aks-managed-ssh-access": "LocalUser",
+      "compute.aks.billing": "linux"
+    },
+    "type": "Microsoft.Compute/virtualMachineScaleSets"
+  },
+  {
+    "changedAt": null,
+    "createdAt": null,
+    "id": "/subscriptions/[REDACTED]/resourceGroups/MC_thesis-ha-region-b-rg_thesis-aks-region-b_norwayeast/providers/Microsoft.Compute/virtualMachineScaleSets/aks-appzone2-27573238-vmss",
+    "location": "norwayeast",
+    "name": "aks-appzone2-27573238-vmss",
+    "resourceGroup": "MC_thesis-ha-region-b-rg_thesis-aks-region-b_norwayeast",
+    "sku": {
+      "capacity": 1,
+      "family": null,
+      "model": null,
+      "name": "Standard_D2as_v4",
+      "size": null,
+      "tier": "Standard"
+    },
+    "tags": {
+      "aks-managed-azure-cni-overlay": "true",
+      "aks-managed-bootstrap-profile-acr-name": "",
+      "aks-managed-consolidated-additional-properties": "047f506a-a481-11f1-9dad-9ad35e13651c",
+      "aks-managed-coordination": "true",
+      "aks-managed-createOperationID": "c1a5ddb5-0c0c-4e56-afe2-48531327f6bb",
+      "aks-managed-creationSource": "vmssclient-aks-appzone2-27573238-vmss",
+      "aks-managed-enable-imds-restriction": "false",
+      "aks-managed-kubeletIdentityClientID": "67f99a43-bafc-41f4-8239-1a3bb699b8a5",
+      "aks-managed-networkisolated-outbound-type": "",
+      "aks-managed-orchestrator": "Kubernetes:1.35.7",
+      "aks-managed-poolName": "appzone2",
+      "aks-managed-resourceNameSuffix": "30121435",
+      "aks-managed-saip-default-client-id": "",
+      "aks-managed-ssh-access": "LocalUser",
+      "compute.aks.billing": "linux"
+    },
+    "type": "Microsoft.Compute/virtualMachineScaleSets"
+  },
+  {
+    "changedAt": null,
+    "createdAt": null,
+    "id": "/subscriptions/[REDACTED]/resourceGroups/MC_thesis-ha-region-b-rg_thesis-aks-region-b_norwayeast/providers/Microsoft.Compute/virtualMachineScaleSets/aks-appzone1-29979719-vmss",
+    "location": "norwayeast",
+    "name": "aks-appzone1-29979719-vmss",
+    "resourceGroup": "MC_thesis-ha-region-b-rg_thesis-aks-region-b_norwayeast",
+    "sku": {
+      "capacity": 1,
+      "family": null,
+      "model": null,
+      "name": "Standard_D2as_v4",
+      "size": null,
+      "tier": "Standard"
+    },
+    "tags": {
+      "aks-managed-azure-cni-overlay": "true",
+      "aks-managed-bootstrap-profile-acr-name": "",
+      "aks-managed-consolidated-additional-properties": "0470863c-a481-11f1-8880-0e31bab5f611",
+      "aks-managed-coordination": "true",
+      "aks-managed-createOperationID": "f901460d-8361-40c5-b7ec-dc499624556e",
+      "aks-managed-creationSource": "vmssclient-aks-appzone1-29979719-vmss",
+      "aks-managed-enable-imds-restriction": "false",
+      "aks-managed-kubeletIdentityClientID": "67f99a43-bafc-41f4-8239-1a3bb699b8a5",
+      "aks-managed-networkisolated-outbound-type": "",
+      "aks-managed-orchestrator": "Kubernetes:1.35.7",
+      "aks-managed-poolName": "appzone1",
+      "aks-managed-resourceNameSuffix": "30121435",
+      "aks-managed-saip-default-client-id": "",
+      "aks-managed-ssh-access": "LocalUser",
+      "compute.aks.billing": "linux"
+    },
+    "type": "Microsoft.Compute/virtualMachineScaleSets"
+  },
+  {
+    "changedAt": null,
+    "createdAt": null,
+    "id": "/subscriptions/[REDACTED]/resourceGroups/mc_thesis-ha-region-b-rg_thesis-aks-region-b_norwayeast/providers/Microsoft.Network/publicIPAddresses/kubernetes-aff3df9326dfe4b9db2e215973b5e634",
+    "location": "norwayeast",
+    "name": "kubernetes-aff3df9326dfe4b9db2e215973b5e634",
+    "resourceGroup": "mc_thesis-ha-region-b-rg_thesis-aks-region-b_norwayeast",
+    "sku": {
+      "capacity": null,
+      "family": null,
+      "model": null,
+      "name": "Standard",
+      "size": null,
+      "tier": null
+    },
+    "tags": {
+      "aks-managed-cluster-name": "thesis-aks-region-b",
+      "aks-managed-cluster-rg": "thesis-ha-region-b-rg",
+      "configuration": "G1-G2",
+      "k8s-azure-cluster-name": "kubernetes",
+      "k8s-azure-service": "thesis-ha/api",
+      "owner": "robyn",
+      "phase": "azure-ha",
+      "project": "masters-thesis",
+      "regionRole": "region-b",
+      "run": "multi-region-series"
+    },
+    "type": "Microsoft.Network/publicIPAddresses"
+  }
+]

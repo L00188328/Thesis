@@ -1,0 +1,821 @@
+[
+  {
+    "correlationId": "a11f32be-6c5f-46ca-825f-8a6e8b3cd63e",
+    "eventTimestamp": "2026-08-30T15:22:18.3929287Z",
+    "operation": "Microsoft.Network/publicIPAddresses/delete",
+    "resourceGroup": "MC_thesis-ha-region-b-rg_thesis-aks-region-b_norwayeast",
+    "resourceId": "/subscriptions/[REDACTED]/resourcegroups/MC_thesis-ha-region-b-rg_thesis-aks-region-b_norwayeast/providers/Microsoft.Network/publicIPAddresses/b650fb48-8420-4433-8f2f-cd888bfa17ca",
+    "status": "Succeeded",
+    "submissionTimestamp": "2026-08-30T15:24:04Z"
+  },
+  {
+    "correlationId": "877d2ac7-8fe6-4380-a7e7-22ccba6a130e",
+    "eventTimestamp": "2026-08-30T15:22:11.8379877Z",
+    "operation": "Microsoft.DBforPostgreSQL/flexibleServers/delete",
+    "resourceGroup": "thesis-ha-shared-rg",
+    "resourceId": "/subscriptions/[REDACTED]/resourcegroups/thesis-ha-shared-rg/providers/Microsoft.DBforPostgreSQL/flexibleServers/thesisha-postgres",
+    "status": "Succeeded",
+    "submissionTimestamp": "2026-08-30T15:23:47Z"
+  },
+  {
+    "correlationId": "80148a97-37cd-4952-95da-61679fa0c4b2",
+    "eventTimestamp": "2026-08-30T15:22:11.0699897Z",
+    "operation": "Microsoft.Network/publicIPAddresses/delete",
+    "resourceGroup": "mc_thesis-ha-region-a-rg_thesis-aks-region-a_italynorth",
+    "resourceId": "/subscriptions/[REDACTED]/resourcegroups/mc_thesis-ha-region-a-rg_thesis-aks-region-a_italynorth/providers/Microsoft.Network/publicIPAddresses/kubernetes-a1848af69df8d48219682c47646d68c2",
+    "status": "Succeeded",
+    "submissionTimestamp": "2026-08-30T15:23:35Z"
+  },
+  {
+    "correlationId": "a11f32be-6c5f-46ca-825f-8a6e8b3cd63e",
+    "eventTimestamp": "2026-08-30T15:21:17.013235Z",
+    "operation": "Microsoft.Compute/virtualMachineScaleSets/delete",
+    "resourceGroup": "MC_thesis-ha-region-b-rg_thesis-aks-region-b_norwayeast",
+    "resourceId": "/subscriptions/[REDACTED]/resourcegroups/MC_thesis-ha-region-b-rg_thesis-aks-region-b_norwayeast/providers/Microsoft.Compute/virtualMachineScaleSets/aks-appzone2-27573238-vmss",
+    "status": "Succeeded",
+    "submissionTimestamp": "2026-08-30T15:22:49Z"
+  },
+  {
+    "correlationId": "a11f32be-6c5f-46ca-825f-8a6e8b3cd63e",
+    "eventTimestamp": "2026-08-30T15:21:16.9981613Z",
+    "operation": "Microsoft.Compute/virtualMachineScaleSets/delete",
+    "resourceGroup": "MC_thesis-ha-region-b-rg_thesis-aks-region-b_norwayeast",
+    "resourceId": "/subscriptions/[REDACTED]/resourcegroups/MC_thesis-ha-region-b-rg_thesis-aks-region-b_norwayeast/providers/Microsoft.Compute/virtualMachineScaleSets/aks-system-63267828-vmss",
+    "status": "Succeeded",
+    "submissionTimestamp": "2026-08-30T15:22:56Z"
+  },
+  {
+    "correlationId": "a11f32be-6c5f-46ca-825f-8a6e8b3cd63e",
+    "eventTimestamp": "2026-08-30T15:21:16.6735768Z",
+    "operation": "Microsoft.Compute/virtualMachineScaleSets/delete",
+    "resourceGroup": "MC_thesis-ha-region-b-rg_thesis-aks-region-b_norwayeast",
+    "resourceId": "/subscriptions/[REDACTED]/resourcegroups/MC_thesis-ha-region-b-rg_thesis-aks-region-b_norwayeast/providers/Microsoft.Compute/virtualMachineScaleSets/aks-appzone1-29979719-vmss",
+    "status": "Succeeded",
+    "submissionTimestamp": "2026-08-30T15:23:09Z"
+  },
+  {
+    "correlationId": "a11f32be-6c5f-46ca-825f-8a6e8b3cd63e",
+    "eventTimestamp": "2026-08-30T15:21:16.6543488Z",
+    "operation": "Microsoft.Network/virtualNetworks/delete",
+    "resourceGroup": "MC_thesis-ha-region-b-rg_thesis-aks-region-b_norwayeast",
+    "resourceId": "/subscriptions/[REDACTED]/resourcegroups/MC_thesis-ha-region-b-rg_thesis-aks-region-b_norwayeast/providers/Microsoft.Network/virtualNetworks/aks-vnet-30121435",
+    "status": "Succeeded",
+    "submissionTimestamp": "2026-08-30T15:22:34Z"
+  },
+  {
+    "correlationId": "a11f32be-6c5f-46ca-825f-8a6e8b3cd63e",
+    "eventTimestamp": "2026-08-30T15:21:15.955575Z",
+    "operation": "Microsoft.Network/loadBalancers/delete",
+    "resourceGroup": "MC_thesis-ha-region-b-rg_thesis-aks-region-b_norwayeast",
+    "resourceId": "/subscriptions/[REDACTED]/resourcegroups/MC_thesis-ha-region-b-rg_thesis-aks-region-b_norwayeast/providers/Microsoft.Network/loadBalancers/kubernetes",
+    "status": "Succeeded",
+    "submissionTimestamp": "2026-08-30T15:23:23Z"
+  },
+  {
+    "correlationId": "a11f32be-6c5f-46ca-825f-8a6e8b3cd63e",
+    "eventTimestamp": "2026-08-30T15:21:14.5348799Z",
+    "operation": "Microsoft.Network/networkSecurityGroups/delete",
+    "resourceGroup": "mc_thesis-ha-region-b-rg_thesis-aks-region-b_norwayeast",
+    "resourceId": "/subscriptions/[REDACTED]/resourcegroups/mc_thesis-ha-region-b-rg_thesis-aks-region-b_norwayeast/providers/Microsoft.Network/networkSecurityGroups/aks-agentpool-30121435-nsg",
+    "status": "Succeeded",
+    "submissionTimestamp": "2026-08-30T15:22:49Z"
+  },
+  {
+    "correlationId": "80148a97-37cd-4952-95da-61679fa0c4b2",
+    "eventTimestamp": "2026-08-30T15:21:13.7696618Z",
+    "operation": "Microsoft.Compute/virtualMachineScaleSets/delete",
+    "resourceGroup": "MC_thesis-ha-region-a-rg_thesis-aks-region-a_italynorth",
+    "resourceId": "/subscriptions/[REDACTED]/resourcegroups/MC_thesis-ha-region-a-rg_thesis-aks-region-a_italynorth/providers/Microsoft.Compute/virtualMachineScaleSets/aks-system-40111161-vmss",
+    "status": "Succeeded",
+    "submissionTimestamp": "2026-08-30T15:23:00Z"
+  },
+  {
+    "correlationId": "80148a97-37cd-4952-95da-61679fa0c4b2",
+    "eventTimestamp": "2026-08-30T15:21:12.1948282Z",
+    "operation": "Microsoft.Compute/virtualMachineScaleSets/delete",
+    "resourceGroup": "MC_thesis-ha-region-a-rg_thesis-aks-region-a_italynorth",
+    "resourceId": "/subscriptions/[REDACTED]/resourcegroups/MC_thesis-ha-region-a-rg_thesis-aks-region-a_italynorth/providers/Microsoft.Compute/virtualMachineScaleSets/aks-appzone2-18875896-vmss",
+    "status": "Succeeded",
+    "submissionTimestamp": "2026-08-30T15:23:23Z"
+  },
+  {
+    "correlationId": "80148a97-37cd-4952-95da-61679fa0c4b2",
+    "eventTimestamp": "2026-08-30T15:21:11.8875553Z",
+    "operation": "Microsoft.Network/virtualNetworks/delete",
+    "resourceGroup": "MC_thesis-ha-region-a-rg_thesis-aks-region-a_italynorth",
+    "resourceId": "/subscriptions/[REDACTED]/resourcegroups/MC_thesis-ha-region-a-rg_thesis-aks-region-a_italynorth/providers/Microsoft.Network/virtualNetworks/aks-vnet-37154590",
+    "status": "Succeeded",
+    "submissionTimestamp": "2026-08-30T15:23:12Z"
+  },
+  {
+    "correlationId": "80148a97-37cd-4952-95da-61679fa0c4b2",
+    "eventTimestamp": "2026-08-30T15:21:10.6591228Z",
+    "operation": "Microsoft.Network/loadBalancers/delete",
+    "resourceGroup": "MC_thesis-ha-region-a-rg_thesis-aks-region-a_italynorth",
+    "resourceId": "/subscriptions/[REDACTED]/resourcegroups/MC_thesis-ha-region-a-rg_thesis-aks-region-a_italynorth/providers/Microsoft.Network/loadBalancers/kubernetes",
+    "status": "Succeeded",
+    "submissionTimestamp": "2026-08-30T15:23:07Z"
+  },
+  {
+    "correlationId": "80148a97-37cd-4952-95da-61679fa0c4b2",
+    "eventTimestamp": "2026-08-30T15:21:10.627882Z",
+    "operation": "Microsoft.Network/networkSecurityGroups/delete",
+    "resourceGroup": "mc_thesis-ha-region-a-rg_thesis-aks-region-a_italynorth",
+    "resourceId": "/subscriptions/[REDACTED]/resourcegroups/mc_thesis-ha-region-a-rg_thesis-aks-region-a_italynorth/providers/Microsoft.Network/networkSecurityGroups/aks-agentpool-37154590-nsg",
+    "status": "Succeeded",
+    "submissionTimestamp": "2026-08-30T15:23:07Z"
+  },
+  {
+    "correlationId": "80148a97-37cd-4952-95da-61679fa0c4b2",
+    "eventTimestamp": "2026-08-30T15:21:10.237976Z",
+    "operation": "Microsoft.Compute/virtualMachineScaleSets/delete",
+    "resourceGroup": "MC_thesis-ha-region-a-rg_thesis-aks-region-a_italynorth",
+    "resourceId": "/subscriptions/[REDACTED]/resourcegroups/MC_thesis-ha-region-a-rg_thesis-aks-region-a_italynorth/providers/Microsoft.Compute/virtualMachineScaleSets/aks-appzone1-30860596-vmss",
+    "status": "Succeeded",
+    "submissionTimestamp": "2026-08-30T15:23:22Z"
+  },
+  {
+    "correlationId": "a11f32be-6c5f-46ca-825f-8a6e8b3cd63e",
+    "eventTimestamp": "2026-08-30T15:20:47.2477472Z",
+    "operation": "Microsoft.ManagedIdentity/userAssignedIdentities/delete",
+    "resourceGroup": "MC_thesis-ha-region-b-rg_thesis-aks-region-b_norwayeast",
+    "resourceId": "/subscriptions/[REDACTED]/resourcegroups/MC_thesis-ha-region-b-rg_thesis-aks-region-b_norwayeast/providers/Microsoft.ManagedIdentity/userAssignedIdentities/thesis-aks-region-b-agentpool",
+    "status": "Succeeded",
+    "submissionTimestamp": "2026-08-30T15:22:00Z"
+  },
+  {
+    "correlationId": "80148a97-37cd-4952-95da-61679fa0c4b2",
+    "eventTimestamp": "2026-08-30T15:20:43.1166152Z",
+    "operation": "Microsoft.ManagedIdentity/userAssignedIdentities/delete",
+    "resourceGroup": "MC_thesis-ha-region-a-rg_thesis-aks-region-a_italynorth",
+    "resourceId": "/subscriptions/[REDACTED]/resourcegroups/MC_thesis-ha-region-a-rg_thesis-aks-region-a_italynorth/providers/Microsoft.ManagedIdentity/userAssignedIdentities/thesis-aks-region-a-agentpool",
+    "status": "Succeeded",
+    "submissionTimestamp": "2026-08-30T15:22:17Z"
+  },
+  {
+    "correlationId": "877d2ac7-8fe6-4380-a7e7-22ccba6a130e",
+    "eventTimestamp": "2026-08-30T15:17:40.3804033Z",
+    "operation": "Microsoft.ContainerRegistry/registries/delete",
+    "resourceGroup": "thesis-ha-shared-rg",
+    "resourceId": "/subscriptions/[REDACTED]/resourcegroups/thesis-ha-shared-rg/providers/Microsoft.ContainerRegistry/registries/thesishaacr",
+    "status": "Succeeded",
+    "submissionTimestamp": "2026-08-30T15:19:25Z"
+  },
+  {
+    "correlationId": "877d2ac7-8fe6-4380-a7e7-22ccba6a130e",
+    "eventTimestamp": "2026-08-30T15:17:40.2720957Z",
+    "operation": "Microsoft.EventHub/namespaces/delete",
+    "resourceGroup": "thesis-ha-shared-rg",
+    "resourceId": "/subscriptions/[REDACTED]/resourcegroups/thesis-ha-shared-rg/providers/Microsoft.EventHub/namespaces/thesisha-events",
+    "status": "Succeeded",
+    "submissionTimestamp": "2026-08-30T15:18:39Z"
+  },
+  {
+    "correlationId": "877d2ac7-8fe6-4380-a7e7-22ccba6a130e",
+    "eventTimestamp": "2026-08-30T15:17:40.2241561Z",
+    "operation": "Microsoft.Authorization/roleAssignments/delete",
+    "resourceGroup": "thesis-ha-shared-rg",
+    "resourceId": "/subscriptions/[REDACTED]/resourcegroups/thesis-ha-shared-rg/providers/Microsoft.ContainerRegistry/registries/thesishaacr/providers/Microsoft.Authorization/roleAssignments/294ec6742157519f8671b53db73b5a5a",
+    "status": "Succeeded",
+    "submissionTimestamp": "2026-08-30T15:19:25Z"
+  },
+  {
+    "correlationId": "877d2ac7-8fe6-4380-a7e7-22ccba6a130e",
+    "eventTimestamp": "2026-08-30T15:17:40.2241561Z",
+    "operation": "Microsoft.Authorization/roleAssignments/delete",
+    "resourceGroup": "thesis-ha-shared-rg",
+    "resourceId": "/subscriptions/[REDACTED]/resourcegroups/thesis-ha-shared-rg/providers/Microsoft.ContainerRegistry/registries/thesishaacr/providers/Microsoft.Authorization/roleAssignments/9dae866f97a956068ed56e3413895b39",
+    "status": "Succeeded",
+    "submissionTimestamp": "2026-08-30T15:19:25Z"
+  },
+  {
+    "correlationId": "877d2ac7-8fe6-4380-a7e7-22ccba6a130e",
+    "eventTimestamp": "2026-08-30T15:17:40.2241561Z",
+    "operation": "Microsoft.Authorization/roleAssignments/delete",
+    "resourceGroup": "thesis-ha-shared-rg",
+    "resourceId": "/subscriptions/[REDACTED]/resourcegroups/thesis-ha-shared-rg/providers/Microsoft.ContainerRegistry/registries/thesishaacr/providers/Microsoft.Authorization/roleAssignments/1ebd025a338254afaac004f9e06cc514",
+    "status": "Succeeded",
+    "submissionTimestamp": "2026-08-30T15:19:25Z"
+  },
+  {
+    "correlationId": "877d2ac7-8fe6-4380-a7e7-22ccba6a130e",
+    "eventTimestamp": "2026-08-30T15:16:59.7751411Z",
+    "operation": "Microsoft.Resources/subscriptions/resourcegroups/delete",
+    "resourceGroup": "thesis-ha-shared-rg",
+    "resourceId": "/subscriptions/[REDACTED]/resourcegroups/thesis-ha-shared-rg",
+    "status": "Accepted",
+    "submissionTimestamp": "2026-08-30T15:18:21Z"
+  },
+  {
+    "correlationId": "877d2ac7-8fe6-4380-a7e7-22ccba6a130e",
+    "eventTimestamp": "2026-08-30T15:16:59.5876412Z",
+    "operation": "Microsoft.Resources/subscriptions/resourcegroups/delete",
+    "resourceGroup": "thesis-ha-shared-rg",
+    "resourceId": "/subscriptions/[REDACTED]/resourcegroups/thesis-ha-shared-rg",
+    "status": "Started",
+    "submissionTimestamp": "2026-08-30T15:18:21Z"
+  },
+  {
+    "correlationId": "a11f32be-6c5f-46ca-825f-8a6e8b3cd63e",
+    "eventTimestamp": "2026-08-30T15:16:21.0850158Z",
+    "operation": "Microsoft.Resources/subscriptions/resourcegroups/delete",
+    "resourceGroup": "thesis-ha-region-b-rg",
+    "resourceId": "/subscriptions/[REDACTED]/resourcegroups/thesis-ha-region-b-rg",
+    "status": "Succeeded",
+    "submissionTimestamp": "2026-08-30T15:18:01Z"
+  },
+  {
+    "correlationId": "80148a97-37cd-4952-95da-61679fa0c4b2",
+    "eventTimestamp": "2026-08-30T15:16:17.3285196Z",
+    "operation": "Microsoft.Resources/subscriptions/resourcegroups/delete",
+    "resourceGroup": "thesis-ha-region-a-rg",
+    "resourceId": "/subscriptions/[REDACTED]/resourcegroups/thesis-ha-region-a-rg",
+    "status": "Succeeded",
+    "submissionTimestamp": "2026-08-30T15:17:33Z"
+  },
+  {
+    "correlationId": "a11f32be-6c5f-46ca-825f-8a6e8b3cd63e",
+    "eventTimestamp": "2026-08-30T15:15:30.2107851Z",
+    "operation": "Microsoft.ContainerService/managedClusters/delete",
+    "resourceGroup": "thesis-ha-region-b-rg",
+    "resourceId": "/subscriptions/[REDACTED]/resourcegroups/thesis-ha-region-b-rg/providers/Microsoft.ContainerService/managedClusters/thesis-aks-region-b",
+    "status": "Succeeded",
+    "submissionTimestamp": "2026-08-30T15:16:45Z"
+  },
+  {
+    "correlationId": "80148a97-37cd-4952-95da-61679fa0c4b2",
+    "eventTimestamp": "2026-08-30T15:15:27.2412309Z",
+    "operation": "Microsoft.ContainerService/managedClusters/delete",
+    "resourceGroup": "thesis-ha-region-a-rg",
+    "resourceId": "/subscriptions/[REDACTED]/resourcegroups/thesis-ha-region-a-rg/providers/Microsoft.ContainerService/managedClusters/thesis-aks-region-a",
+    "status": "Succeeded",
+    "submissionTimestamp": "2026-08-30T15:16:59Z"
+  },
+  {
+    "correlationId": "0d017825-4c5b-4271-a718-c2e3007a55a4",
+    "eventTimestamp": "2026-08-30T15:13:49.2789964Z",
+    "operation": "microsoft.containerservice/managedclusters/listClusterAdminCredential/action",
+    "resourceGroup": "thesis-ha-region-a-rg",
+    "resourceId": "/subscriptions/[REDACTED]/resourcegroups/thesis-ha-region-a-rg/providers/microsoft.containerservice/managedclusters/thesis-aks-region-a",
+    "status": "Succeeded",
+    "submissionTimestamp": "2026-08-30T15:15:29Z"
+  },
+  {
+    "correlationId": "0d017825-4c5b-4271-a718-c2e3007a55a4",
+    "eventTimestamp": "2026-08-30T15:13:49.2550461Z",
+    "operation": "microsoft.containerservice/managedclusters/listClusterUserCredential/action",
+    "resourceGroup": "thesis-ha-region-a-rg",
+    "resourceId": "/subscriptions/[REDACTED]/resourcegroups/thesis-ha-region-a-rg/providers/microsoft.containerservice/managedclusters/thesis-aks-region-a",
+    "status": "Succeeded",
+    "submissionTimestamp": "2026-08-30T15:14:50Z"
+  },
+  {
+    "correlationId": "0d017825-4c5b-4271-a718-c2e3007a55a4",
+    "eventTimestamp": "2026-08-30T15:13:49.1696237Z",
+    "operation": "microsoft.containerservice/managedclusters/listClusterAdminCredential/action",
+    "resourceGroup": "thesis-ha-region-a-rg",
+    "resourceId": "/subscriptions/[REDACTED]/resourcegroups/thesis-ha-region-a-rg/providers/microsoft.containerservice/managedclusters/thesis-aks-region-a",
+    "status": "Started",
+    "submissionTimestamp": "2026-08-30T15:15:29Z"
+  },
+  {
+    "correlationId": "0d017825-4c5b-4271-a718-c2e3007a55a4",
+    "eventTimestamp": "2026-08-30T15:13:49.1612949Z",
+    "operation": "microsoft.containerservice/managedclusters/listClusterUserCredential/action",
+    "resourceGroup": "thesis-ha-region-a-rg",
+    "resourceId": "/subscriptions/[REDACTED]/resourcegroups/thesis-ha-region-a-rg/providers/microsoft.containerservice/managedclusters/thesis-aks-region-a",
+    "status": "Started",
+    "submissionTimestamp": "2026-08-30T15:14:50Z"
+  },
+  {
+    "correlationId": "908e1b22-1ba8-42ab-95d9-8993ce6876af",
+    "eventTimestamp": "2026-08-30T15:13:48.7661005Z",
+    "operation": "microsoft.containerservice/managedclusters/listClusterUserCredential/action",
+    "resourceGroup": "thesis-ha-region-a-rg",
+    "resourceId": "/subscriptions/[REDACTED]/resourcegroups/thesis-ha-region-a-rg/providers/microsoft.containerservice/managedclusters/thesis-aks-region-a",
+    "status": "Succeeded",
+    "submissionTimestamp": "2026-08-30T15:14:49Z"
+  },
+  {
+    "correlationId": "908e1b22-1ba8-42ab-95d9-8993ce6876af",
+    "eventTimestamp": "2026-08-30T15:13:48.6256229Z",
+    "operation": "microsoft.containerservice/managedclusters/listClusterUserCredential/action",
+    "resourceGroup": "thesis-ha-region-a-rg",
+    "resourceId": "/subscriptions/[REDACTED]/resourcegroups/thesis-ha-region-a-rg/providers/microsoft.containerservice/managedclusters/thesis-aks-region-a",
+    "status": "Started",
+    "submissionTimestamp": "2026-08-30T15:14:49Z"
+  },
+  {
+    "correlationId": "908e1b22-1ba8-42ab-95d9-8993ce6876af",
+    "eventTimestamp": "2026-08-30T15:13:48.5001705Z",
+    "operation": "microsoft.containerservice/managedclusters/listClusterAdminCredential/action",
+    "resourceGroup": "thesis-ha-region-a-rg",
+    "resourceId": "/subscriptions/[REDACTED]/resourcegroups/thesis-ha-region-a-rg/providers/microsoft.containerservice/managedclusters/thesis-aks-region-a",
+    "status": "Succeeded",
+    "submissionTimestamp": "2026-08-30T15:14:41Z"
+  },
+  {
+    "correlationId": "908e1b22-1ba8-42ab-95d9-8993ce6876af",
+    "eventTimestamp": "2026-08-30T15:13:48.3907947Z",
+    "operation": "microsoft.containerservice/managedclusters/listClusterAdminCredential/action",
+    "resourceGroup": "thesis-ha-region-a-rg",
+    "resourceId": "/subscriptions/[REDACTED]/resourcegroups/thesis-ha-region-a-rg/providers/microsoft.containerservice/managedclusters/thesis-aks-region-a",
+    "status": "Started",
+    "submissionTimestamp": "2026-08-30T15:14:41Z"
+  },
+  {
+    "correlationId": "b9ca15ed-2799-4b64-a78d-6ef25c9c444a",
+    "eventTimestamp": "2026-08-30T15:13:46.4823688Z",
+    "operation": "Microsoft.ContainerService/managedClusters/listClusterUserCredential/action",
+    "resourceGroup": "thesis-ha-region-a-rg",
+    "resourceId": "/subscriptions/[REDACTED]/resourceGroups/thesis-ha-region-a-rg/providers/Microsoft.ContainerService/managedClusters/thesis-aks-region-a",
+    "status": "Succeeded",
+    "submissionTimestamp": "2026-08-30T15:14:41Z"
+  },
+  {
+    "correlationId": "b9ca15ed-2799-4b64-a78d-6ef25c9c444a",
+    "eventTimestamp": "2026-08-30T15:13:46.4813507Z",
+    "operation": "Microsoft.ContainerService/managedClusters/listClusterAdminCredential/action",
+    "resourceGroup": "thesis-ha-region-a-rg",
+    "resourceId": "/subscriptions/[REDACTED]/resourceGroups/thesis-ha-region-a-rg/providers/Microsoft.ContainerService/managedClusters/thesis-aks-region-a",
+    "status": "Succeeded",
+    "submissionTimestamp": "2026-08-30T15:14:36Z"
+  },
+  {
+    "correlationId": "b9ca15ed-2799-4b64-a78d-6ef25c9c444a",
+    "eventTimestamp": "2026-08-30T15:13:46.3875976Z",
+    "operation": "Microsoft.ContainerService/managedClusters/listClusterAdminCredential/action",
+    "resourceGroup": "thesis-ha-region-a-rg",
+    "resourceId": "/subscriptions/[REDACTED]/resourceGroups/thesis-ha-region-a-rg/providers/Microsoft.ContainerService/managedClusters/thesis-aks-region-a",
+    "status": "Started",
+    "submissionTimestamp": "2026-08-30T15:14:36Z"
+  },
+  {
+    "correlationId": "b9ca15ed-2799-4b64-a78d-6ef25c9c444a",
+    "eventTimestamp": "2026-08-30T15:13:46.3729962Z",
+    "operation": "Microsoft.ContainerService/managedClusters/listClusterUserCredential/action",
+    "resourceGroup": "thesis-ha-region-a-rg",
+    "resourceId": "/subscriptions/[REDACTED]/resourceGroups/thesis-ha-region-a-rg/providers/Microsoft.ContainerService/managedClusters/thesis-aks-region-a",
+    "status": "Started",
+    "submissionTimestamp": "2026-08-30T15:14:41Z"
+  },
+  {
+    "correlationId": "e522b9c3-b543-4eb5-bc0f-93e028271903",
+    "eventTimestamp": "2026-08-30T15:13:11.4499921Z",
+    "operation": "microsoft.containerservice/managedclusters/listClusterUserCredential/action",
+    "resourceGroup": "thesis-ha-region-a-rg",
+    "resourceId": "/subscriptions/[REDACTED]/resourcegroups/thesis-ha-region-a-rg/providers/microsoft.containerservice/managedclusters/thesis-aks-region-a",
+    "status": "Succeeded",
+    "submissionTimestamp": "2026-08-30T15:14:36Z"
+  },
+  {
+    "correlationId": "e522b9c3-b543-4eb5-bc0f-93e028271903",
+    "eventTimestamp": "2026-08-30T15:13:11.4148736Z",
+    "operation": "microsoft.containerservice/managedclusters/listClusterAdminCredential/action",
+    "resourceGroup": "thesis-ha-region-a-rg",
+    "resourceId": "/subscriptions/[REDACTED]/resourcegroups/thesis-ha-region-a-rg/providers/microsoft.containerservice/managedclusters/thesis-aks-region-a",
+    "status": "Succeeded",
+    "submissionTimestamp": "2026-08-30T15:14:41Z"
+  },
+  {
+    "correlationId": "e522b9c3-b543-4eb5-bc0f-93e028271903",
+    "eventTimestamp": "2026-08-30T15:13:11.3406149Z",
+    "operation": "microsoft.containerservice/managedclusters/listClusterUserCredential/action",
+    "resourceGroup": "thesis-ha-region-a-rg",
+    "resourceId": "/subscriptions/[REDACTED]/resourcegroups/thesis-ha-region-a-rg/providers/microsoft.containerservice/managedclusters/thesis-aks-region-a",
+    "status": "Started",
+    "submissionTimestamp": "2026-08-30T15:14:36Z"
+  },
+  {
+    "correlationId": "e522b9c3-b543-4eb5-bc0f-93e028271903",
+    "eventTimestamp": "2026-08-30T15:13:11.3211251Z",
+    "operation": "microsoft.containerservice/managedclusters/listClusterAdminCredential/action",
+    "resourceGroup": "thesis-ha-region-a-rg",
+    "resourceId": "/subscriptions/[REDACTED]/resourcegroups/thesis-ha-region-a-rg/providers/microsoft.containerservice/managedclusters/thesis-aks-region-a",
+    "status": "Started",
+    "submissionTimestamp": "2026-08-30T15:14:41Z"
+  },
+  {
+    "correlationId": "387263b5-f6f9-4bd2-b9c3-14b355f546ea",
+    "eventTimestamp": "2026-08-30T15:13:10.9461691Z",
+    "operation": "microsoft.containerservice/managedclusters/listClusterUserCredential/action",
+    "resourceGroup": "thesis-ha-region-a-rg",
+    "resourceId": "/subscriptions/[REDACTED]/resourcegroups/thesis-ha-region-a-rg/providers/microsoft.containerservice/managedclusters/thesis-aks-region-a",
+    "status": "Succeeded",
+    "submissionTimestamp": "2026-08-30T15:14:41Z"
+  },
+  {
+    "correlationId": "387263b5-f6f9-4bd2-b9c3-14b355f546ea",
+    "eventTimestamp": "2026-08-30T15:13:10.9134369Z",
+    "operation": "microsoft.containerservice/managedclusters/listClusterAdminCredential/action",
+    "resourceGroup": "thesis-ha-region-a-rg",
+    "resourceId": "/subscriptions/[REDACTED]/resourcegroups/thesis-ha-region-a-rg/providers/microsoft.containerservice/managedclusters/thesis-aks-region-a",
+    "status": "Succeeded",
+    "submissionTimestamp": "2026-08-30T15:14:30Z"
+  },
+  {
+    "correlationId": "387263b5-f6f9-4bd2-b9c3-14b355f546ea",
+    "eventTimestamp": "2026-08-30T15:13:10.8367462Z",
+    "operation": "microsoft.containerservice/managedclusters/listClusterUserCredential/action",
+    "resourceGroup": "thesis-ha-region-a-rg",
+    "resourceId": "/subscriptions/[REDACTED]/resourcegroups/thesis-ha-region-a-rg/providers/microsoft.containerservice/managedclusters/thesis-aks-region-a",
+    "status": "Started",
+    "submissionTimestamp": "2026-08-30T15:14:41Z"
+  },
+  {
+    "correlationId": "387263b5-f6f9-4bd2-b9c3-14b355f546ea",
+    "eventTimestamp": "2026-08-30T15:13:10.8196892Z",
+    "operation": "microsoft.containerservice/managedclusters/listClusterAdminCredential/action",
+    "resourceGroup": "thesis-ha-region-a-rg",
+    "resourceId": "/subscriptions/[REDACTED]/resourcegroups/thesis-ha-region-a-rg/providers/microsoft.containerservice/managedclusters/thesis-aks-region-a",
+    "status": "Started",
+    "submissionTimestamp": "2026-08-30T15:14:30Z"
+  },
+  {
+    "correlationId": "a11f32be-6c5f-46ca-825f-8a6e8b3cd63e",
+    "eventTimestamp": "2026-08-30T15:12:37.5307977Z",
+    "operation": "Microsoft.Resources/subscriptions/resourcegroups/delete",
+    "resourceGroup": "MC_thesis-ha-region-b-rg_thesis-aks-region-b_norwayeast",
+    "resourceId": "/subscriptions/[REDACTED]/resourcegroups/MC_thesis-ha-region-b-rg_thesis-aks-region-b_norwayeast",
+    "status": "Succeeded",
+    "submissionTimestamp": "2026-08-30T15:13:26Z"
+  },
+  {
+    "correlationId": "a11f32be-6c5f-46ca-825f-8a6e8b3cd63e",
+    "eventTimestamp": "2026-08-30T15:12:37.1245465Z",
+    "operation": "Microsoft.Authorization/roleAssignments/delete",
+    "resourceGroup": "MC_thesis-ha-region-b-rg_thesis-aks-region-b_norwayeast",
+    "resourceId": "/subscriptions/[REDACTED]/resourceGroups/MC_thesis-ha-region-b-rg_thesis-aks-region-b_norwayeast/providers/Microsoft.Authorization/roleAssignments/34dada74873b4e13a5c7278cd88b9fbc",
+    "status": "Succeeded",
+    "submissionTimestamp": "2026-08-30T15:13:26Z"
+  },
+  {
+    "correlationId": "a11f32be-6c5f-46ca-825f-8a6e8b3cd63e",
+    "eventTimestamp": "2026-08-30T15:12:37.1245465Z",
+    "operation": "Microsoft.Authorization/roleAssignments/delete",
+    "resourceGroup": "MC_thesis-ha-region-b-rg_thesis-aks-region-b_norwayeast",
+    "resourceId": "/subscriptions/[REDACTED]/resourceGroups/MC_thesis-ha-region-b-rg_thesis-aks-region-b_norwayeast/providers/Microsoft.Authorization/roleAssignments/3efa9b0b9e1f4d91a238d3333d21bfb0",
+    "status": "Succeeded",
+    "submissionTimestamp": "2026-08-30T15:13:26Z"
+  },
+  {
+    "correlationId": "80148a97-37cd-4952-95da-61679fa0c4b2",
+    "eventTimestamp": "2026-08-30T15:12:31.5590133Z",
+    "operation": "Microsoft.Resources/subscriptions/resourcegroups/delete",
+    "resourceGroup": "MC_thesis-ha-region-a-rg_thesis-aks-region-a_italynorth",
+    "resourceId": "/subscriptions/[REDACTED]/resourcegroups/MC_thesis-ha-region-a-rg_thesis-aks-region-a_italynorth",
+    "status": "Succeeded",
+    "submissionTimestamp": "2026-08-30T15:14:17Z"
+  },
+  {
+    "correlationId": "80148a97-37cd-4952-95da-61679fa0c4b2",
+    "eventTimestamp": "2026-08-30T15:12:31.0277647Z",
+    "operation": "Microsoft.Authorization/roleAssignments/delete",
+    "resourceGroup": "MC_thesis-ha-region-a-rg_thesis-aks-region-a_italynorth",
+    "resourceId": "/subscriptions/[REDACTED]/resourceGroups/MC_thesis-ha-region-a-rg_thesis-aks-region-a_italynorth/providers/Microsoft.Authorization/roleAssignments/4ede63a6db9c44488d32ac5bad7ebca2",
+    "status": "Succeeded",
+    "submissionTimestamp": "2026-08-30T15:14:17Z"
+  },
+  {
+    "correlationId": "80148a97-37cd-4952-95da-61679fa0c4b2",
+    "eventTimestamp": "2026-08-30T15:12:31.0121356Z",
+    "operation": "Microsoft.Authorization/roleAssignments/delete",
+    "resourceGroup": "MC_thesis-ha-region-a-rg_thesis-aks-region-a_italynorth",
+    "resourceId": "/subscriptions/[REDACTED]/resourceGroups/MC_thesis-ha-region-a-rg_thesis-aks-region-a_italynorth/providers/Microsoft.Authorization/roleAssignments/a81727926c964d65ab8f60e1998e4b3b",
+    "status": "Succeeded",
+    "submissionTimestamp": "2026-08-30T15:14:17Z"
+  },
+  {
+    "correlationId": "b28541ad-19e3-48a7-bf41-e5ceebf328d0",
+    "eventTimestamp": "2026-08-30T15:12:26.8592924Z",
+    "operation": "Microsoft.ContainerService/managedClusters/listClusterAdminCredential/action",
+    "resourceGroup": "thesis-ha-region-a-rg",
+    "resourceId": "/subscriptions/[REDACTED]/resourceGroups/thesis-ha-region-a-rg/providers/Microsoft.ContainerService/managedClusters/thesis-aks-region-a",
+    "status": "Succeeded",
+    "submissionTimestamp": "2026-08-30T15:13:48Z"
+  },
+  {
+    "correlationId": "b28541ad-19e3-48a7-bf41-e5ceebf328d0",
+    "eventTimestamp": "2026-08-30T15:12:26.8297065Z",
+    "operation": "Microsoft.ContainerService/managedClusters/listClusterUserCredential/action",
+    "resourceGroup": "thesis-ha-region-a-rg",
+    "resourceId": "/subscriptions/[REDACTED]/resourceGroups/thesis-ha-region-a-rg/providers/Microsoft.ContainerService/managedClusters/thesis-aks-region-a",
+    "status": "Succeeded",
+    "submissionTimestamp": "2026-08-30T15:13:46Z"
+  },
+  {
+    "correlationId": "b28541ad-19e3-48a7-bf41-e5ceebf328d0",
+    "eventTimestamp": "2026-08-30T15:12:26.7030391Z",
+    "operation": "Microsoft.ContainerService/managedClusters/listClusterAdminCredential/action",
+    "resourceGroup": "thesis-ha-region-a-rg",
+    "resourceId": "/subscriptions/[REDACTED]/resourceGroups/thesis-ha-region-a-rg/providers/Microsoft.ContainerService/managedClusters/thesis-aks-region-a",
+    "status": "Started",
+    "submissionTimestamp": "2026-08-30T15:13:48Z"
+  },
+  {
+    "correlationId": "b28541ad-19e3-48a7-bf41-e5ceebf328d0",
+    "eventTimestamp": "2026-08-30T15:12:26.6890895Z",
+    "operation": "Microsoft.ContainerService/managedClusters/listClusterUserCredential/action",
+    "resourceGroup": "thesis-ha-region-a-rg",
+    "resourceId": "/subscriptions/[REDACTED]/resourceGroups/thesis-ha-region-a-rg/providers/Microsoft.ContainerService/managedClusters/thesis-aks-region-a",
+    "status": "Started",
+    "submissionTimestamp": "2026-08-30T15:13:46Z"
+  },
+  {
+    "correlationId": "a11f32be-6c5f-46ca-825f-8a6e8b3cd63e",
+    "eventTimestamp": "2026-08-30T15:12:14.2222844Z",
+    "operation": "Microsoft.Network/publicIPAddresses/delete",
+    "resourceGroup": "MC_thesis-ha-region-b-rg_thesis-aks-region-b_norwayeast",
+    "resourceId": "/subscriptions/[REDACTED]/resourcegroups/MC_thesis-ha-region-b-rg_thesis-aks-region-b_norwayeast/providers/Microsoft.Network/publicIPAddresses/b650fb48-8420-4433-8f2f-cd888bfa17ca",
+    "status": "Succeeded",
+    "submissionTimestamp": "2026-08-30T15:13:54Z"
+  },
+  {
+    "correlationId": "a11f32be-6c5f-46ca-825f-8a6e8b3cd63e",
+    "eventTimestamp": "2026-08-30T15:12:14.1586502Z",
+    "operation": "Microsoft.Network/publicIPAddresses/delete",
+    "resourceGroup": "mc_thesis-ha-region-b-rg_thesis-aks-region-b_norwayeast",
+    "resourceId": "/subscriptions/[REDACTED]/resourcegroups/mc_thesis-ha-region-b-rg_thesis-aks-region-b_norwayeast/providers/Microsoft.Network/publicIPAddresses/kubernetes-aff3df9326dfe4b9db2e215973b5e634",
+    "status": "Succeeded",
+    "submissionTimestamp": "2026-08-30T15:13:27Z"
+  },
+  {
+    "correlationId": "80148a97-37cd-4952-95da-61679fa0c4b2",
+    "eventTimestamp": "2026-08-30T15:12:10.2950795Z",
+    "operation": "Microsoft.Network/publicIPAddresses/delete",
+    "resourceGroup": "mc_thesis-ha-region-a-rg_thesis-aks-region-a_italynorth",
+    "resourceId": "/subscriptions/[REDACTED]/resourcegroups/mc_thesis-ha-region-a-rg_thesis-aks-region-a_italynorth/providers/Microsoft.Network/publicIPAddresses/kubernetes-a1848af69df8d48219682c47646d68c2",
+    "status": "Succeeded",
+    "submissionTimestamp": "2026-08-30T15:13:34Z"
+  },
+  {
+    "correlationId": "80148a97-37cd-4952-95da-61679fa0c4b2",
+    "eventTimestamp": "2026-08-30T15:12:09.8131384Z",
+    "operation": "Microsoft.Network/publicIPAddresses/delete",
+    "resourceGroup": "MC_thesis-ha-region-a-rg_thesis-aks-region-a_italynorth",
+    "resourceId": "/subscriptions/[REDACTED]/resourcegroups/MC_thesis-ha-region-a-rg_thesis-aks-region-a_italynorth/providers/Microsoft.Network/publicIPAddresses/76be8024-217f-4828-b62d-bc9af1f91e65",
+    "status": "Succeeded",
+    "submissionTimestamp": "2026-08-30T15:14:16Z"
+  },
+  {
+    "correlationId": "1f0e0949-e354-4d7a-97d7-b43fc7878b11",
+    "eventTimestamp": "2026-08-30T15:11:53.5296704Z",
+    "operation": "Microsoft.ContainerService/managedClusters/listClusterAdminCredential/action",
+    "resourceGroup": "thesis-ha-region-b-rg",
+    "resourceId": "/subscriptions/[REDACTED]/resourceGroups/thesis-ha-region-b-rg/providers/Microsoft.ContainerService/managedClusters/thesis-aks-region-b",
+    "status": "Succeeded",
+    "submissionTimestamp": "2026-08-30T15:12:48Z"
+  },
+  {
+    "correlationId": "1f0e0949-e354-4d7a-97d7-b43fc7878b11",
+    "eventTimestamp": "2026-08-30T15:11:53.3032098Z",
+    "operation": "Microsoft.ContainerService/managedClusters/listClusterAdminCredential/action",
+    "resourceGroup": "thesis-ha-region-b-rg",
+    "resourceId": "/subscriptions/[REDACTED]/resourceGroups/thesis-ha-region-b-rg/providers/Microsoft.ContainerService/managedClusters/thesis-aks-region-b",
+    "status": "Started",
+    "submissionTimestamp": "2026-08-30T15:12:48Z"
+  },
+  {
+    "correlationId": "1f0e0949-e354-4d7a-97d7-b43fc7878b11",
+    "eventTimestamp": "2026-08-30T15:11:53.2897627Z",
+    "operation": "Microsoft.ContainerService/managedClusters/listClusterUserCredential/action",
+    "resourceGroup": "thesis-ha-region-b-rg",
+    "resourceId": "/subscriptions/[REDACTED]/resourceGroups/thesis-ha-region-b-rg/providers/Microsoft.ContainerService/managedClusters/thesis-aks-region-b",
+    "status": "Succeeded",
+    "submissionTimestamp": "2026-08-30T15:13:01Z"
+  },
+  {
+    "correlationId": "1f0e0949-e354-4d7a-97d7-b43fc7878b11",
+    "eventTimestamp": "2026-08-30T15:11:53.1490032Z",
+    "operation": "Microsoft.ContainerService/managedClusters/listClusterUserCredential/action",
+    "resourceGroup": "thesis-ha-region-b-rg",
+    "resourceId": "/subscriptions/[REDACTED]/resourceGroups/thesis-ha-region-b-rg/providers/Microsoft.ContainerService/managedClusters/thesis-aks-region-b",
+    "status": "Started",
+    "submissionTimestamp": "2026-08-30T15:13:01Z"
+  },
+  {
+    "correlationId": "a11f32be-6c5f-46ca-825f-8a6e8b3cd63e",
+    "eventTimestamp": "2026-08-30T15:11:15.2335059Z",
+    "operation": "Microsoft.Compute/virtualMachineScaleSets/delete",
+    "resourceGroup": "MC_thesis-ha-region-b-rg_thesis-aks-region-b_norwayeast",
+    "resourceId": "/subscriptions/[REDACTED]/resourcegroups/MC_thesis-ha-region-b-rg_thesis-aks-region-b_norwayeast/providers/Microsoft.Compute/virtualMachineScaleSets/aks-appzone2-27573238-vmss",
+    "status": "Succeeded",
+    "submissionTimestamp": "2026-08-30T15:12:49Z"
+  },
+  {
+    "correlationId": "a11f32be-6c5f-46ca-825f-8a6e8b3cd63e",
+    "eventTimestamp": "2026-08-30T15:11:14.7032124Z",
+    "operation": "Microsoft.Network/loadBalancers/delete",
+    "resourceGroup": "MC_thesis-ha-region-b-rg_thesis-aks-region-b_norwayeast",
+    "resourceId": "/subscriptions/[REDACTED]/resourcegroups/MC_thesis-ha-region-b-rg_thesis-aks-region-b_norwayeast/providers/Microsoft.Network/loadBalancers/kubernetes",
+    "status": "Succeeded",
+    "submissionTimestamp": "2026-08-30T15:13:17Z"
+  },
+  {
+    "correlationId": "a11f32be-6c5f-46ca-825f-8a6e8b3cd63e",
+    "eventTimestamp": "2026-08-30T15:11:13.905535Z",
+    "operation": "Microsoft.Network/virtualNetworks/delete",
+    "resourceGroup": "MC_thesis-ha-region-b-rg_thesis-aks-region-b_norwayeast",
+    "resourceId": "/subscriptions/[REDACTED]/resourcegroups/MC_thesis-ha-region-b-rg_thesis-aks-region-b_norwayeast/providers/Microsoft.Network/virtualNetworks/aks-vnet-30121435",
+    "status": "Succeeded",
+    "submissionTimestamp": "2026-08-30T15:12:53Z"
+  },
+  {
+    "correlationId": "a11f32be-6c5f-46ca-825f-8a6e8b3cd63e",
+    "eventTimestamp": "2026-08-30T15:11:13.8588986Z",
+    "operation": "Microsoft.Compute/virtualMachineScaleSets/delete",
+    "resourceGroup": "MC_thesis-ha-region-b-rg_thesis-aks-region-b_norwayeast",
+    "resourceId": "/subscriptions/[REDACTED]/resourcegroups/MC_thesis-ha-region-b-rg_thesis-aks-region-b_norwayeast/providers/Microsoft.Compute/virtualMachineScaleSets/aks-system-63267828-vmss",
+    "status": "Succeeded",
+    "submissionTimestamp": "2026-08-30T15:12:28Z"
+  },
+  {
+    "correlationId": "a11f32be-6c5f-46ca-825f-8a6e8b3cd63e",
+    "eventTimestamp": "2026-08-30T15:11:13.8431272Z",
+    "operation": "Microsoft.Compute/virtualMachineScaleSets/delete",
+    "resourceGroup": "MC_thesis-ha-region-b-rg_thesis-aks-region-b_norwayeast",
+    "resourceId": "/subscriptions/[REDACTED]/resourcegroups/MC_thesis-ha-region-b-rg_thesis-aks-region-b_norwayeast/providers/Microsoft.Compute/virtualMachineScaleSets/aks-appzone1-29979719-vmss",
+    "status": "Succeeded",
+    "submissionTimestamp": "2026-08-30T15:12:53Z"
+  },
+  {
+    "correlationId": "a11f32be-6c5f-46ca-825f-8a6e8b3cd63e",
+    "eventTimestamp": "2026-08-30T15:11:13.5148884Z",
+    "operation": "Microsoft.Network/networkSecurityGroups/delete",
+    "resourceGroup": "mc_thesis-ha-region-b-rg_thesis-aks-region-b_norwayeast",
+    "resourceId": "/subscriptions/[REDACTED]/resourcegroups/mc_thesis-ha-region-b-rg_thesis-aks-region-b_norwayeast/providers/Microsoft.Network/networkSecurityGroups/aks-agentpool-30121435-nsg",
+    "status": "Succeeded",
+    "submissionTimestamp": "2026-08-30T15:12:53Z"
+  },
+  {
+    "correlationId": "80148a97-37cd-4952-95da-61679fa0c4b2",
+    "eventTimestamp": "2026-08-30T15:11:10.2090117Z",
+    "operation": "Microsoft.Network/loadBalancers/delete",
+    "resourceGroup": "MC_thesis-ha-region-a-rg_thesis-aks-region-a_italynorth",
+    "resourceId": "/subscriptions/[REDACTED]/resourcegroups/MC_thesis-ha-region-a-rg_thesis-aks-region-a_italynorth/providers/Microsoft.Network/loadBalancers/kubernetes",
+    "status": "Succeeded",
+    "submissionTimestamp": "2026-08-30T15:13:13Z"
+  },
+  {
+    "correlationId": "80148a97-37cd-4952-95da-61679fa0c4b2",
+    "eventTimestamp": "2026-08-30T15:11:10.07573Z",
+    "operation": "Microsoft.Network/virtualNetworks/delete",
+    "resourceGroup": "MC_thesis-ha-region-a-rg_thesis-aks-region-a_italynorth",
+    "resourceId": "/subscriptions/[REDACTED]/resourcegroups/MC_thesis-ha-region-a-rg_thesis-aks-region-a_italynorth/providers/Microsoft.Network/virtualNetworks/aks-vnet-37154590",
+    "status": "Succeeded",
+    "submissionTimestamp": "2026-08-30T15:13:13Z"
+  },
+  {
+    "correlationId": "80148a97-37cd-4952-95da-61679fa0c4b2",
+    "eventTimestamp": "2026-08-30T15:11:09.4421309Z",
+    "operation": "Microsoft.Compute/virtualMachineScaleSets/delete",
+    "resourceGroup": "MC_thesis-ha-region-a-rg_thesis-aks-region-a_italynorth",
+    "resourceId": "/subscriptions/[REDACTED]/resourcegroups/MC_thesis-ha-region-a-rg_thesis-aks-region-a_italynorth/providers/Microsoft.Compute/virtualMachineScaleSets/aks-appzone1-30860596-vmss",
+    "status": "Succeeded",
+    "submissionTimestamp": "2026-08-30T15:13:01Z"
+  },
+  {
+    "correlationId": "80148a97-37cd-4952-95da-61679fa0c4b2",
+    "eventTimestamp": "2026-08-30T15:11:09.2715526Z",
+    "operation": "Microsoft.Network/networkSecurityGroups/delete",
+    "resourceGroup": "mc_thesis-ha-region-a-rg_thesis-aks-region-a_italynorth",
+    "resourceId": "/subscriptions/[REDACTED]/resourcegroups/mc_thesis-ha-region-a-rg_thesis-aks-region-a_italynorth/providers/Microsoft.Network/networkSecurityGroups/aks-agentpool-37154590-nsg",
+    "status": "Succeeded",
+    "submissionTimestamp": "2026-08-30T15:13:13Z"
+  },
+  {
+    "correlationId": "80148a97-37cd-4952-95da-61679fa0c4b2",
+    "eventTimestamp": "2026-08-30T15:11:08.95102Z",
+    "operation": "Microsoft.Compute/virtualMachineScaleSets/delete",
+    "resourceGroup": "MC_thesis-ha-region-a-rg_thesis-aks-region-a_italynorth",
+    "resourceId": "/subscriptions/[REDACTED]/resourcegroups/MC_thesis-ha-region-a-rg_thesis-aks-region-a_italynorth/providers/Microsoft.Compute/virtualMachineScaleSets/aks-appzone2-18875896-vmss",
+    "status": "Succeeded",
+    "submissionTimestamp": "2026-08-30T15:12:26Z"
+  },
+  {
+    "correlationId": "80148a97-37cd-4952-95da-61679fa0c4b2",
+    "eventTimestamp": "2026-08-30T15:11:08.9041995Z",
+    "operation": "Microsoft.Compute/virtualMachineScaleSets/delete",
+    "resourceGroup": "MC_thesis-ha-region-a-rg_thesis-aks-region-a_italynorth",
+    "resourceId": "/subscriptions/[REDACTED]/resourcegroups/MC_thesis-ha-region-a-rg_thesis-aks-region-a_italynorth/providers/Microsoft.Compute/virtualMachineScaleSets/aks-system-40111161-vmss",
+    "status": "Succeeded",
+    "submissionTimestamp": "2026-08-30T15:12:26Z"
+  },
+  {
+    "correlationId": "a11f32be-6c5f-46ca-825f-8a6e8b3cd63e",
+    "eventTimestamp": "2026-08-30T15:10:44.3287239Z",
+    "operation": "Microsoft.ManagedIdentity/userAssignedIdentities/delete",
+    "resourceGroup": "MC_thesis-ha-region-b-rg_thesis-aks-region-b_norwayeast",
+    "resourceId": "/subscriptions/[REDACTED]/resourcegroups/MC_thesis-ha-region-b-rg_thesis-aks-region-b_norwayeast/providers/Microsoft.ManagedIdentity/userAssignedIdentities/thesis-aks-region-b-agentpool",
+    "status": "Succeeded",
+    "submissionTimestamp": "2026-08-30T15:11:44Z"
+  },
+  {
+    "correlationId": "80148a97-37cd-4952-95da-61679fa0c4b2",
+    "eventTimestamp": "2026-08-30T15:10:41.3161848Z",
+    "operation": "Microsoft.ManagedIdentity/userAssignedIdentities/delete",
+    "resourceGroup": "MC_thesis-ha-region-a-rg_thesis-aks-region-a_italynorth",
+    "resourceId": "/subscriptions/[REDACTED]/resourcegroups/MC_thesis-ha-region-a-rg_thesis-aks-region-a_italynorth/providers/Microsoft.ManagedIdentity/userAssignedIdentities/thesis-aks-region-a-agentpool",
+    "status": "Succeeded",
+    "submissionTimestamp": "2026-08-30T15:12:13Z"
+  },
+  {
+    "correlationId": "a11f32be-6c5f-46ca-825f-8a6e8b3cd63e",
+    "eventTimestamp": "2026-08-30T15:10:34.8006057Z",
+    "operation": "Microsoft.Resources/subscriptions/resourcegroups/delete",
+    "resourceGroup": "MC_thesis-ha-region-b-rg_thesis-aks-region-b_norwayeast",
+    "resourceId": "/subscriptions/[REDACTED]/resourcegroups/MC_thesis-ha-region-b-rg_thesis-aks-region-b_norwayeast",
+    "status": "Accepted",
+    "submissionTimestamp": "2026-08-30T15:11:32Z"
+  },
+  {
+    "correlationId": "a11f32be-6c5f-46ca-825f-8a6e8b3cd63e",
+    "eventTimestamp": "2026-08-30T15:10:34.6287946Z",
+    "operation": "Microsoft.Resources/subscriptions/resourcegroups/delete",
+    "resourceGroup": "MC_thesis-ha-region-b-rg_thesis-aks-region-b_norwayeast",
+    "resourceId": "/subscriptions/[REDACTED]/resourcegroups/MC_thesis-ha-region-b-rg_thesis-aks-region-b_norwayeast",
+    "status": "Started",
+    "submissionTimestamp": "2026-08-30T15:11:32Z"
+  },
+  {
+    "correlationId": "80148a97-37cd-4952-95da-61679fa0c4b2",
+    "eventTimestamp": "2026-08-30T15:10:30.192122Z",
+    "operation": "Microsoft.Resources/subscriptions/resourcegroups/delete",
+    "resourceGroup": "MC_thesis-ha-region-a-rg_thesis-aks-region-a_italynorth",
+    "resourceId": "/subscriptions/[REDACTED]/resourcegroups/MC_thesis-ha-region-a-rg_thesis-aks-region-a_italynorth",
+    "status": "Accepted",
+    "submissionTimestamp": "2026-08-30T15:12:05Z"
+  },
+  {
+    "correlationId": "80148a97-37cd-4952-95da-61679fa0c4b2",
+    "eventTimestamp": "2026-08-30T15:10:30.0046262Z",
+    "operation": "Microsoft.Resources/subscriptions/resourcegroups/delete",
+    "resourceGroup": "MC_thesis-ha-region-a-rg_thesis-aks-region-a_italynorth",
+    "resourceId": "/subscriptions/[REDACTED]/resourcegroups/MC_thesis-ha-region-a-rg_thesis-aks-region-a_italynorth",
+    "status": "Started",
+    "submissionTimestamp": "2026-08-30T15:12:05Z"
+  },
+  {
+    "correlationId": "41b3d9d4-2733-4dd0-992a-73342f6a6954",
+    "eventTimestamp": "2026-08-30T15:10:21.852853Z",
+    "operation": "Microsoft.Resources/subscriptions/resourcegroups/delete",
+    "resourceGroup": "thesis-ha-frontdoor-rg",
+    "resourceId": "/subscriptions/[REDACTED]/resourcegroups/thesis-ha-frontdoor-rg",
+    "status": "Succeeded",
+    "submissionTimestamp": "2026-08-30T15:12:20Z"
+  },
+  {
+    "correlationId": "41b3d9d4-2733-4dd0-992a-73342f6a6954",
+    "eventTimestamp": "2026-08-30T15:10:17.7142586Z",
+    "operation": "Microsoft.Resources/subscriptions/resourcegroups/delete",
+    "resourceGroup": "thesis-ha-frontdoor-rg",
+    "resourceId": "/subscriptions/[REDACTED]/resourcegroups/thesis-ha-frontdoor-rg",
+    "status": "Accepted",
+    "submissionTimestamp": "2026-08-30T15:11:50Z"
+  },
+  {
+    "correlationId": "41b3d9d4-2733-4dd0-992a-73342f6a6954",
+    "eventTimestamp": "2026-08-30T15:10:17.4642435Z",
+    "operation": "Microsoft.Resources/subscriptions/resourcegroups/delete",
+    "resourceGroup": "thesis-ha-frontdoor-rg",
+    "resourceId": "/subscriptions/[REDACTED]/resourcegroups/thesis-ha-frontdoor-rg",
+    "status": "Started",
+    "submissionTimestamp": "2026-08-30T15:11:50Z"
+  },
+  {
+    "correlationId": "a11f32be-6c5f-46ca-825f-8a6e8b3cd63e",
+    "eventTimestamp": "2026-08-30T15:10:16.0935125Z",
+    "operation": "Microsoft.Resources/subscriptions/resourcegroups/delete",
+    "resourceGroup": "thesis-ha-region-b-rg",
+    "resourceId": "/subscriptions/[REDACTED]/resourcegroups/thesis-ha-region-b-rg",
+    "status": "Accepted",
+    "submissionTimestamp": "2026-08-30T15:11:39Z"
+  },
+  {
+    "correlationId": "a11f32be-6c5f-46ca-825f-8a6e8b3cd63e",
+    "eventTimestamp": "2026-08-30T15:10:15.9685737Z",
+    "operation": "Microsoft.Resources/subscriptions/resourcegroups/delete",
+    "resourceGroup": "thesis-ha-region-b-rg",
+    "resourceId": "/subscriptions/[REDACTED]/resourcegroups/thesis-ha-region-b-rg",
+    "status": "Started",
+    "submissionTimestamp": "2026-08-30T15:11:39Z"
+  },
+  {
+    "correlationId": "80148a97-37cd-4952-95da-61679fa0c4b2",
+    "eventTimestamp": "2026-08-30T15:10:14.5106269Z",
+    "operation": "Microsoft.Resources/subscriptions/resourcegroups/delete",
+    "resourceGroup": "thesis-ha-region-a-rg",
+    "resourceId": "/subscriptions/[REDACTED]/resourcegroups/thesis-ha-region-a-rg",
+    "status": "Accepted",
+    "submissionTimestamp": "2026-08-30T15:11:55Z"
+  },
+  {
+    "correlationId": "80148a97-37cd-4952-95da-61679fa0c4b2",
+    "eventTimestamp": "2026-08-30T15:10:14.2293735Z",
+    "operation": "Microsoft.Resources/subscriptions/resourcegroups/delete",
+    "resourceGroup": "thesis-ha-region-a-rg",
+    "resourceId": "/subscriptions/[REDACTED]/resourcegroups/thesis-ha-region-a-rg",
+    "status": "Started",
+    "submissionTimestamp": "2026-08-30T15:11:55Z"
+  }
+]

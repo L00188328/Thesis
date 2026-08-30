@@ -1,0 +1,124 @@
+[
+  {
+    "changedAt": null,
+    "createdAt": "2026-08-30T09:43:26.05645Z",
+    "id": "/subscriptions/[REDACTED]/resourceGroups/thesis-ha-shared-rg/providers/Microsoft.DBforPostgreSQL/flexibleServers/thesisha-postgres",
+    "location": "italynorth",
+    "name": "thesisha-postgres",
+    "resourceGroup": "thesis-ha-shared-rg",
+    "sku": {
+      "capacity": null,
+      "family": null,
+      "model": null,
+      "name": "Standard_B1ms",
+      "size": null,
+      "tier": "Burstable"
+    },
+    "tags": {
+      "configuration": "shared",
+      "owner": "robyn",
+      "phase": "azure-ha",
+      "project": "masters-thesis",
+      "run": "shared-series"
+    },
+    "type": "Microsoft.DBforPostgreSQL/flexibleServers"
+  },
+  {
+    "changedAt": "2026-08-30T09:43:15.0967002Z",
+    "createdAt": "2026-08-30T09:43:15.0967002Z",
+    "id": "/subscriptions/[REDACTED]/resourceGroups/thesis-ha-shared-rg/providers/Microsoft.ContainerRegistry/registries/thesishaacr",
+    "location": "italynorth",
+    "name": "thesishaacr",
+    "resourceGroup": "thesis-ha-shared-rg",
+    "sku": {
+      "capacity": null,
+      "family": null,
+      "model": null,
+      "name": "Basic",
+      "size": null,
+      "tier": "Basic"
+    },
+    "tags": {
+      "configuration": "shared",
+      "owner": "robyn",
+      "phase": "azure-ha",
+      "project": "masters-thesis",
+      "run": "shared-series"
+    },
+    "type": "Microsoft.ContainerRegistry/registries"
+  },
+  {
+    "changedAt": null,
+    "createdAt": null,
+    "id": "/subscriptions/[REDACTED]/resourceGroups/thesis-ha-shared-rg/providers/Microsoft.EventHub/namespaces/thesisha-events",
+    "location": "italynorth",
+    "name": "thesisha-events",
+    "resourceGroup": "thesis-ha-shared-rg",
+    "sku": {
+      "capacity": 1,
+      "family": null,
+      "model": null,
+      "name": "Standard",
+      "size": null,
+      "tier": "Standard"
+    },
+    "tags": {
+      "configuration": "shared",
+      "owner": "robyn",
+      "phase": "azure-ha",
+      "project": "masters-thesis",
+      "run": "shared-series"
+    },
+    "type": "Microsoft.EventHub/namespaces"
+  },
+  {
+    "changedAt": null,
+    "createdAt": null,
+    "id": "/subscriptions/[REDACTED]/resourceGroups/thesis-ha-region-a-rg/providers/Microsoft.ContainerService/managedClusters/thesis-aks-region-a",
+    "location": "italynorth",
+    "name": "thesis-aks-region-a",
+    "resourceGroup": "thesis-ha-region-a-rg",
+    "sku": {
+      "capacity": null,
+      "family": null,
+      "model": null,
+      "name": "Base",
+      "size": null,
+      "tier": "Free"
+    },
+    "tags": {
+      "configuration": "F1",
+      "owner": "robyn",
+      "phase": "azure-ha",
+      "project": "masters-thesis",
+      "regionRole": "region-a",
+      "run": "f1-series"
+    },
+    "type": "Microsoft.ContainerService/managedClusters"
+  },
+  {
+    "changedAt": null,
+    "createdAt": null,
+    "id": "/subscriptions/[REDACTED]/resourceGroups/thesis-ha-region-b-rg/providers/Microsoft.ContainerService/managedClusters/thesis-aks-region-b",
+    "location": "norwayeast",
+    "name": "thesis-aks-region-b",
+    "resourceGroup": "thesis-ha-region-b-rg",
+    "sku": {
+      "capacity": null,
+      "family": null,
+      "model": null,
+      "name": "Base",
+      "size": null,
+      "tier": "Free"
+    },
+    "tags": {
+      "configuration": "G1-G2",
+      "owner": "robyn",
+      "phase": "azure-ha",
+      "project": "masters-thesis",
+      "regionRole": "region-b",
+      "run": "multi-region-series"
+    },
+    "type": "Microsoft.ContainerService/managedClusters"
+  }
+]

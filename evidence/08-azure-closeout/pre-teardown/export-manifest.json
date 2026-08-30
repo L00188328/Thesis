@@ -1,0 +1,121 @@
+{
+  "binary_policy": "Binary and image files are rejected because text redaction cannot prove that they contain no secrets.",
+  "exported_files": [
+    {
+      "path": "acr.json",
+      "sha256": "f050f732d32a9b697bc532f738b0bcd651089ec18f109784fc55ea12c1d20daa"
+    },
+    {
+      "path": "activity-log-closeout-window.json",
+      "sha256": "664a81d584cce330946950cad2cfaf9ca80e5b41224c2ebd531bfd575cbf9088"
+    },
+    {
+      "path": "actual-cost-by-resource-status.txt",
+      "sha256": "0cbbe2ab61075f27022275a75963b2fc4ebf8f56465c4209a7913b5bc58da2cf"
+    },
+    {
+      "path": "actual-cost-by-resource.json",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "aks-region-a.json",
+      "sha256": "0821e1f7f4462cea4dca42b3f8bd480e8a345930fd0e4f12168a5d12d10d91a9"
+    },
+    {
+      "path": "aks-region-b.json",
+      "sha256": "25a135914e48a317c6aac5166b352a0e131218aed94e327fb93b65c2fe82d9ab"
+    },
+    {
+      "path": "all-thesis-resource-groups-before.json",
+      "sha256": "e5febc6b563d9bb22d833cb417c706a9a4134124baf44690df86f6e110a072cc"
+    },
+    {
+      "path": "all-thesis-resources-before.json",
+      "sha256": "5068d2718f93ee4ee15f6c4a939578cb57d0e15ca3dd45bc3a66db2a5a46863a"
+    },
+    {
+      "path": "budgets-status.txt",
+      "sha256": "81495259dd653bcfb8027c006140e171e12bcab1e8efa0fbd7aaf8088d55d2cb"
+    },
+    {
+      "path": "budgets.json",
+      "sha256": "e8a4bf9af5582cd660eee8f2b31b011a99046fa2f4782aad5c9a468cda18bf7f"
+    },
+    {
+      "path": "consumer-groups-delivery-base-events.json",
+      "sha256": "05e7fe88c6e0791e49afb4f927f76ea1facba77d7e359ec1d9591431110465d0"
+    },
+    {
+      "path": "consumer-groups-logistic-center-events.json",
+      "sha256": "a6a2b8c56a93a291901a065502d835998a018083bdf10ea68c2b9578f2c73fa1"
+    },
+    {
+      "path": "deployments-front-door-status.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "deployments-front-door.json",
+      "sha256": "85b74a0b3b9477da07f478767a1e388a2399de98127e87f5be15504e5d95fc0d"
+    },
+    {
+      "path": "deployments-region-a-status.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "deployments-region-a.json",
+      "sha256": "4ace628fea412846c1c3a73e23a521ae7da928bfa1a3a2fcd361e762a947e66a"
+    },
+    {
+      "path": "deployments-region-b-status.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "deployments-region-b.json",
+      "sha256": "2612e8eed4342b61cb60b2817dca7b4754ff96d9ac609eac8f6e4171aabf6304"
+    },
+    {
+      "path": "deployments-shared-status.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "deployments-shared.json",
+      "sha256": "5c2c6bd6f6dc894907d72a53200f830f6d4512907f608ffa3877338154fea757"
+    },
+    {
+      "path": "event-hubs-entities.json",
+      "sha256": "9243af51d6f217f364216dc2c01fc97cdef4746f8383f24248e64e631e4d2a7b"
+    },
+    {
+      "path": "event-hubs-namespace.json",
+      "sha256": "207d562a15247a0811cfa6a200b6971329f02256a325fbcf226fdc9939c89473"
+    },
+    {
+      "path": "front-door-failure-operation-status.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "front-door-failure-operation.json",
+      "sha256": "96a0da0b66d77a46c48ed50edab47ac2e8f7b96112b0e54d06a159f83c56b0fb"
+    },
+    {
+      "path": "locks-before.json",
+      "sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+    },
+    {
+      "path": "postgresql.json",
+      "sha256": "ddb0b6fedb70c7f2a726c6bdc9084ec6d40128c1fd30cd32ec0f230fd4ad9356"
+    },
+    {
+      "path": "resource-groups-before.json",
+      "sha256": "27bf4f76adb6c97e8732485c601d7dabcbc4239fd539e219fc4b512a72566213"
+    },
+    {
+      "path": "resources-before.json",
+      "sha256": "1564d9916896a312aec38e4f1e8701db542a926eddb09f120a8dd06e29ae0af9"
+    }
+  ],
+  "generated_timestamp_utc": "2026-08-30T15:08:50.407145+00:00",
+  "rejected_files": [],
+  "schema_version": 1,
+  "source_label": "final-closeout-raw"
+}

@@ -15,11 +15,12 @@ Each Phase 1 directory contains:
 
 Results must only be recorded after they are observed. Screenshots and relevant plain-text output can be stored beside these files.
 
-## Later Phases
+## Later Phases and Final Azure Status
 
-- `04-kubernetes-pod-failover/`: Placeholder for future local Kubernetes pod-failover evidence.
-- `05-azure-baseline/`: Placeholder for future Azure baseline evidence.
-- `06-azure-az/`: Placeholder for future Azure availability-zone evidence.
-- `07-azure-region/`: Placeholder for future Azure regional-failure evidence.
+- `04-kubernetes-pod-failover/`: Completed local Kubernetes Aggregator and GraphQL API Pod-failure evidence.
+- `05-azure-baseline/`: Completed E1 Azure baseline evidence: one discarded warm-up and three measured runs.
+- `06-azure-az/`: Completed F1 simulated zonal-resilience evidence: one discarded warm-up and two measured runs.
+- `07-azure-region/`: G1 infrastructure/blocker evidence only. G1 was blocked before workload execution by the Azure Front Door subscription constraint; G2 was not executed.
+- `08-azure-closeout/`: Final v1.0.9 matrix, cost status, sanitized pre-teardown inventories, deletion activity and zero-resource verification.
 
-Kubernetes and Azure evidence collection is outside Phase 1 and must not begin until explicitly requested.
+The Azure experimental programme is closed. Do not create new thesis Azure resources or infer empirical G1/G2 results from the retained design artifacts.
