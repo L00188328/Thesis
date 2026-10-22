@@ -1,0 +1,46 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - ../../k8s/azure/base
+patches:
+  - target:
+      kind: Deployment
+    patch: |-
+      apiVersion: apps/v1
+      kind: Deployment
+      metadata:
+        name: ignored
+      spec:
+        template:
+          spec:
+            imagePullSecrets:
+              - name: demo-acr-pull
+            tolerations:
+              - key: workload
+                operator: Equal
+                value: thesis-app
+                effect: NoSchedule
+              - key: node.kubernetes.io/not-ready
+                operator: Exists
+                effect: NoExecute
+                tolerationSeconds: 30
+              - key: node.kubernetes.io/unreachable
+                operator: Exists
+                effect: NoExecute
+                tolerationSeconds: 30
+  - target:
+      kind: Service
+      name: api
+    patch: |-
+      apiVersion: v1
+      kind: Service
+      metadata:
+        name: api
+      spec:
+        type: NodePort
+        externalTrafficPolicy: Cluster
+        ports:
+          - name: http
+            port: 80
+            targetPort: http
+            nodePort: 30080
