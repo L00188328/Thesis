@@ -5,11 +5,13 @@ import json, os, pathlib, secrets, subprocess, sys, time, urllib.request
 ROOT=pathlib.Path(__file__).resolve().parent.parent
 sys.path.insert(0,str(ROOT))
 from scripts.experiments.common import sanitize_text
+from demo.azure_cli import run_cli
 D=ROOT/'demo'; P=D/'.private'; P.mkdir(exist_ok=True)
 STATE=pathlib.Path(os.environ.get('DEMO_STATE_FILE',str(P/'state.json')))
-C=json.loads(STATE.read_text()) if STATE.exists() else dict(subscription='e21f069d-8303-4531-b864-98eab35ba089',container='58d7bfc56b16',region='italynorth',rg='rg-thesis-demo-k3s-20261022',shared_rg='rg-thesis-demo-shared-20261022',prefix='thf1demo20261022',password=secrets.token_urlsafe(32))
+C=json.loads(STATE.read_text()) if STATE.exists() else dict(subscription='e21f069d-8303-4531-b864-98eab35ba089',region='italynorth',rg='rg-thesis-demo-k3s-20261022',shared_rg='rg-thesis-demo-shared-20261022',prefix='thf1demo20261022',password=secrets.token_urlsafe(32))
 TAGS=['project=masters-thesis','purpose=live-demo','configuration=k3s-phase-f-demo']
 def save():
+ C.pop('container',None)  # Migrate obsolete state; no process/container IDs persist.
  STATE.write_text(json.dumps(C,indent=2)+'\n'); STATE.chmod(0o600)
 def run(args,**kw):
  r=subprocess.run(args,capture_output=True,text=True,timeout=kw.pop('timeout',1800),**kw)
@@ -17,7 +19,7 @@ def run(args,**kw):
  return r.stdout
 
 def az(*args,timeout=1800):
- out=run(['docker','exec',C['container'],'az',*args,'--subscription',C['subscription'],'--only-show-errors','--output','json'],timeout=timeout)
+ out=run_cli(C,*args,'--subscription',C['subscription'],'--only-show-errors','--output','json',executor=run,timeout=timeout)
  return json.loads(out) if out.strip() else None
 
 def parallel(items, fn):
@@ -45,7 +47,7 @@ def network():
  print('VNet, subnet, NSGs and three zonal static IPv4 addresses ready',flush=True)
 
 def shared():
- template=run(['docker','exec',C['container'],'az','bicep','build','--file','/work/infra/azure/shared.bicep','--stdout','--only-show-errors'])
+ template=run_cli(C,'bicep','build','--file','/work/infra/azure/shared.bicep','--stdout','--only-show-errors',executor=run)
  (P/'shared.json').write_text(template)
  params={k:{'value':v} for k,v in dict(location=C['region'],namePrefix=C['prefix'],postgresAdminPassword=C['password'],tags=dict(project='masters-thesis',purpose='live-demo',configuration='k3s-phase-f-demo')).items()}
  (P/'parameters.json').write_text(json.dumps({'parameters':params}));(P/'parameters.json').chmod(0o600)

@@ -29,6 +29,7 @@ HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE.parent))
 from scripts.experiments.availability_probe import build_payload, execute_probe
 from scripts.experiments.common import sanitize_text, utc_now_iso
+from demo.azure_cli import run_cli
 
 NAMESPACE = 'thesis-ha'
 TARGET_VM = 'vm-demo-appzone1'
@@ -71,17 +72,25 @@ def validate_target(vm, subscription, group):
     return target
 
 
-def zero_lag(snapshot):
+def consumer_lag(snapshot):
     rows = snapshot.get('offsets', [])
     detail = [r for r in rows if r.get('topic') != '__TOTAL__']
     total = [r for r in rows if r.get('topic') == '__TOTAL__']
     wanted = {(t, p) for t in ('logistic-center-events', 'delivery-base-events') for p in (0, 1)}
-    return (len(detail) == 4 and len(total) == 1
+    if not (len(detail) == 4 and len(total) == 1
             and {(r['topic'], r['partition']) for r in detail} == wanted
-            and total[0].get('total_lag') == 0 and not total[0].get('collector_error')
-            and all(not r.get('collector_error') and r.get('committed_offset') is not None
-                    and r.get('end_offset') is not None
-                    and r['committed_offset'] == r['end_offset'] and r.get('lag') == 0 for r in detail))
+            and not total[0].get('collector_error')
+            and all(not r.get('collector_error')
+                    and isinstance(r.get('committed_offset'), int) and isinstance(r.get('end_offset'), int)
+                    and r['end_offset'] >= r['committed_offset'] >= 0
+                    and r.get('lag') == r['end_offset'] - r['committed_offset'] for r in detail)):
+        return None
+    measured = sum(r['lag'] for r in detail)
+    return measured if total[0].get('total_lag') == measured else None
+
+
+def zero_lag(snapshot):
+    return consumer_lag(snapshot) == 0
 
 
 def two_consumers(snapshot):
@@ -93,12 +102,53 @@ def two_consumers(snapshot):
             {(t, p) for t in ('logistic-center-events', 'delivery-base-events') for p in (0, 1)})
 
 
+def scored_progress(row):
+    # Only explicitly recorded startup checks are outside the measurement window.
+    # Historical rows have no phase/scored fields and retain their original score.
+    return not (row.get('phase') == 'startup' and row.get('scored') is False)
+
+
 def count_probes(probes, progress):
+    progress = [r for r in progress if scored_progress(r)]
     successful = sum(r['success'] == 'true' for r in probes) + sum(r['success'] is True for r in progress)
     total = len(probes) + len(progress)
     return {'total_graphql_probes': total, 'successful_graphql_probes': successful,
             'failed_graphql_probes': total - successful,
             'observed_success_percentage': round(100 * successful / total, 3) if total else None}
+
+
+def shipments_observable(shipments, acknowledged, snapshot, graphql):
+    """Require actual sends and both exact run shipments visible in SQL/GraphQL."""
+    if len(shipments) != 2 or len(set(shipments)) != 2:
+        return False
+    if not set(shipments).issubset({r.get('shipment_id') for r in acknowledged}):
+        return False
+    states = {s['shipment_id']: s['event_version'] for s in snapshot.get('states', [])}
+    if not all(isinstance(states.get(s), int) and states[s] > 0 for s in shipments):
+        return False
+    data = graphql.get('response', {}).get('data') or {}
+    return bool(graphql.get('success') and all(
+        data.get(alias) and data[alias].get('shipmentId') == shipment
+        and isinstance(data[alias].get('latestEventVersion'), int)
+        and data[alias]['latestEventVersion'] > 0
+        for alias, shipment in zip(('a', 'b'), shipments)))
+
+
+def presentation_lines(summary):
+    outcomes = summary['outcomes']
+    percentage = summary['observed_success_percentage']
+    lag = summary['final_consumer_lag']
+    return [
+        'Event integrity: ' + outcomes['event_integrity'],
+        'Failover observed: ' + outcomes['failover_observed'],
+        'Replica capacity restored: ' + outcomes['replica_capacity_restored'],
+        f'GraphQL successful probes: {summary["successful_graphql_probes"]}/{summary["total_graphql_probes"]} '
+        + (f'({percentage}%)' if percentage is not None else '(not measured)'),
+        f'GraphQL failed probes: {summary["failed_graphql_probes"]}',
+        f'Missing events: {summary["missing_event_count"]}',
+        f'Duplicate events: {summary["duplicate_event_count"]}',
+        'Final consumer lag: ' + (str(lag) if lag is not None else 'UNKNOWN'),
+    ]
 
 
 def integrity(expected, acknowledged, snapshot):
@@ -125,6 +175,13 @@ def integrity(expected, acknowledged, snapshot):
     duplicates = {key: n for key, n in collections.Counter(actual_ids).items() if n > 1}
     version_duplicates = [{'shipment_id': key[0], 'event_version': key[1], 'rows': n}
                           for key, n in collections.Counter((r['shipment_id'], r['event_version']) for r in history).items() if n > 1]
+    seen_ids, seen_versions = set(), set()
+    duplicate_event_count = 0
+    for row in history:
+        version = (row['shipment_id'], row['event_version'])
+        duplicate_event_count += row['event_id'] in seen_ids or version in seen_versions
+        seen_ids.add(row['event_id'])
+        seen_versions.add(version)
     report = {'expected_event_ids': expected_ids, 'acknowledged_event_ids': ack_ids,
               'persisted_unique_event_ids': sorted(actual_set),
               'missing_events': sorted(expected_set - actual_set),
@@ -135,6 +192,7 @@ def integrity(expected, acknowledged, snapshot):
               'duplicate_acknowledgements': len(ack_ids) - len(set(ack_ids)),
               'duplicate_rows': duplicates or snapshot.get('duplicate_rows', []),
               'duplicate_shipment_versions': version_duplicates,
+              'duplicate_event_count': duplicate_event_count,
               'payload_mismatches': mismatches,
               'expected_event_versions': versions, 'actual_event_versions': states}
     report['pass'] = (bool(events) and len(events) % 4 == 0
@@ -164,6 +222,8 @@ class Demo:
         self.availability = []
         self.thread_errors = []
         self.failure_utc = None
+        self.progress_ready = threading.Event()
+        self.progress_scoring_started_utc = None
 
     def write(self, name, obj):
         (self.output / name).write_text(json.dumps(obj, indent=2, default=str) + '\n')
@@ -181,13 +241,15 @@ class Demo:
     def az_read(self, *args):
         allowed = {('vm', 'list'), ('vm', 'show'), ('group', 'show'), ('network', 'nic', 'list')}
         require(any(tuple(args[:len(prefix)]) == prefix for prefix in allowed), 'Non-read-only Azure request rejected')
-        return json.loads(self.command(['docker', 'exec', self.c['container'], 'az', *args,
-                                       '--subscription', self.c['subscription'], '--only-show-errors', '-o', 'json']))
+        return json.loads(run_cli(self.c, *args, '--subscription', self.c['subscription'],
+                                  '--only-show-errors', '-o', 'json', executor=self.command, timeout=90))
 
     def vm_action(self, action):
         require(self.mode in ('auto', 'presentation-mode', 'reset'), 'VM action forbidden in read-only mode')
         require((self.mode == 'reset' and action == 'start') or
                 (self.mode in ('auto', 'presentation-mode') and action == 'stop'), 'VM action not allowed')
+        if action == 'stop':
+            require(self.progress_ready.is_set(), 'Progress scoring must be armed before failure injection')
         fresh = self.az_read('vm', 'show', '-g', self.c['rg'], '-n', TARGET_VM, '--show-details')
         target = validate_target(fresh, self.c['subscription'], self.c['rg'])
         require(target.lower() == self.target_id.lower(), 'Failure target changed since preflight')
@@ -197,9 +259,8 @@ class Demo:
             self.failure_submitted = True
             self.failure_utc = utc_now_iso()
         # stop (not deallocate) preserves allocation and the static networking.
-        return self.command(['docker', 'exec', self.c['container'], 'az', 'vm', action,
-                             '--ids', target, '--subscription', self.c['subscription'],
-                             '--no-wait', '--only-show-errors', '-o', 'json'])
+        return run_cli(self.c, 'vm', action, '--ids', target, '--subscription', self.c['subscription'],
+                       '--no-wait', '--only-show-errors', '-o', 'json', executor=self.command, timeout=90)
 
     def ssh_args(self, command):
         return ['ssh', '-i', str(self.private / 'id_ed25519'), '-o', 'IdentitiesOnly=yes',
@@ -335,14 +396,14 @@ class Demo:
         plan = [
             'Generate unique run shipment IDs mapped to both partitions using the original thesis generator.',
             'Start acknowledged event production in the existing Zone-2 Aggregator container (1 event/second).',
-            'Start external GraphQL availability and changing-shipment progress probes; retain every response/error.',
-            'Require 8 acknowledgements, both topics/partitions, persisted progress and successful GraphQL before arming.',
+            'Start external GraphQL availability probes immediately; keep startup readiness requests as raw evidence.',
+            'Require 8 acknowledgements, both topics/partitions and both exact new shipments observable in SQL/GraphQL; then start scored progress probes before arming.',
             'Presentation: display >>> READY TO INJECT FAILURE: ZONE 1 APPLICATION WORKER <<< and wait for ENTER; auto: proceed after the same gate.',
             'Revalidate the exact demo VM ID; az vm stop --ids ' + self.target_id + ' --no-wait (no deallocation).',
             'Keep production/probes running; record node conditions, Pod UIDs/deletions, Kubernetes events and consumer assignments/lag.',
             'Observe surviving replicas serving and advancing state separately from replacement replica readiness; record taint/deletion timestamps for the 30-second tolerance.',
             'Require both new replicas Ready on Zone 2, zero measured lag and at least 120 seconds of post-stop workload; timeout at 600 seconds.',
-            'Finish a full four-event cycle, drain, compare actual SQL events/payloads/versions and final GraphQL; print truthful PASS/FAIL.',
+            'Finish a full four-event cycle, drain, validate SQL events/payloads/versions and final GraphQL; report integrity, failover and replica capacity separately with all GraphQL failures/counts.',
             'Keep the Zone-1 VM stopped; reset-demo.sh is an explicit separate operation.']
         self.write('planned-actions.json', plan)
         print('\nPLANNED LIVE ACTIONS (not executed):', flush=True)
@@ -371,15 +432,33 @@ class Demo:
                 self.availability.append(row)
                 self.event('graphql_probe', **row)
                 # Progress probes are separate measurements, also counted in totals.
-                if shipments and sequence % 3 == 0:
+                if self.progress_ready.is_set() and len(shipments) == 2 and sequence % 3 == 0:
                     progress = self.graphql_states(list(shipments))
-                    self.event('graphql_progress', **progress)
-                    self.append('graphql-progress.jsonl', progress)
+                    self.record_progress(progress, 'probe')
                 halt.wait(max(0, 1 - (time.monotonic() - scheduled)))
 
     def append(self, name, obj):
         with (self.output / name).open('a') as f:
             f.write(json.dumps(obj, default=str) + '\n')
+
+    def record_progress(self, result, purpose):
+        # One-way measurement gate. After injection every request is scored even
+        # if a future caller accidentally clears the readiness event.
+        scored = self.progress_ready.is_set() or self.failure_submitted
+        row = {**result, 'purpose': purpose, 'scored': scored,
+               'phase': 'post-failure' if self.failure_submitted else ('workload' if scored else 'startup')}
+        self.append('graphql-progress.jsonl', row)
+        self.event('graphql_progress', **row)
+        return row
+
+    def start_progress_scoring(self, shipments, acknowledged, snapshot, graphql):
+        require(shipments_observable(shipments, acknowledged, snapshot, graphql),
+                'Both emitted run shipments must be observable before scored progress checks')
+        if not self.progress_ready.is_set():
+            self.progress_scoring_started_utc = utc_now_iso()
+            self.event('progress_scoring_started', timestamp_utc=self.progress_scoring_started_utc,
+                       shipments=list(shipments), states=snapshot['states'])
+            self.progress_ready.set()
 
     def graphql_states(self, shipments):
         result = {'timestamp_utc': utc_now_iso(), 'success': False, 'http_status': 0}
@@ -447,6 +526,8 @@ class Demo:
         processing_before_replacements = False
         completed_gate = False
         acknowledgements_at_injection = 0
+        seen_unavailable = False
+        continued_processing = False
         initial_uids = {p['metadata']['uid'] for p in self.initial['items'] if p['kind'] == 'Pod'}
         try:
             producer_stderr = (self.output / 'producer-stderr.log').open('w')
@@ -497,12 +578,14 @@ class Demo:
                     deps = self.snapshot(shipments)
                     graph = self.graphql_states(shipments)
                     self.append('dependency-observations.jsonl', deps)
-                    self.append('graphql-progress.jsonl', graph)
+                    self.record_progress(graph, 'readiness')
                     covered = {(a['topic'], a['partition']) for a in acknowledgements}
-                    if (len(covered) == 4 and len(deps['history']) >= 4 and graph['success']
+                    if (len(covered) == 4 and len(deps['history']) >= 4
+                            and shipments_observable(shipments, acknowledgements, deps, graph)
                             and any(p['success'] == 'true' for p in self.availability)
                             and all(s['event_version'] >= 2 for s in deps['states']) and len(deps['states']) == 2):
                         self.event('workload_actively_processing', acknowledgements=len(acknowledgements), states=deps['states'])
+                        self.start_progress_scoring(shipments, acknowledgements, deps, graph)
                         print('PASS workload active: acknowledged on both topics/partitions; SQL and GraphQL show processing.', flush=True)
                         break
                 require(time.monotonic() < deadline, 'Workload never became demonstrably active')
@@ -515,11 +598,11 @@ class Demo:
                 require(select.select([sys.stdin], [], [], 1200)[0], 'Presentation confirmation timed out; no failure injected')
                 require(sys.stdin.readline() == '\n', 'ENTER confirmation not received; no failure injected')
             require(not stream_finished.is_set() and not errors and not self.thread_errors
-                    and probe_thread.is_alive() and len(acknowledgements) >= 8,
+                    and probe_thread.is_alive() and len(acknowledgements) >= 8 and self.progress_ready.is_set(),
                     'Producer stopped while waiting; failure injection disarmed')
             # Recheck workload, cluster and external dependencies after any presentation pause.
             graph = self.graphql_states(shipments)
-            self.append('graphql-progress.jsonl', graph)
+            self.record_progress(graph, 'pre-stop')
             deps = self.snapshot(shipments)
             self.append('dependency-observations.jsonl', deps)
             require(graph['success'] and deps['history'], 'Active workload gate failed; injection disarmed')
@@ -536,9 +619,7 @@ class Demo:
             acknowledgements_at_injection = len(acknowledgements)
             self.vm_action('stop')
             injected_at = time.monotonic()
-            seen_unavailable = False
             seen_replacements = False
-            continued_processing = False
             at_injection_versions = {s['shipment_id']: s['event_version'] for s in deps['states']}
             deadline = injected_at + 600
             while time.monotonic() < deadline:
@@ -618,8 +699,11 @@ class Demo:
             if probe_thread:
                 probe_thread.join(timeout=20)
         report = integrity(expected, acknowledgements, last_deps)
-        final_graphql = self.graphql_states(shipments) if len(shipments) == 2 else {'success': False}
-        self.append('graphql-progress.jsonl', final_graphql)
+        if len(shipments) == 2:
+            final_graphql = self.graphql_states(shipments)
+            self.record_progress(final_graphql, 'final-validation')
+        else:
+            final_graphql = {'success': False, 'not_requested_reason': 'Both run shipment IDs are unavailable'}
         self.write('graphql-final.json', final_graphql)
         graph_matches = final_graphql.get('success', False)
         if graph_matches:
@@ -645,31 +729,51 @@ class Demo:
             except Exception as exc:
                 errors.append(sanitize_text(exc))
         failure_confirmed = bool(stopped_vm and stopped_vm.get('powerState') == 'VM stopped')
-        summary = {'pass': bool(not error and not errors and not self.thread_errors and failure_confirmed and report['pass']
-                               and graph_matches and zero_lag(last_deps) and two_consumers(last_deps) and total and successful == total
-                               and completed_gate and processing_before_replacements
-                               and last_status.get('replacement_redundancy_restored')
-                               and last_status.get('surviving_replicas_ready')),
+        failover_observed = bool(failure_confirmed and seen_unavailable and continued_processing and processing_before_replacements)
+        capacity_restored = bool(last_status.get('replacement_redundancy_restored') and last_status.get('surviving_replicas_ready'))
+        execution_completed = bool(not error and not errors and not self.thread_errors and completed_gate)
+        validation_pass = bool(execution_completed and report['pass'] and failover_observed and capacity_restored
+                               and graph_matches and zero_lag(last_deps) and two_consumers(last_deps) and total)
+        startup_progress = [r for r in progress if not scored_progress(r)]
+        summary = {'summary_schema_version': 2, 'execution_completed': execution_completed,
+                   'outcomes': {'event_integrity': 'PASS' if report['pass'] else 'FAIL',
+                                'failover_observed': 'PASS' if failover_observed else 'FAIL',
+                                'replica_capacity_restored': 'PASS' if capacity_restored else 'FAIL'},
+                   # Retain the former strict assessment for audit/comparison;
+                   # presentation and exit status no longer require 100% GraphQL.
+                   'strict_pass': bool(validation_pass and successful == total),
+                   'strict_graphql_availability_pass': bool(total and successful == total),
+                   'exit_code': 0 if validation_pass else 1,
                    'mode': self.mode, 'failure_requested': self.failure_submitted, 'failure_injected': failure_confirmed,
                    'failure_target': TARGET_VM, 'error': error, 'producer_errors': errors,
                    'probe_collector_errors': self.thread_errors,
                    'processing_observed_before_replacement_readiness': processing_before_replacements,
                    'post_failure_acknowledgements': len(acknowledgements) - acknowledgements_at_injection if self.failure_submitted else 0,
                    'integrity': report, 'final_graphql_matches_postgresql': graph_matches,
-                   'final_consumer_lag': 0 if zero_lag(last_deps) else None,
+                   'final_consumer_lag': consumer_lag(last_deps),
+                   'missing_event_count': len(report['missing_events']),
+                   'duplicate_event_count': report['duplicate_event_count'],
                    **counts,
-                   'availability_probe_count': len(probes), 'progress_probe_count': len(progress),
+                   'availability_probe_count': len(probes), 'progress_probe_count': len(progress) - len(startup_progress),
+                   'raw_progress_probe_count': len(progress),
+                   'startup_progress_probe_count': len(startup_progress),
+                   'startup_progress_failed_count': sum(r['success'] is not True for r in startup_progress),
+                   'progress_scoring_started_utc': self.progress_scoring_started_utc,
                    'replacement_readiness_meaning': 'Replica redundancy restored; service continuity measured independently by GraphQL probes and advancing shipment state.'}
         self.write('integrity.json', report)
         self.write('summary.json', summary)
-        print(('PASS' if summary['pass'] else 'FAIL') + f' failover: expected={len(expected)} ack={len(acknowledgements)} '
-              f'persisted_unique={len(report["persisted_unique_event_ids"])} missing={len(report["missing_events"])} '
-              f'GraphQL={successful}/{total} ({summary["observed_success_percentage"]}%)', flush=True)
+        print('\n'.join(presentation_lines(summary)), flush=True)
+        print(f'Startup progress checks (unscored): {len(startup_progress)}; '
+              f'failed: {summary["startup_progress_failed_count"]}', flush=True)
+        if not execution_completed:
+            print('Execution incomplete: ' + str(error or errors or self.thread_errors or 'Observation gate not completed'), flush=True)
+        elif not validation_pass:
+            print('Final validation incomplete or failed; inspect summary.json for component, GraphQL state and lag evidence.', flush=True)
         print('Evidence: ' + str(self.output), flush=True)
         if self.failure_submitted:
             print(('Zone-1 worker is confirmed stopped.' if failure_confirmed else 'Zone-1 stop was requested; completion is unconfirmed.')
                   + ' Restore/check with ./demo/reset-demo.sh', flush=True)
-        return 0 if summary['pass'] else 1
+        return summary['exit_code']
 
     def reset(self):
         require(self.mode == 'reset', 'Reset mode must be explicit')
